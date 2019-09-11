@@ -4,7 +4,8 @@ import java.awt.*;        // Using AWT container and component classes
 import java.awt.event.*;  // Using AWT event classes and listener interfaces
 import java.io.*;
 
-//import threesolid.IWorker;
+import threesolid.IWorker;
+import threesolid.RWorker;
 
 /*This is the main file where the program runs from
 * All the extra classes and interfaces have been removed and separated into their files to allow multi able users to work on the program at the same time.
