@@ -1,5 +1,6 @@
 //Using the 3 SOLID principles we seperated this class into its own file because, using the Open Close priciple,
-//this class is only responsible for these methods and no others.
+//this class is only responsible for these methods so it reduces clutter and unessisary changes to other classes.
+//And according to the single responsiblity priciple it will only be changed if these methods need to be worked on.
 
 package threesolid;
 
