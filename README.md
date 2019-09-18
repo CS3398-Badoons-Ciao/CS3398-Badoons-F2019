@@ -5,7 +5,7 @@
 
 ## Table of contents
 * [Description](#description)
-* [General Info](general-info)
+* [General Info](#general-info)
 * [Technologies](#technologies)
 * [Features](#features)
 
@@ -15,13 +15,13 @@ Our application is aimed for students of all grade levels who are seeking a user
 This app will allow students to save course grade information and will simplify grade calculation using an intuitive user interface.
 
 ## General Info
-![Example screenshot](./EZ Gradr.PNG)
+![Example screenshot](./img/EZ_Gradr.PNG)
 
 ## Technologies
-* Java SE 13
-* XML
-* JavaFX (https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
-* Derby (https://db.apache.org/derby/)
+* Java SE 13 - https://www.oracle.com/technetwork/java/javase/overview/index.html
+* XML - https://www.w3.org/XML/
+* JavaFX - https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm
+* Derby - https://db.apache.org/derby/
 
 ## Features
 * User input of courses, grades, categories, and category weights and Persistant data storage - As a student I would like to create a list of my college classes and courses in those classes and save them to access later to keep my course history.
