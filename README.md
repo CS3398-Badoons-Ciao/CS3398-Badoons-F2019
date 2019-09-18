@@ -12,10 +12,7 @@ This app will allow students to save course grade information and will simplify 
 
 Technologies
 
-Java
-XML
-JavaFX GUI library
-Derby Database (https://db.apache.org/derby/)
+Java, XML, JavaFX, Derby Database (https://db.apache.org/derby/)
 
 Features
 
