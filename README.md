@@ -11,9 +11,14 @@ Our application is aimed for students of all grade levels who are seeking a user
 This app will allow students to save course grade information and will simplify grade calculation using an intuitive user interface.
 
 Technologies
+
 Java
-Data Bases (https://db.apache.org/derby/)
-Html and XML
-  
+XML
+JavaFX GUI library
+Derby Database (https://db.apache.org/derby/)
+
+Features
+
+
   
   
