@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Calculator
 {
     public Calculator()
@@ -20,17 +22,33 @@ public class Calculator
       return(0.0);
     }
     
-    public double getCatagoryGrade(double[] n, double weight){
+    public double getCatagoryGrade(ArrayList<Assignment> assign, double weight){
+      double[] n = new double[assign.size()];
+      for (int i = 0; i < assign.size(); i++){
+        n[i] = (assign.get(i).getCurrentGrade() / assign.get(i).getPotentialGrade());
+      }
       return (getAverage(n)*weight);
     }
     
     public double getCourseGrade(Course c){
-      //Further look into how courses have been impmented needed before this fuction can be made
-      return(0.0);
+      ArrayList<Category> categories = c.getCategories();
+      double currentSum = 0;
+      for (int i = 0; i < categories.size(); i++){
+        currentSum += getCatagoryGrade(categories.get(i).getAssignments(),categories.get(i).getWeight());
+      }
+      return(currentSum);
     }
     
-    public double getGradeImportance(){
-      //Further look into how courses have been impmented needed before this fuction can be made
-      return(0.0);
+    public double getGradeImportance(Course c, Assignment a){
+      ArrayList<Category> categories = c.getCategories();
+      double totalPoints = 0;
+      for (int i = 0; i < categories.size(); i++){
+       ArrayList<Assignment> assign = categories.get(i).getAssignments();
+        for (int j = 0; j < assign.size(); j++){
+          totalPoints += assign.get(i).getPotentialGrade();
+        } 
+      }
+      return(a.getCurrentGrade()/totalPoints);
     }
+    
 }
