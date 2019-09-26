@@ -1,0 +1,37 @@
+import javafx.application.*;
+import javafx.event.*;
+import javafx.stage.*;
+import javafx.scene.layout.*;
+import javafx.scene.*;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+import java.net.URL;
+
+public class TitleScreen extends Application {
+  
+  @Override
+  public void start(Stage main) throws IOException {
+    // Program Start up.
+    System.out.println(this.getClass().getResource("sample.fxml"));
+    ClassLoader loader = GradeManagerMain.class.getClassLoader();
+    System.out.println(loader.getResource("GradeManagerMain.class"));
+        
+        
+    Parent root = FXMLLoader.load(getClass().getResource("sample.fxml")); // Loads the FXML
+
+//     TitleScene Creation
+    Scene titleScene = new Scene(root,400,640); // Creates the Scene, "the window" of our program
+    
+    main.setTitle("Grade Manager"); // Sets the top bar to "Grade Manager"
+    main.setScene(titleScene);
+    main.show();
+    
+    
+  }
+  
+  // Main method for running this program.
+  public static void main(String[] args) {
+    launch(args); // Calls the launcher for the program.
+  }
+  
+}
