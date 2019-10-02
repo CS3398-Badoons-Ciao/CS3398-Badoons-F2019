@@ -1,7 +1,8 @@
 package GUI;
+
+import main.*;
+
 import javafx.scene.text.Text;
-
-
 import javafx.application.*;
 import javafx.event.*;
 import javafx.stage.*;
@@ -31,7 +32,7 @@ public class TitleScreenController {
     public void Go(ActionEvent e) {
         // Default test login.
         if ((loginField.getText().equals("test")) && (passwordField.getText().equals("test"))) {
-            //Main.displayCourseOverview();
+            Main.displayCourseOverview();
             passwordField.setText(""); // Resets the text.
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);

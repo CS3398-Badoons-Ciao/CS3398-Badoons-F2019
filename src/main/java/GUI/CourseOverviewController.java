@@ -1,6 +1,6 @@
 package GUI;
 
-//import java.*;
+import main.*;
 
 import javafx.application.*;
 import javafx.event.*;
@@ -19,6 +19,6 @@ public class CourseOverviewController {
      * This function should ask the user to save their data before closing.
      */
     public void close() {
-        //Main.displayTitle();
+        Main.displayTitle();
     }
 }
