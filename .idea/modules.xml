@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CS3398-Badoons-F2019.iml" filepath="$PROJECT_DIR$/.idea/CS3398-Badoons-F2019.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/testRepo.iml" filepath="$PROJECT_DIR$/.idea/testRepo.iml" />
     </modules>
   </component>
 </project>
