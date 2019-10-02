@@ -24,7 +24,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'Main'
+    mainClassName = 'main.Main'
 }
 
 javafx {
@@ -32,6 +32,19 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java"]
+            includes = ["**/*.fxml","**/*.css","**/*.PNG"]
+        }
+    }
+}
+
 run {
     standardInput = System.in
 }
+
+
+
+
