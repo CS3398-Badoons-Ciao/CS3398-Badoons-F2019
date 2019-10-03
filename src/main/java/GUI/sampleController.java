@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CourseController implements Initializable {
+public class sampleController implements Initializable {
 
     @FXML
     private Label label;

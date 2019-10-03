@@ -1,5 +1,7 @@
 package Model;
 
+import Interfaces.Publisher;
+
 import java.util.ArrayList;
 
 public class UserData implements java.io.Serializable

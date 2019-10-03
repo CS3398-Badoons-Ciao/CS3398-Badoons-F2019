@@ -1,8 +1,10 @@
 package Model;
 
+import Interfaces.CategoryInterface;
+
 import java.util.ArrayList;
 
-public class Category {
+public class Category implements CategoryInterface {
 
     private String name;
     private double weight; //value should range from 0.0 - 100.0
@@ -12,7 +14,7 @@ public class Category {
     {
         this.name = name;
         this.weight = weight;
-        this.assignments = assignments;
+        this.assignments = (ArrayList<Assignment>) assignments;
     }
 
     public Category(String name, double weight)
@@ -60,6 +62,6 @@ public class Category {
 
     public void setAssignments(ArrayList<Assignment> assignments)
     {
-        this.assignments = assignments;
+        this.assignments = (ArrayList<Assignment>) assignments;
     }
 }
