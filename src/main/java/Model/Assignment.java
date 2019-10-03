@@ -1,6 +1,8 @@
 package Model;
 
-public class Assignment
+import Interfaces.AssignmentInterface;
+
+public class Assignment implements AssignmentInterface
 {
     private String name;
     private double potentialGrade;

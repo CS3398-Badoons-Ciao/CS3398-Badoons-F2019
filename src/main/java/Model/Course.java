@@ -1,9 +1,16 @@
 package Model;
 
-import java.util.ArrayList;
+import Interfaces.CategoryInterface;
+import Interfaces.Listener;
+import Interfaces.Publisher;
 
-public class Course
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Course implements Publisher
 {
+    ArrayList<Listener> listeners = new ArrayList<Listener>();
+
     private String name;
     private double grade;
     private School school;
@@ -43,7 +50,9 @@ public class Course
 
     public void setName(String name)
     {
+
         this.name = name;
+        notifyChanged();
     }
 
     public double getGrade()
@@ -54,6 +63,7 @@ public class Course
     public void setGrade(double grade)
     {
         this.grade = grade;
+        notifyChanged();
     }
 
     public School getSchool()
@@ -64,6 +74,7 @@ public class Course
     public void setSchool(School school)
     {
         this.school = school;
+        notifyChanged();
     }
 
     public ArrayList<Category> getCategories()
@@ -74,6 +85,7 @@ public class Course
     public void setCategories(ArrayList<Category> categories)
     {
         this.categories = categories;
+        notifyChanged();
     }
 
     public int getCreditHours()
@@ -84,5 +96,18 @@ public class Course
     public void setCreditHours(int creditHrs)
     {
         this.creditHours = creditHours;
+        notifyChanged();
+    }
+
+    @Override
+    public void addListener(Listener l) {
+        listeners.add(l);
+    }
+
+    @Override
+    public void notifyChanged() {
+        for (Listener listener : listeners) {
+            listener.update(this);
+        }
     }
 }

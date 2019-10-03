@@ -1,16 +1,16 @@
 package Interfaces;
 
-public interface Model {
+public interface Publisher {
     /**
      * registers a listener for the model
      * @param l Listener to register
      */
-    public void addListener(Listener l);
+    void addListener(Listener l);
 
     /**
      * notify all listeners of change
      * by calling update() method for
      * all listeners
      */
-    public void notifyChanged();
+    void notifyChanged();
 }

@@ -1,11 +1,11 @@
 package Model;
 
 import Interfaces.Listener;
-import Interfaces.Model;
+import Interfaces.Publisher;
 
 import java.util.Collection;
 
-public class ConcreteModel implements Model {
+public class ConcreteModel implements Publisher {
     Collection<Listener> listeners;
 
     @Override
