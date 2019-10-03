@@ -15,7 +15,7 @@ public class Model
 {
     private Calculator calculator;
     private DatabaseManager dbManager;
-    private UserData user = null;
+    public UserData user = null;
 
 
 
@@ -125,13 +125,13 @@ public class Model
 
     //-----------------------------------------------------------------------------------------------------------------
 
-    public String getName(){
-        return(user.getName());
-    }
+//    public String getName(){
+//        return(user.getName());
+//    }
 
-    public String getId(){ return(
-            user.getId());
-    }
+//    public String getId(){ return(
+//            user.getId());
+//    }
 
     public void setName(String n){
         user.setName(n);
@@ -163,14 +163,41 @@ public class Model
         return true;
     }
 
+    public Course findCourse(String name){
+        ArrayList<Course> courses = user.getPresentCourses();
+        for (int i = 0; i < courses.size(); i++){
+            if (courses.get(i).getName().toLowerCase().equals(name.toLowerCase())){
+                return courses.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Category findCategory(int courseIndex, String name){
+        ArrayList<Category> categories = user.getPresentCourses().get(courseIndex).getCategories();
+        for (int i = 0; i < categories.size(); i++){
+            if (categories.get(i).getName().toLowerCase().equals(name.toLowerCase())){
+                return categories.get(i);
+            }
+        }
+        return null;
+    }
+
+    //User setters and getters
+    //-----------------------------------------------------------------------------------------------------------------
+    //getGPA
+
     //-----------------------------------------------------------------------------------------------------------------
     public void update(){
 
     }
 
     public void safeShutDown(){
-        saveUser();
-        System.exit(0);
+        if (loggedIn()){
+            saveUser();
+            System.exit(0);
+        }
+
     }
 
 

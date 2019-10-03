@@ -13,14 +13,18 @@ public class Main extends Application {
 
     static Stage mainApp;
     static MainGUI gui;
-    int startMode = 1 ; //0 = cml, 1 = charlies, 2 = Jons
+    int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
     Model model;
 
     @Override
     public void start(Stage main) throws Exception {
         model = new Model();
         if (startMode == 0){
-            startCML();
+            try{
+                startCML();
+            }catch (Exception e){
+                System.err.println(e);
+            }
         }else if (startMode == 1){
             gui = new MainGUI(); // GUI that contains each scene for our class.
             mainApp = new Stage();

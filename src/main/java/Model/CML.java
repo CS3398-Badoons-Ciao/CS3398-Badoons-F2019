@@ -23,11 +23,11 @@ public class CML{
         System.out.println("Starting up command line interface V0.2");
         System.out.println("Type \"help\" for help menu");
         System.out.println("----------------------------------------------------");
-        System.out.println("Current functionality:");
-        System.out.println("* User account set up, login, and profile changes");
-        System.out.println("Things still to be added:");
-        System.out.println("* Grade viewing and entry");
-        System.out.println("----------------------------------------------------");
+//        System.out.println("Current functionality:");
+//        System.out.println("* User account set up, login, and profile changes");
+//        System.out.println("Things still to be added:");
+//        System.out.println("* Grade viewing and entry");
+//        System.out.println("----------------------------------------------------");
         console = c;
 
         running = true;
@@ -42,18 +42,21 @@ public class CML{
         ArrayList<String> n = new ArrayList<String>();
         n.add("List of help commands");
         n.add("-");
-        n.add("Exit                                  Stops the program.");
-        n.add("Help                                  List the help menu for the user.");
+        n.add("Exit                                      Stops the program.");
+        n.add("Help                                      List the help menu for the user.");
         n.add("");
-        n.add("Create         *name *id *password    Creates a new user. Note: Spcaes are not allowed in the user name, use a \'_\' instead.");
-        n.add("Delete         *password              Deletes the current logged in user.");
-        n.add("Login          *Id   *password        Login to an existing user");
-        n.add("ChangeName     *name                  Change the users on screen name");
-        n.add("ChangePasswrod *old ps *new ps        Changes the users password");
+        n.add("Create         *name *id *password        Creates a new user. Note: Spcaes are not allowed in the user name, use a \'_\' instead.");
+        n.add("Delete         *password                  Deletes the current logged in user.");
+        n.add("Login          *Id   *password            Login to an existing user");
+        n.add("ChangeName     *name                      Change the users on screen name");
+        n.add("ChangePasswrod *old ps *new ps            Changes the users password");
         n.add("");
-        n.add("Dashboard                             Displays the users dashboard");
+        n.add("Dashboard                                 Displays the users dashboard");
         n.add("");
-        n.add("Test                                  Used for testing purpouses.");
+        n.add("addCourse      *name *school              Creates a new course objects and adds it to the currently logged in user.");
+        n.add("addcategory    *CourseName *name *weight  Creates a new category under the given course");
+        n.add("");
+        n.add("Test                                      Used for testing purpouses.");
         n.add("-");
         n.add("*'s are paramaters that the command can take in, to insure that it works correctly you must have a space between paramaters.");
 
@@ -68,9 +71,7 @@ public class CML{
             if(console.hasNextLine()) {
                 decode(takeParameters(console.nextLine()));
             }
-
         }
-
     }
 
     /**
@@ -80,6 +81,15 @@ public class CML{
      */
     public String[] takeParameters(String n){
         return(n.split("\\s+", 0));
+    }
+
+    /**
+     * Runs a given command from with in the command line class, used for testing fuctions quickly
+     * @param n The string usally passed to the system via Systm.in
+     */
+    public void runCommand(String n){
+        System.err.println(n);
+        decode(takeParameters(n));
     }
 
     /**
@@ -97,6 +107,9 @@ public class CML{
             case "login"          : login(n); break;
 
             case "dashboard"      :  displayDashboard(); break;
+
+            case "addcourse"      : addCourse(n); break;
+            case "addcategory"    : addCategory(n); break;
 
 
             case "test"           : test(); break;
@@ -118,9 +131,7 @@ public class CML{
      * @param n The String[] *name *id *password
      */
     public void createNewUser(String[] n){
-        if (n.length != 4){
-            System.out.println("Invalid Number of arguments");
-        }else{
+        if (checkDefaults(n,4)){
             model.createNewUser(n[1],n[2],n[3]);
         }
     }
@@ -130,9 +141,7 @@ public class CML{
      * @param n The String[] *command *password
      */
     public void deleteUser(String[] n){
-        if (n.length != 2){
-            System.out.println("Invalid Number of arguments");
-        }else{
+        if (checkDefaults(n,2)){
             model.deleteCurrentUser(n[1]);
         }
     }
@@ -142,9 +151,7 @@ public class CML{
      * @param n The String[] *command *new name
      */
     public void changeName(String[] n){
-        if (n.length != 2){
-            System.out.println("Invalid Number of arguments");
-        }else{
+        if (checkDefaults(n,2)){
             model.setName(n[1]);
         }
     }
@@ -154,9 +161,7 @@ public class CML{
      * @param n The String[] *command *old passwrod *new password
      */
     public void changePassword(String [] n){
-        if (n.length != 3){
-            System.out.println("Invalid Number of arguments");
-        }else{
+        if (checkDefaults(n,3)){
             model.setPassword(n[1],n[2]);
         }
     }
@@ -180,21 +185,81 @@ public class CML{
     public void displayDashboard() {
         if (model.loggedIn()){
             ArrayList<String> n = new ArrayList<String>();
-            n.add("Name: " + model.getName());
-            n.add("ID: " + model.getId());
+            n.add("Name: " + model.user.getName());
+            n.add("ID: " + model.user.getId());
             n.add("-");
-            n.add("Grades and stuff would go down here");
-
+            //n.add("Grades and stuff would go down here");
             printBox(n.toArray(new String[n.size()]),0);
+
+            displayGrades(n);
         }else{
             System.out.println("No user logged in");
         }
 
     }
 
+    public void displayGrades(ArrayList<String> n){
+        int numOfCorses = model.user.getPresentCourses().size();
+        System.out.println(numOfCorses + " corses detected");
+        for (int i = 0; i < numOfCorses; i++){
+            Course course = model.user.getPastCourses().get(i);
+            int numOfCatagories = course.getCategories().size();
+
+            for (int j = 0; j < numOfCatagories; j++){
+                Category category = course.getCategories().get(j);
+                int numOfAssignments = category.getAssignments().size();
+
+                for (int k = 0; k < numOfAssignments; k++){
+
+                }
+
+            }
+        }
+    }
+
+    public void addCourse(String[] n){
+        if (checkDefaults(n,3)){
+            Course course = new Course(n[1],new School(n[2]));
+            model.user.addPresentCourse(course);
+            System.out.println("Course \"" + n[1] + "\" has been added.");
+        }
+    }
+
+    public void addCategory(String[] n){
+        if (checkDefaults(n,4)){
+            Course course = model.findCourse(n[1]);
+            if (course == null){
+                System.out.println("A course with the name \"" + n[1] + "\" was not found.");
+                return;
+            }else{
+                Category category = new Category(n[2],Integer.parseInt(n[3]));
+                course.addCategory(category);
+                System.out.println("Category \"" + n[1] + "\" has been added to Course \"" + n[2]);
+            }
+        }
+    }
 
 
 
+    public void defaultFunction(String[] n){
+        if (checkDefaults(n,3)){
+            //Your code goes here
+        }
+    }
+
+    public boolean checkDefaults(String[] n, int numOfArguments){
+        if (model.loggedIn()){
+            if (n.length != numOfArguments){
+                System.out.println("Invalid Number of arguments");
+                return false;
+            }else{
+                return true;
+            }
+        }else {
+            System.out.println("No user logged in");
+            return false;
+        }
+    }
 
 
     //CML special functions
@@ -266,9 +331,11 @@ public class CML{
      * A test function only to be called by the CML for devolment
      */
     public void test(){
-        model.test();
-
-
+        System.out.println("Starting test Function");
+        //model.test();
+        runCommand("Login bkh60 500946");
+        runCommand("addCourse Math TxState");
+        runCommand("dashboard");
 
 
     }

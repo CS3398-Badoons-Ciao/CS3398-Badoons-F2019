@@ -10,15 +10,13 @@ public class Course
     private int creditHours;
     private ArrayList<Category> categories;
 
-    public Course(String name, School school)
-    {
+    public Course(String name, School school) {
         this.name = name;
         this.school = school;
         categories = new ArrayList<Category>();
     }
 
-    public Course(String name, School school, ArrayList<Category> categories)
-    {
+    public Course(String name, School school, ArrayList<Category> categories) {
         this.name = name;
         this.school = school;
         this.categories = categories;

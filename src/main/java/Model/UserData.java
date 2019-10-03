@@ -44,8 +44,7 @@ public class UserData implements java.io.Serializable
     }
 
     //removes all elements from presentCourses and puts them into pastCourses
-    public void movePresentCoursesToPastCourses()
-    {
+    public void movePresentCoursesToPastCourses() {
         pastCourses.addAll(presentCourses);
 
         for (Course course : presentCourses)
