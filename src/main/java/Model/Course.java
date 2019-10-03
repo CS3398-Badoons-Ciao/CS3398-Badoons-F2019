@@ -17,6 +17,7 @@ public class Course implements Publisher
     private int creditHours;
     private ArrayList<Category> categories;
 
+
     public Course(String name, School school) {
         this.name = name;
         this.school = school;

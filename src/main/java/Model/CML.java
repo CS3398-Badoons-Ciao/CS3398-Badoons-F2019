@@ -55,6 +55,7 @@ public class CML{
         n.add("");
         n.add("addCourse      *name *school              Creates a new course objects and adds it to the currently logged in user.");
         n.add("addcategory    *CourseName *name *weight  Creates a new category under the given course");
+        n.add("addAssginment  *courseName *CatagoryName *name *grade *potential    Sets a users grade");
         n.add("");
         n.add("Test                                      Used for testing purpouses.");
         n.add("-");
@@ -97,23 +98,29 @@ public class CML{
      * @param n The String[] of the command and its parameters
      */
     public void decode(String[] n){
-        switch(n[0].toLowerCase()){
-            case "help"           : help(); break;
-            case "exit"           : stop(); break;
-            case "create"         : createNewUser(n); break;
-            case "delete"         : deleteUser(n); break;
-            case "changename"     : changeName(n); break;
-            case "changepassword" : changePassword(n); break;
-            case "login"          : login(n); break;
+        try {
+            switch(n[0].toLowerCase()){
+                case "help"           : help(); break;
+                case "exit"           : stop(); break;
+                case "create"         : createNewUser(n); break;
+                case "delete"         : deleteUser(n); break;
+                case "changename"     : changeName(n); break;
+                case "changepassword" : changePassword(n); break;
+                case "login"          : login(n); break;
 
-            case "dashboard"      :  displayDashboard(); break;
+                case "dashboard"      :  displayDashboard(); break;
 
-            case "addcourse"      : addCourse(n); break;
-            case "addcategory"    : addCategory(n); break;
+                case "addcourse"      : addCourse(n); break;
+                case "addcategory"    : addCategory(n); break;
+                case "addassginments" : addAssginments(n); break;
 
 
-            case "test"           : test(); break;
-            default               : System.out.println("Command not reconized"); break;
+                case "test"           : test(); break;
+                default               : System.out.println("Command not reconized"); break;
+            }
+        }catch (Exception e){
+            //System.err.println(e.printStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -188,6 +195,7 @@ public class CML{
             n.add("Name: " + model.user.getName());
             n.add("ID: " + model.user.getId());
             n.add("-");
+            n.add(model.user.getPresentCourses().size() + " active corses detected");
             //n.add("Grades and stuff would go down here");
             printBox(n.toArray(new String[n.size()]),0);
 
@@ -200,17 +208,22 @@ public class CML{
 
     public void displayGrades(ArrayList<String> n){
         int numOfCorses = model.user.getPresentCourses().size();
-        System.out.println(numOfCorses + " corses detected");
         for (int i = 0; i < numOfCorses; i++){
-            Course course = model.user.getPastCourses().get(i);
+            Course course = model.user.getPresentCourses().get(i);
             int numOfCatagories = course.getCategories().size();
 
+            System.out.println("\nCorse: " + course.getName() + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tGrade: " + course.getGrade());
+            System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("| Credit Hours: " + course.getCreditHours() + "\tSchool: " + course.getSchool().getName());
+            System.out.println("-------------------------------------------------------------------------------");
             for (int j = 0; j < numOfCatagories; j++){
                 Category category = course.getCategories().get(j);
                 int numOfAssignments = category.getAssignments().size();
 
+                System.out.println("Catagory: " + category.getName() + "\t\t\t\t\t\t\t\t\t\tCatagory weight: " + category.getWeight());
                 for (int k = 0; k < numOfAssignments; k++){
-
+                    Assignment assignment = category.getAssignments().get(k);
+                    System.out.println("\t\t*" + assignment.getName() + ": " + assignment.getCurrentGrade() + "/" + assignment.getPotentialGrade());
                 }
 
             }
@@ -228,17 +241,41 @@ public class CML{
     public void addCategory(String[] n){
         if (checkDefaults(n,4)){
             Course course = model.findCourse(n[1]);
-            if (course == null){
-                System.out.println("A course with the name \"" + n[1] + "\" was not found.");
-                return;
-            }else{
-                Category category = new Category(n[2],Integer.parseInt(n[3]));
+            if (checkCourse(course)){
+                Category category = new Category(n[2],Double.parseDouble(n[3]));
                 course.addCategory(category);
                 System.out.println("Category \"" + n[1] + "\" has been added to Course \"" + n[2]);
             }
         }
     }
 
+    public void addAssginments(String[] n){
+        if(checkDefaults(n, 6)){
+            Course course = model.findCourse(n[1]);
+            Category category = model.findCategory(n[1],n[2]);
+            if (checkCourse(course) && checkCatagory(category)){
+                Assignment assignment = new Assignment(n[3],Double.parseDouble(n[4]),Double.parseDouble(n[5]));
+                category.addAssignment(assignment);
+                System.out.println("Assignment \"" + n[3] + "\" has been added to [" + course.getName() + "->" + category.getName() + "]");
+            }
+        }
+    }
+
+    public boolean checkCourse(Course c){
+        if (c == null){
+            System.out.println("A course with that name was not found.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkCatagory(Category c){
+        if (c == null){
+            System.out.println("A course with that name was not found.");
+            return false;
+        }
+        return true;
+    }
 
 
     public void defaultFunction(String[] n){
@@ -335,6 +372,13 @@ public class CML{
         //model.test();
         runCommand("Login bkh60 500946");
         runCommand("addCourse Math TxState");
+        runCommand("addCategory Math Dailey_Assignments 0.3");
+        runCommand("addAssginments Math Dailey_Assignments Quiz_1 20 30");
+        runCommand("addAssginments Math Dailey_Assignments Quiz_2 5 30");
+        runCommand("addCategory Math Test 0.7");
+        runCommand("addAssginments Math Test Test_1 70 100");
+
+
         runCommand("dashboard");
 
 

@@ -173,10 +173,11 @@ public class Model
         return null;
     }
 
-    public Category findCategory(int courseIndex, String name){
-        ArrayList<Category> categories = user.getPresentCourses().get(courseIndex).getCategories();
+    public Category findCategory(String courseName, String categoryName){
+        Course course =  findCourse((courseName));
+        ArrayList<Category> categories = course.getCategories();
         for (int i = 0; i < categories.size(); i++){
-            if (categories.get(i).getName().toLowerCase().equals(name.toLowerCase())){
+            if (categories.get(i).getName().toLowerCase().equals(categoryName.toLowerCase())){
                 return categories.get(i);
             }
         }

@@ -8,7 +8,7 @@ public class Assignment implements AssignmentInterface
     private double potentialGrade;
     private double currentGrade;
 
-    public Assignment(String name, double potentialGrade, double currentGrade)
+    public Assignment(String name, double currentGrade , double potentialGrade)
     {
         this.name = name;
         this.potentialGrade = potentialGrade;

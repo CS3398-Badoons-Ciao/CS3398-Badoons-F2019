@@ -15,27 +15,22 @@ import java.util.Scanner;
 
 public class Main extends Application {
 
-<<<<<<< HEAD
     static Stage mainApp;
     static MainGUI gui;
     int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
     Model model;
-=======
-    private static Stage mainApp;
-    private static MainGUI gui;
-    private int startMode = 2 ; //0 = cml, 1 = charlies, 2 = jon
-    private Model model;
->>>>>>> 4e625849aad4bc0efd40a320d630dc54c3803329
+
+//    private static Stage mainApp;
+//    private static MainGUI gui;
+//    private int startMode = 2 ; //0 = cml, 1 = charlies, 2 = jon
+//    private Model model;
+
 
     @Override
     public void start(Stage mainApp) throws Exception {
         model = new Model();
         if (startMode == 0){
-            try{
                 startCML();
-            }catch (Exception e){
-                System.err.println(e);
-            }
         }else if (startMode == 1){
             gui = new MainGUI(); // GUI that contains each scene for our class.
             //mainApp = new Stage();

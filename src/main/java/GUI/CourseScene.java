@@ -29,7 +29,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     /**
      * sets category and builds scene
-      * @param course
+      * @param course stuff
      */
     public CourseScene(Course course) {
         this.course = course;

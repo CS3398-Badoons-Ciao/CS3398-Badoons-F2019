@@ -8,7 +8,7 @@ public class Category implements CategoryInterface {
 
     private String name;
     private double weight; //value should range from 0.0 - 100.0
-    private ArrayList<Assignment> assignments;
+    private ArrayList<Assignment> assignments = null;
 
     public Category(String name, double weight, ArrayList<Assignment> assignments)
     {
@@ -21,11 +21,11 @@ public class Category implements CategoryInterface {
     {
         this.name = name;
         this.weight = weight;
+        assignments = new ArrayList<Assignment>();
     }
 
     //adds a single Assignment to the assignments ArrayList
-    public void addAssignment(Assignment newAssignment)
-    {
+    public void addAssignment(Assignment newAssignment) {
         assignments.add(newAssignment);
     }
 
