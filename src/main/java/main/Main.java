@@ -15,15 +15,15 @@ import java.util.Scanner;
 
 public class Main extends Application {
 
-    static Stage mainApp;
+    static Stage mainStage;
     static MainGUI gui;
     int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
     Model model;
 
-//    private static Stage mainApp;
-//    private static MainGUI gui;
-//    private int startMode = 2 ; //0 = cml, 1 = charlies, 2 = jon
-//    private Model model;
+    //private static Stage mainStage;
+    //private static MainGUI gui;
+    //private int startMode = 1 ; //0 = cml, 1 = charlies, 2 = jon
+    //private Model model;
 
 
     @Override
@@ -33,8 +33,8 @@ public class Main extends Application {
                 startCML();
         }else if (startMode == 1){
             gui = new MainGUI(); // GUI that contains each scene for our class.
-            //mainApp = new Stage();
-            //main = mainApp;
+            mainStage = new Stage();
+            mainApp = mainStage;
             mainApp.setTitle("Grade Manager"); // Sets the top bar to "Grade Manager"
             mainApp.setScene(gui.getTitleScene()); // Sets the window the title window, "titleScene"
             mainApp.show(); // Displays the current window.
@@ -91,11 +91,11 @@ public class Main extends Application {
 
     // This method allows the FXML controllers to set the main application scene.
     public static void displayTitle() {
-        mainApp.setScene(gui.getTitleScene());
+        mainStage.setScene(gui.getTitleScene());
     }
     // This method allows the FXML controllers to set the main application scene.
     public static void displayCourseOverview() {
-        mainApp.setScene(gui.getCourseOverviewScene());
+        mainStage.setScene(gui.getCourseOverviewScene());
     }
 }
 
