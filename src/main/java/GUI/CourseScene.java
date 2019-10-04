@@ -1,6 +1,8 @@
 package GUI;
 
+import Factory.AssignmentFactory;
 import Interfaces.AssignmentInterface;
+import Interfaces.CategoryInterface;
 import Interfaces.Listener;
 import Interfaces.Publisher;
 import Model.Category;
@@ -26,6 +28,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     private Course course;
     private Scene scene;
     private List<CTableView> categoryTables = new ArrayList<>(); // to allow arrangement
+    private ComboBox dropDownList;
 
     /**
      * sets category and builds scene
@@ -33,7 +36,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
      */
     public CourseScene(Course course) {
         this.course = course;
-        course.addListener(this); //TODO add listener for all other data;
+        course.addListener(this);
         buildScene();
     }
 
@@ -62,14 +65,29 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         buildCategoryTables();
 
         // adds tables to layout manager
-        for (CTableView ctableView : categoryTables) {
-            Label categoryLabel = new Label(ctableView.tableName);
+        for (CTableView cTableView : categoryTables) {
+            Label categoryLabel = new Label(cTableView.tableCategory.getName());
             categoryLabel.setFont(new Font("Arial", 20));
             vBox.getChildren().add(categoryLabel);
-            vBox.getChildren().add(ctableView);
+            vBox.getChildren().add(cTableView);
         }
 
         // creates 'add assignment'feature
+        ObservableList<String> dropDownListCategories = FXCollections.observableArrayList();
+        for (CTableView cTableView : categoryTables) {
+            dropDownListCategories.add(cTableView.tableCategory.getName());
+        }
+
+        dropDownList = new ComboBox(dropDownListCategories);
+        dropDownList.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                // TODO highlight table to add course to
+            }
+        });
+        dropDownList.setPromptText("Category");
+
+
         final TextField addCourseName = new TextField();
         addCourseName.setPromptText("Course Name");
 
@@ -81,25 +99,32 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         final Button addCourseBtn = new Button("+");
         addCourseBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override public void handle(ActionEvent addEvent) {
                 // TODO check data && handle
+                for (CTableView c : categoryTables) {
+                    if (c.tableCategory.getName() == (String) dropDownList.getValue()) {
+                        try{
+                            String courseName = addCourseName.getText();
+                            double currentGrade = Double.parseDouble(addCurrentGrade.getText());
+                            double potentialGrade = Double.parseDouble(addPotentialGrade.getText());
+                            c.tableCategory.addAssignment(AssignmentFactory.createAssignment(
+                                    courseName, potentialGrade, currentGrade));
+                            // TODO create new table row
+                        } catch(Exception exception) {
+                            System.out.println(exception.getMessage()); // TODO delete
+                        } // TODO handle pop-up bad format
+                    }
+                }
 
-                /*
-                .add(new Assignment(
-                        addCourseName.getText(),
-                        addCurrentGrade.getText(),
-                        addPotentialGrade.getText()
-                ));
                 addCourseName.clear();
                 addCurrentGrade.clear();
                 addPotentialGrade.clear();
-                 */
             }
         });
 
         final HBox addCourseBox = new HBox();
         addCourseBox.getChildren().addAll(
-                addCourseName, addCurrentGrade, addPotentialGrade, addCourseBtn);
+                dropDownList, addCourseName, addCurrentGrade, addPotentialGrade, addCourseBtn);
         addCourseBox.setSpacing(3);
 
 
@@ -134,7 +159,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         for (Category category : categories) {
             // creates cTableView
-            CTableView cTableView = new CTableView(category.getName());
+            CTableView cTableView = new CTableView(category);
+            //CTableView.
             cTableView.setEditable(true);
 
             // creates a name column for the cTableView
@@ -151,13 +177,13 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
             // creates a grade column for the cTableView
             TableColumn<AssignmentInterface, Double> gradeColumn = new TableColumn<>("Grade");
-            gradeColumn.setMinWidth(25);
+            gradeColumn.setMinWidth(150);
             gradeColumn.setCellValueFactory(new PropertyValueFactory<>("currentGrade"));
             // TODO handle for double
 
             // creates a potential grade column for the cTableView
             TableColumn<AssignmentInterface, String> potentialGradeColumn = new TableColumn<>("Potential Grade");
-            potentialGradeColumn.setMinWidth(25);
+            potentialGradeColumn.setMinWidth(150);
             potentialGradeColumn.setCellValueFactory(new PropertyValueFactory<>("potentialGrade"));
             // TODO handle for double
 
@@ -179,12 +205,10 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     }
 
     static class CTableView extends TableView<AssignmentInterface> {
-        String tableName;
+        CategoryInterface tableCategory;
 
-        CTableView(String tableName) {
-            this.tableName = tableName;
+        CTableView(CategoryInterface tableCategory) {
+            this.tableCategory = tableCategory;
         }
-
-        void setTableName(String tableName) {this.tableName = tableName;}
     }
 }

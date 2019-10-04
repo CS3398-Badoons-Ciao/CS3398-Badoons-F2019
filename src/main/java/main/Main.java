@@ -34,8 +34,8 @@ public class Main extends Application {
             mainApp.show(); // Displays the current window.
         }else if (startMode == 2){
             mainApp.setTitle("Grade Manager");
-            mainApp.setWidth(400);
-            mainApp.setHeight(500);
+            mainApp.setWidth(900);
+            mainApp.setHeight(700);
             Course testCourse = buildTestCourse();
             mainApp.setScene((new CourseScene(testCourse)).getScene());
             mainApp.show();
