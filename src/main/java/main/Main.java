@@ -15,25 +15,24 @@ import java.util.Scanner;
 
 public class Main extends Application {
 
-    static Stage mainStage;
-    static MainGUI gui;
-    int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
-    Model model;
+    public Main() {
 
-    //private static Stage mainStage;
-    //private static MainGUI gui;
-    //private int startMode = 1 ; //0 = cml, 1 = charlies, 2 = jon
-    //private Model model;
+    }
 
+    public static Stage mainStage;
+    public static MainGUI gui;
+    public int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
+    public static Model model;
 
     @Override
     public void start(Stage mainApp) throws Exception {
         model = new Model();
+        gui = new MainGUI(); // GUI that contains each scene for our class.
+        mainStage = new Stage();
+
         if (startMode == 0){
-                startCML();
+            startCML();
         }else if (startMode == 1){
-            gui = new MainGUI(); // GUI that contains each scene for our class.
-            mainStage = new Stage();
             mainApp = mainStage;
             mainApp.setTitle("Grade Manager"); // Sets the top bar to "Grade Manager"
             mainApp.setScene(gui.getTitleScene()); // Sets the window the title window, "titleScene"
@@ -52,7 +51,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         System.out.println("DEBUG Message in Main.main()");
-        launch(args);
+        Main program = new Main();
+        program.launch(args);
+        //launch(args);
     }
 
     private void startCML(){
@@ -89,13 +90,5 @@ public class Main extends Application {
         return new Course("CS3398", new School("Texas State"), categories);
     }
 
-    // This method allows the FXML controllers to set the main application scene.
-    public static void displayTitle() {
-        mainStage.setScene(gui.getTitleScene());
-    }
-    // This method allows the FXML controllers to set the main application scene.
-    public static void displayCourseOverview() {
-        mainStage.setScene(gui.getCourseOverviewScene());
-    }
 }
 
