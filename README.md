@@ -1,5 +1,17 @@
 # Grade Manager
 
+## Sprint 1 Features
+* Jon Pierre
+  * Course GUI -> courseScene.java
+    *descriptiontest
+* TeamMember2
+* TeamMember3
+* TeamMember4
+* TeamMember5
+
+
+
+
 ## Vision
 > Our team is building a desktop application for students to assist them in tracking academic performance.
 
@@ -23,7 +35,7 @@ This app will allow students to save course grade information and will simplify 
 * JavaFX - https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm
 * Derby - https://db.apache.org/derby/
 
-## Features
+## Sprint 1 Features
 * User input of courses, grades, categories, and category weights and Persistant data storage - As a student I would like to create a list of my college classes and courses in those classes and save them to access later to keep my course history.
 * Course data is displayed to the user - As a student, I would like to see my grades and assignments cleanly together into different categories.
 * Intuitive grade calculation - As a student, I would like a program that calculates various averages for my classes in an easy to use way.
