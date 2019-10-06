@@ -9,6 +9,15 @@
 * TeamMember4
 * TeamMember5
 
+## Sprint 1 Project Status
+Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
+Next Steps:
+ * Jon - Finish drop down list for adding a course and GUI changes to reflect model
+ * TeamMember2
+ * TeamMember3
+ * TeamMember4
+ * TeamMember5
+
 ## Vision
 > Our team is building a desktop application for students to assist them in tracking academic performance.
 
@@ -22,15 +31,6 @@
 Welcome to the project. We are students at Texas State University enrolled in CS3398 - Software Engineering course.
 Our application is aimed for students of all grade levels who are seeking a user friendly solution for grade management.
 This app will allow students to save course grade information and will simplify grade calculation using an intuitive user interface.
-
-## Sprint 1 Project Status
-Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
-Next Steps:
- * Jon - Finish drop down list for adding a course and GUI changes to reflect model
- * TeamMember2
- * TeamMember3
- * TeamMember4
- * TeamMember5
 
 ## General Info
 ![Example screenshot](./img/EZ_Gradr.PNG)
