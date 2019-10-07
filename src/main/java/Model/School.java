@@ -1,6 +1,6 @@
 package Model;
 
-public class School
+public class School implements java.io.Serializable
 {
     private String name;
 

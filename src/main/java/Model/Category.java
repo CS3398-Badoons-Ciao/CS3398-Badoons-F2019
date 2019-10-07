@@ -4,7 +4,7 @@ import Interfaces.CategoryInterface;
 
 import java.util.ArrayList;
 
-public class Category implements CategoryInterface {
+public class Category implements CategoryInterface, java.io.Serializable {
 
     private String name;
     private double weight; //value should range from 0.0 - 100.0
@@ -58,6 +58,10 @@ public class Category implements CategoryInterface {
     public ArrayList<Assignment> getAssignments()
     {
         return assignments;
+    }
+
+    public void removeAssignment(int i){
+        assignments.remove(i);
     }
 
     public void setAssignments(ArrayList<Assignment> assignments)

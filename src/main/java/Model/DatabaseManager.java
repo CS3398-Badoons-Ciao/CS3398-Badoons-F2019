@@ -12,6 +12,7 @@ import java.nio.file.*;
  */
 public class DatabaseManager {
 
+    //String UserDataPath = "../../bin/resources/User Files/";
     String UserDataPath = "bin/resources/User Files/";
     private ArrayList<String> userList;
 

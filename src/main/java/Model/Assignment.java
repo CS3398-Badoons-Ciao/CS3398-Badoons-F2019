@@ -2,7 +2,7 @@ package Model;
 
 import Interfaces.AssignmentInterface;
 
-public class Assignment implements AssignmentInterface
+public class Assignment implements AssignmentInterface, java.io.Serializable
 {
     private String name;
     private double potentialGrade;

@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/EZGrader.iml" filepath="$PROJECT_DIR$/.idea/modules/EZGrader.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/EZGrader.main.iml" filepath="$PROJECT_DIR$/.idea/modules/EZGrader.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/EZGrader.test.iml" filepath="$PROJECT_DIR$/.idea/modules/EZGrader.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/badoons.EZGrader.iml" filepath="$PROJECT_DIR$/.idea/modules/badoons.EZGrader.iml" />
     </modules>
   </component>
 </project>

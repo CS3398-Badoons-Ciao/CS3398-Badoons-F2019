@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class Model
 {
-    private Calculator calculator;
+    private Calculator calculator = new Calculator();
     private DatabaseManager dbManager;
     public UserData user = null;
 
@@ -61,7 +61,7 @@ public class Model
     /**
      * Saves user data to file
      */
-    private void saveUser(){
+    public void saveUser(){
         try {
             dbManager.serialize(user);
         }catch(Exception e){
@@ -110,6 +110,13 @@ public class Model
     public void test(){
         //dbManager.removeUserListEntry(user.getId() + "|" + user.getName());
         dbManager.removeUserListEntry("CW60|Charlie_Walker");
+    }
+
+    public void cal(){
+        ArrayList<Course> c = user.getPresentCourses();
+        for (int i = 0; i < c.size(); i++) {
+            c.get(i).setGrade(calculator.getCourseGrade(c.get(i))*100);
+        }
     }
 
 
@@ -182,6 +189,67 @@ public class Model
             }
         }
         return null;
+    }
+
+    public Assignment findAssignment(String courseName, String categoryName, String assignmentName){
+        Category category = findCategory(courseName,categoryName);
+        ArrayList<Assignment> assignments = category.getAssignments();
+        for (int i = 0; i < assignments.size(); i++){
+            if (assignments.get(i).getName().toLowerCase().equals(assignmentName.toLowerCase())){
+                return assignments.get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean checkCourseName(String name){
+        ArrayList<Course> courses = user.getPresentCourses();
+        for (int i = 0; i < courses.size(); i++){
+            if (courses.get(i).getName().toLowerCase().equals(name.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean chcekCatagoryName(String courseName, String categoryName){
+        Course course =  findCourse((courseName));
+        ArrayList<Category> categories = course.getCategories();
+        for (int i = 0; i < categories.size(); i++){
+            if (categories.get(i).getName().toLowerCase().equals(categoryName.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkAssignmentName(String courseName, String categoryName, String assignmentName){
+        Category category = findCategory(courseName,categoryName);
+        ArrayList<Assignment> assignments = category.getAssignments();
+        for (int i = 0; i < assignments.size(); i++){
+            if (assignments.get(i).getName().toLowerCase().equals(assignmentName.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void deleteCourse(String n){
+        Course c = findCourse(n);
+        user.removeCourse(user.getPresentCourses().indexOf(c));
+        System.out.println("Course has been deleted");
+    }
+
+    public void deleteCategory(String course, String n){
+        Category c = findCategory(course,n);
+        findCourse(course).removeCategory(findCourse(course).getCategories().indexOf(c));
+        System.out.println("Catagory has been removed");
+    }
+
+    public void deleteAssiginment(String course, String catagory, String n){
+        Assignment a = findAssignment(course,catagory,n);
+        findCategory(course,catagory).removeAssignment(findCategory(course,catagory).getAssignments().indexOf(a));
+        System.out.println("Assignment has been removed");
+
     }
 
     //User setters and getters

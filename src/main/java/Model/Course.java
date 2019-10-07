@@ -7,7 +7,7 @@ import Interfaces.Publisher;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Course implements Publisher
+public class Course implements Publisher, java.io.Serializable
 {
     ArrayList<Listener> listeners = new ArrayList<Listener>();
 
@@ -79,6 +79,10 @@ public class Course implements Publisher
     public ArrayList<Category> getCategories()
     {
         return categories;
+    }
+
+    public void removeCategory(int i){
+        categories.remove(i);
     }
 
     public void setCategories(ArrayList<Category> categories)

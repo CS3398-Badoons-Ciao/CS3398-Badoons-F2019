@@ -50,7 +50,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        System.out.println("DEBUG Message in Main.main()");
+        //System.out.println("DEBUG Message in Main.main()");
         Main program = new Main();
         program.launch(args);
         //launch(args);

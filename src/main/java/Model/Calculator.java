@@ -43,8 +43,7 @@ public class Calculator
     }
 
     //given a SINGLE ArrayList of courses, this function returns the GPA returns the GPA of all of those courses
-    public double getGPASingle(ArrayList<Course> courses)
-    {
+    public double getGPASingle(ArrayList<Course> courses) {
         int totalCreditHours = 0;
         double totalWeightedPoints = 0;
 
@@ -67,8 +66,7 @@ public class Calculator
     //70-79.99 = 2
     //60-69.99 = 1
     //0-59.99 = 0
-    public int getGradePoints(double grade)
-    {
+    public int getGradePoints(double grade) {
         if (grade >= 90.0)
             return 4;
         else if (grade >= 80.0)
@@ -80,20 +78,21 @@ public class Calculator
         else
             return 0;
     }
+
     
-    public double getCatagoryGrade(ArrayList<Assignment> assign, double weight){
+    public double getCatagoryGrade(ArrayList<Assignment> assign){
       double[] n = new double[assign.size()];
       for (int i = 0; i < assign.size(); i++){
         n[i] = (assign.get(i).getCurrentGrade() / assign.get(i).getPotentialGrade());
       }
-      return (getAverage(n)*weight);
+      return (getAverage(n));
     }
     
     public double getCourseGrade(Course c){
       ArrayList<Category> categories = c.getCategories();
       double currentSum = 0;
       for (int i = 0; i < categories.size(); i++){
-        currentSum += getCatagoryGrade(categories.get(i).getAssignments(),categories.get(i).getWeight());
+        currentSum += getCatagoryGrade((categories.get(i).getAssignments())) *  categories.get(i).getWeight();
       }
       return(currentSum);
     }
