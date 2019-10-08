@@ -29,6 +29,7 @@ Next Steps:
 * [Description](#description)
 * [General Info](#general-info)
 * [Technologies](#technologies)
+* [How to Run](#how-to-run))
 * [Features](#features)
 
 ## Description
