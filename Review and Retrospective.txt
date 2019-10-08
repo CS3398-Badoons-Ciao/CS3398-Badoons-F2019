@@ -1,0 +1,37 @@
+Bailey Hubbard (bkh60)
+-
+-
+-
+-
+Due: Oct 8th 2019
+CS3398 Software Eng
+
+Review and Retrospective
+---------------------------------------------------------------------------------------
+What went well
+  *(Team)
+  *(Team)
+  *(Team)
+  *(Team)
+
+  *(Individual: Bailey Hubbard) Learning new methods of completing a task with multiple objects configured in a tree structure and being able to access and maintain them.
+  *(Individual: )
+  *(Individual: )
+  *(Individual: )
+  *(Individual: )
+
+ 
+
+What might be impeding Us from performing better?
+  *(Team)
+
+What can we do to improve
+  *(Team)
+
+  *(Individual: Bailey Hubabrd) Talk with the team more to get a better understanding of where they are in the project and see what I can do to help to keep the team moving forward together.
+  *(Individual: )
+  *(Individual: )
+  *(Individual: )
+  *(Individual: )
+
+//From the start, we should decide the Java version, build, IDE, etc before we start to make sure we are not stuck with compatibility issues midway through the project and force us to back peddle to correct this issue wasting valuable work time.
