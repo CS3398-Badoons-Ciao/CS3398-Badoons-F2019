@@ -21,12 +21,14 @@ public class Main extends Application {
 
     public static Stage mainStage;
     public static MainGUI gui;
-    public int startMode = 0 ; //0 = cml, 1 = charlies, 2 = Jons
+    public static int startMode = 2 ; //0 = cml, 1 = charlies, 2 = Jons
     public static Model model;
+    public static Main program;
+
+    public static Course testCourse;
 
     @Override
     public void start(Stage mainApp) throws Exception {
-        model = new Model();
         gui = new MainGUI(); // GUI that contains each scene for our class.
         mainStage = new Stage();
 
@@ -41,7 +43,7 @@ public class Main extends Application {
             mainApp.setTitle("Grade Manager");
             mainApp.setWidth(400);
             mainApp.setHeight(500);
-            Course testCourse = buildTestCourse();
+            //Course testCourse = buildTestCourse();
             mainApp.setScene((new CourseScene(testCourse)).getScene());
             mainApp.show();
         }
@@ -51,22 +53,37 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         //System.out.println("DEBUG Message in Main.main()");
-        Main program = new Main();
-        program.launch(args);
+        program = new Main();
+
         //launch(args);
+        //program.launch(args);
+        model = new Model();
+        Scanner console = new Scanner(System.in);
+        CML cml = new CML(console, model, program, args);
+
+
+
+
+    }
+
+    public static void launchGUI(String[] args){
+        program.launch(args);
+    }
+
+    public static void setCourse(Course c){
+        testCourse = c;
+    }
+
+    public static void setStartMode(int i){
+        startMode = i;
     }
 
     private void startCML(){
-        try{
-            Scanner console = new Scanner(System.in);
-            CML cml = new CML(console, model);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-
+        //Scanner console = new Scanner(System.in);
+        //CML cml = new CML(console, model, main, args);
     }
 
-    Course buildTestCourse(){
+    public Course buildTestCourse(){
         // Quiz
         ArrayList<Assignment> quizAssignments = new ArrayList<Assignment>();
         NumberFormat formatter = new DecimalFormat("#0.00");
