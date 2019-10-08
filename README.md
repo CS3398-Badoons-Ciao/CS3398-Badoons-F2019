@@ -17,7 +17,7 @@ Base Model is implemented, including student data, operations on that data, and 
 Next Steps:
 * Jon - Finish drop down list for adding a course and GUI changes to reflect model
 * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
-  *Next Step: Get with GUI team and work on tested modle implmentation into the GUI
+  * Next Step: Get with GUI team and work on tested modle implmentation into the GUI
 * TeamMember3
 * TeamMember4
 * TeamMember5
