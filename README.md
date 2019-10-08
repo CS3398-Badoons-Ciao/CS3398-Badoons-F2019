@@ -49,16 +49,16 @@ This app will allow students to save course grade information and will simplify 
 
 ## How to run
 *Option 1: Run through gradle the default way.
-	*Open the power shell or CML of choice in the root of the project and type the following commands
-	*gradle clean
-	*gradle build
-	*gradle jar 
-	*gradle run
+	* Open the power shell or CML of choice in the root of the project and type the following commands
+	* gradle clean
+	* gradle build
+	* gradle jar 
+	* gradle run
 *Option 2: Running it via the option above will put a loading bar and excution time at the bottom of the scrip that is quite buggie and effects the CML excution, this is a work around for that.
-	*Open the power shell or CML of choice in the root of the project and type the following commands
-	*gradle clean
-	*gradle fatJar
-	*java -jar EZGrader-V1.0.jar
+	* Open the power shell or CML of choice in the root of the project and type the following commands
+	* gradle clean
+	* gradle fatJar
+	* java -jar EZGrader-V1.0.jar
 
 ## Sprint 1 Goals
 * User input of courses, grades, categories, and category weights and Persistant data storage - As a student I would like to create a list of my college classes and courses in those classes and save them to access later to keep my course history.
