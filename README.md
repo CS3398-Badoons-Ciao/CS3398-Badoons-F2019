@@ -15,12 +15,12 @@
 ## Sprint 1 Project Status
 Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
 Next Steps:
- * Jon - Finish drop down list for adding a course and GUI changes to reflect model
- * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
-	*Next Step: Get with GUI team and work on tested modle implmentation into the GUI
- * TeamMember3
- * TeamMember4
- * TeamMember5
+* Jon - Finish drop down list for adding a course and GUI changes to reflect model
+* Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
+  *Next Step: Get with GUI team and work on tested modle implmentation into the GUI
+* TeamMember3
+* TeamMember4
+* TeamMember5
 
 ## Vision
 > Our team is building a desktop application for students to assist them in tracking academic performance.
