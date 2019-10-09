@@ -16,7 +16,9 @@
 * Rebekah Barber
   * Data persistance -> Input.java, Output.java
   * Classes used to save and load data from and to the app and file
-* TeamMember5
+* Alex
+  * GPA calculations functionality -> Calculator.java
+  * Set up the base functionalities of the model related classes -> Calculator.java, Course.java, Assignment.java, Model.java, School.java, UserData.java
 
 ## Sprint 1 Project Status
 Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
@@ -27,7 +29,7 @@ Next Steps:
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
 * Rebekah - Data saves to file and loads to the app successfully.
   * Next Step: Transition to working on the GUI.
-* TeamMember5
+* Alex - Help get all of the backend functionality that we worked on in the first sprint into the GUI
 
 ## Vision
 > Our team is building a desktop application for students to assist them in tracking academic performance.
