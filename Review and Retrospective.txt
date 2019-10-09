@@ -1,5 +1,5 @@
 Bailey Hubbard (bkh60)
--
+Charles Walker (ctw60)
 -
 -
 -
@@ -15,7 +15,7 @@ What went well
   *(Team)
 
   *(Individual: Bailey Hubbard) Learning new methods of completing a task with multiple objects configured in a tree structure and being able to access and maintain them.
-  *(Individual: )
+  *(Individual: Charles Walker ) Brainstorming ideas on structuring classes for our project.
   *(Individual: )
   *(Individual: )
   *(Individual: )
@@ -29,7 +29,7 @@ What can we do to improve
   *(Team)
 
   *(Individual: Bailey Hubabrd) Talk with the team more to get a better understanding of where they are in the project and see what I can do to help to keep the team moving forward together.
-  *(Individual: )
+  *(Individual: Charles Walker) Discuss with others on GUI ideas or problems when they arise with the communication between GUI and Model.
   *(Individual: )
   *(Individual: )
   *(Individual: )

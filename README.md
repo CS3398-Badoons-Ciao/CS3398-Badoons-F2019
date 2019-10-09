@@ -8,7 +8,10 @@
   * Model: implication and back end program functionality
   * DataBaseManager: a simple database manager used for loading in files to the model; A temporary use for testing till the full-on database was implemented 
   * CML: A simple but mostly complete command line implication to access the program in a limited form for testing till the GUI had been full implemented
-* TeamMember3
+* Charles Walker
+  * Title GUI -> TitleScreen.java, TitleScreenController.java, sample.fxml. 
+  * A titlescreen is displayed to the user and promts the user to login. Functionality to the backend of our program is implemented to login to a user.
+  * CourseOverview GUI's class is created in the same format as a Screen class and is being implemented.
 * TeamMember4
 * TeamMember5
 
@@ -18,7 +21,7 @@ Next Steps:
 * Jon - Finish drop down list for adding a course and GUI changes to reflect model
 * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
   * Next Step: Get with GUI team and work on tested model implmentation into the GUI
-* TeamMember3
+* Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
 * TeamMember4
 * TeamMember5
 
