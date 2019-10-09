@@ -17,7 +17,7 @@ Base Model is implemented, including student data, operations on that data, and 
 Next Steps:
 * Jon - Finish drop down list for adding a course and GUI changes to reflect model
 * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
-  * Next Step: Get with GUI team and work on tested modle implmentation into the GUI
+  * Next Step: Get with GUI team and work on tested model implmentation into the GUI
 * TeamMember3
 * TeamMember4
 * TeamMember5
@@ -59,6 +59,13 @@ This app will allow students to save course grade information and will simplify 
 	* gradle clean
 	* gradle fatJar
 	* java -jar EZGrader-V1.0.jar
+* Opetion 3: Just running the program.
+	* The jar file is all ready built and ready to run all you have to do is follow to steps bellow.
+	* Open power shell or another command line interface.
+		* To open power shell in the root folder you can either..
+			* Shift+right click, click "Open powerShell window here"
+			* Alt+f, r
+	* Type the following "java -jar EZGrader-V1.0.jar"
 
 ## Sprint 1 Goals
 * User input of courses, grades, categories, and category weights and Persistant data storage - As a student I would like to create a list of my college classes and courses in those classes and save them to access later to keep my course history.
