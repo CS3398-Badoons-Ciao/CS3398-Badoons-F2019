@@ -5,6 +5,7 @@
   * Course GUI -> courseScene.java
   * Scene visuals include information about a course. Consists of tables representing categories (e.g. "test", "quiz") where each category table holds Assignments (e.g. "test 1", "test 2"). This scene is used on main application stage when user selects a course to edit.
 * Bailey Hubbard
+  * Java files ["model.java", "CML.java", "dataBaseManager.java" and parts of "calulator.java"]
   * Model: implication and back end program functionality
   * DataBaseManager: a simple database manager used for loading in files to the model; A temporary use for testing till the full-on database was implemented 
   * CML: A simple but mostly complete command line implication to access the program in a limited form for testing till the GUI had been full implemented
