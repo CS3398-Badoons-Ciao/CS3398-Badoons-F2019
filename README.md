@@ -15,7 +15,7 @@
   * CourseOverview GUI's class is created in the same format as a Screen class and is being implemented.
 * Rebekah 
   * Data persistance -> Input.java, Output.java
-  *Classes used to save and load data from and to the app and file
+  * Classes used to save and load data from and to the app and file
 * TeamMember5
 
 ## Sprint 1 Project Status
