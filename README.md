@@ -1,5 +1,7 @@
 # Grade Manager
 
+A lot of our artifacts and commits are in another branch called, Ez-Gradr. When looking for our artifacts please check there.
+
 ## Sprint 1 Features
 * Jon Pierre
   * Course GUI -> courseScene.java
