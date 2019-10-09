@@ -12,7 +12,9 @@
   * Title GUI -> TitleScreen.java, TitleScreenController.java, sample.fxml. 
   * A titlescreen is displayed to the user and promts the user to login. Functionality to the backend of our program is implemented to login to a user.
   * CourseOverview GUI's class is created in the same format as a Screen class and is being implemented.
-* TeamMember4
+* Rebekah 
+  * Data persistance -> Input.java, Output.java
+  *Classes used to save and load data from and to the app and file
 * TeamMember5
 
 ## Sprint 1 Project Status
@@ -22,7 +24,7 @@ Next Steps:
 * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
   * Next Step: Get with GUI team and work on tested model implmentation into the GUI
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
-* TeamMember4
+* Rebekah - Data saves to file and loads to the app successfully.
 * TeamMember5
 
 ## Vision
