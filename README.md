@@ -27,8 +27,7 @@ Next Steps:
 * Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
   * Next Step: Get with GUI team and work on tested model implmentation into the GUI
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
-* Rebekah - Data saves to file and loads to the app successfully.
-  * Next Step: Transition to working on the GUI.
+* Rebekah -  Transition to working on the GUI.
 * Alex - Got the GPA calculations set up and Organized file structure of the project
   * Next Step: Help get all of the backend functionality that we worked on in the first sprint into the GUI
 
