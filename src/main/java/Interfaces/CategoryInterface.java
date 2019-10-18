@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public interface CategoryInterface {
     void addAssignment(Assignment newAssignment);
     void addAssignments(ArrayList<Assignment> newAssignments);
+    public void removeAssignment(String name);
     String getName();
     void setName(String name);
     double getWeight();

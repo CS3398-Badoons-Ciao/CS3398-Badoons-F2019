@@ -1,8 +1,11 @@
 package Model;
 
 import Interfaces.CategoryInterface;
+import Interfaces.Publisher;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Category implements CategoryInterface {
 
@@ -14,7 +17,7 @@ public class Category implements CategoryInterface {
     {
         this.name = name;
         this.weight = weight;
-        this.assignments = (ArrayList<Assignment>) assignments;
+        this.assignments = assignments;
     }
 
     public Category(String name, double weight)
@@ -33,6 +36,19 @@ public class Category implements CategoryInterface {
     public void addAssignments(ArrayList<Assignment> newAssignments)
     {
         assignments.addAll(newAssignments);
+    }
+
+    // removes a single Assignment
+    public void removeAssignment(String name) {
+        Assignment assignmentToRemove = null;
+        for (Assignment a : assignments) {
+            if (name.equals(a.getName())) {
+                assignmentToRemove = a;
+            }
+        }
+        if (assignmentToRemove != null) {
+            assignments.remove(assignmentToRemove);
+        }
     }
 
     public String getName()
@@ -62,6 +78,6 @@ public class Category implements CategoryInterface {
 
     public void setAssignments(ArrayList<Assignment> assignments)
     {
-        this.assignments = (ArrayList<Assignment>) assignments;
+        this.assignments = assignments;
     }
 }

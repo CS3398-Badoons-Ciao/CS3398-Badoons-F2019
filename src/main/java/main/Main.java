@@ -21,7 +21,7 @@ public class Main extends Application {
     private Model model;
 
     @Override
-    public void start(Stage mainApp) throws Exception {
+    public void start(Stage mainApp) {
         model = new Model();
         if (startMode == 0){
             startCML();
@@ -34,14 +34,11 @@ public class Main extends Application {
             mainApp.show(); // Displays the current window.
         }else if (startMode == 2){
             mainApp.setTitle("Grade Manager");
-            mainApp.setWidth(900);
-            mainApp.setHeight(700);
             Course testCourse = buildTestCourse();
             mainApp.setScene((new CourseScene(testCourse)).getScene());
             mainApp.show();
         }
     }
-
 
 
     public static void main(String[] args) {
@@ -59,7 +56,7 @@ public class Main extends Application {
 
     }
 
-    Course buildTestCourse(){
+    private Course buildTestCourse(){
         // Quiz
         ArrayList<Assignment> quizAssignments = new ArrayList<Assignment>();
         NumberFormat formatter = new DecimalFormat("#0.00");
@@ -67,7 +64,7 @@ public class Main extends Application {
             Assignment a1 = new Assignment("Quiz " + i, 100, 90 + i);
             quizAssignments.add(a1);
         }
-        Category quiz = new Category("Quiz", 0.25, quizAssignments);
+        Category quiz = new Category("Quiz", 0.20, quizAssignments);
 
         // Test
         ArrayList<Assignment> testAssignments = new ArrayList<Assignment>();
@@ -75,12 +72,19 @@ public class Main extends Application {
         Assignment b2 = new Assignment("Test 2", 96, 92);
         testAssignments.add(b1);
         testAssignments.add(b2);
-        Category test = new Category("Test", 0.75, testAssignments);
+        Category test = new Category("Test", 0.40, testAssignments);
+
+        // Project
+        ArrayList<Assignment> projectAssignments = new ArrayList<Assignment>();
+        Assignment c1 = new Assignment("Project 1", 99, 85);
+        projectAssignments.add(c1);
+        Category project = new Category("Project", 0.40, projectAssignments);
 
         ArrayList<Category> categories = new ArrayList<Category>();
         categories.add(quiz);
         categories.add(test);
-        return new Course("CS3398", new School("Texas State"), categories);
+        categories.add(project);
+        return new Course("CS 3398", new School("Texas State"), categories);
     }
 
     // This method allows the FXML controllers to set the main application scene.
