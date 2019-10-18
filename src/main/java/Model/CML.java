@@ -643,9 +643,9 @@ public class CML {
                     System.out.println("Launching Gui with course: " + n[1]);
                     Course c = model.findCourse(n[1]);
                     mainCalled = true;
-                    main.setCourse(c);
-                    main.setStartMode(2);
-                    main.launchGUI(args);
+                    //main.setCourse(c);
+                    //main.setStartMode(2);
+                    //main.launchGUI(args);
                 }else{
                     System.out.println("Course not found");
                 }

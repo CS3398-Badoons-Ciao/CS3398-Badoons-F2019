@@ -2,33 +2,30 @@ package main;
 
 import Model.*;
 import GUI.*;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-
 
 public class Main extends Application {
 
-    private static Stage mainApp;
-    private static MainGUI gui;
-    private int startMode = 2 ; //0 = cml, 1 = charlies, 2 = jon
-    private Model model;
+    public static Stage mainStage;
+    public static MainGUI gui;
+    public static int startMode = 2; //0 = cl, 1 = Course Login, 2 = course scene
+    public static Model model;
+    public static Main program;
+    public static Course testCourse;
 
     @Override
-    public void start(Stage mainApp) {
-        model = new Model();
+    public void start(Stage mainApp) throws Exception {
+        gui = new MainGUI(); // GUI that contains each scene for our class.
+        //mainStage = new Stage();
+
         if (startMode == 0){
             startCML();
         }else if (startMode == 1){
-            gui = new MainGUI(); // GUI that contains each scene for our class.
-            //mainApp = new Stage();
-            //main = mainApp;
+            mainApp = new Stage();
             mainApp.setTitle("Grade Manager"); // Sets the top bar to "Grade Manager"
             mainApp.setScene(gui.getTitleScene()); // Sets the window the title window, "titleScene"
             mainApp.show(); // Displays the current window.
@@ -40,21 +37,35 @@ public class Main extends Application {
         }
     }
 
-
     public static void main(String[] args) {
-        System.out.println("DEBUG Message in Main.main()");
         launch(args);
+
+        //System.out.println("DEBUG Message in Main.main()");
+        //program = new Main();
+        //program.launch(args);
+        //model = new Model();
+        //Scanner console = new Scanner(System.in);
+        //CML cml = new CML(console, model, program, args);
+    }
+
+    public static void launchGUI(String[] args){
+        program.launch(args);
+    }
+
+    public static void setCourse(Course c){
+        testCourse = c;
+    }
+
+    public static void setStartMode(int i){
+        startMode = i;
     }
 
     private void startCML(){
-        try{
-            Scanner console = new Scanner(System.in);
-            CML cml = new CML(console, model);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-
+        //Scanner console = new Scanner(System.in);
+        //CML cml = new CML(console, model, main, args);
     }
+
+
 
     private Course buildTestCourse(){
         // Quiz
@@ -87,13 +98,5 @@ public class Main extends Application {
         return new Course("CS 3398", new School("Texas State"), categories);
     }
 
-    // This method allows the FXML controllers to set the main application scene.
-    public static void displayTitle() {
-        mainApp.setScene(gui.getTitleScene());
-    }
-    // This method allows the FXML controllers to set the main application scene.
-    public static void displayCourseOverview() {
-        mainApp.setScene(gui.getCourseOverviewScene());
-    }
 }
 
