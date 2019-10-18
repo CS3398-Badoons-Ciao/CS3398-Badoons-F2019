@@ -1,0 +1,44 @@
+Bailey Hubbard (bkh60)
+Charles Walker (ctw60)
+Jon Pierre (jfp35)
+Rebekah Barber (rab257)
+Alex Morman (ajm278)
+-------------------------------
+Due: Oct 8th 2019
+CS3398 Software Eng
+
+Review and Retrospective
+Note: Edited in one drive word document and copy pasted to at .txt document to upload to github
+------------------------------------------------------------------------------------------------------------------------------------------
+What went well
+  *(Team) We had running code for the demo that was able to show most if not all functions.
+  *(Team) We created a Gradle build for our project to resolve dependency issues with 3rd party library. 
+  *(Team) We had good code organization skills with UML diagrams to plan our project.
+  *(Team) We communicated effectively when discussing the project as a team when we where able to meet.
+
+  *(Individual: Bailey Hubbard) Learning new methods of completing a task with multiple objects configured in a tree structure and being able to access and maintain them.
+  *(Individual: Charles Walker) Brainstorming ideas on structuring classes for our project.
+  *(Individual: Jon:) Numerous build errors caused long debugging sessions occupying a lot of individual project time. Course scene GUI has adequate structure for adding additional features to working display.
+  *(Individual: Alex Morman) I was able to successfully add GPA calculations to the Calculator class in Calculator.java file.
+  *(Individual: Rebekah Barber) Creating the data persistence classes and making sure that they would work with the program.
+
+ 
+
+What might be impeding Us from performing better?
+  *(Team) Meeting time: Because of our schedule out best meeting time for everyone is Tuesdays after class. This means we only meet once a week at 8pm so our time is limited and its late and everyone’s tired to work motivation would be lower then if we where to meet at a better time.
+
+What can we do to improve?
+  *(Team) From the start, we should decide the Java version, build, IDE, etc before we start to make sure we are not stuck with compatibility issues midway through the project and force us to back pedal to correct this issue wasting valuable work time.
+  *(Team) Better use of Zen hub, on some cases se over simplified the task and it would take fractions of time while others where so broad that it they could easily take up to 5hrs for a task that we listed as 2hrs
+  *(Team) We can spend more time planning our sprint and delegating clear tasks. 
+
+  *(Individual: Bailey Hubabrd) Talk with the team more to get a better understanding of where they are in the project and see what I can do to help to keep the team moving forward together. How we can track this is to schedule meetings and possible keep logs of how progress is going for team mates to see any conflicts.
+  *(Individual: Charles Walker) Discuss with others on GUI ideas or problems when they arise with the communication between GUI and Model. This can be tracked by communicating with team members about problems in conversations or written messages.
+  *(Individual Jon: Better estimates for time to complete a task. Break up a story into smaller tasks with more specific goals and estimate time based on time taken for tasks in sprint 1. This can be measured by tasks submitted on Zenhub with a smaller, clearer scope.
+  *(Individual: Alex Morman) Spend more time working on the GUI tasks this sprint so that we can demo more of our implemented functionality at the end of the sprint
+  *(Individual: Rebekah Barber) Making sure that I was continuing to be productive even after the initial task was done. Which means reaching out to my team and seeing where I can help and pitch in.
+
+
+
+
+

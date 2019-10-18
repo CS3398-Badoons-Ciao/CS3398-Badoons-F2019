@@ -31,8 +31,13 @@ public class TitleScreenController {
      */
     public void Go(ActionEvent e) {
         // Default test login.
-        if ((loginField.getText().equals("test")) && (passwordField.getText().equals("test"))) {
-            Main.displayCourseOverview();
+        String login = loginField.getText();
+        String password = passwordField.getText();
+
+        Main.model.login(login,password);
+
+        if (Main.model.user != null) {
+            Main.mainStage.setScene(Main.gui.getCourseOverviewScene());
             passwordField.setText(""); // Resets the text.
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);

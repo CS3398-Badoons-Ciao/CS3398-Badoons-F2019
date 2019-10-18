@@ -5,15 +5,29 @@ plugins {
 }
 
 group 'badoons'
-version '1.0-SNAPSHOT'
+version 'V1.0'
 
 sourceCompatibility = 1.8
 
-compileJava.options.encoding = 'UTF-8'
+
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'main.Main'
+    }
+	destinationDir = file("$rootDir")
+    //baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
 
 repositories {
     mavenCentral()
@@ -36,7 +50,7 @@ sourceSets {
     main {
         resources {
             srcDirs = ["src/main/java"]
-            includes = ["**/*.fxml","**/*.css","**/*.PNG"]
+            includes = ["**/*.fxml","**/*.css","**/*.PNG","**/*.ser","**/*.txt"]
         }
     }
 }
