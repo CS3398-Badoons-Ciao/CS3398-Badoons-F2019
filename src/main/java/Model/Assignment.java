@@ -1,12 +1,15 @@
 package Model;
 
 import Interfaces.AssignmentInterface;
+import java.util.Date;
 
 public class Assignment implements AssignmentInterface, java.io.Serializable
 {
     private String name;
     private double potentialGrade;
     private double currentGrade;
+    private Date   dueDate;
+
 
     public Assignment(String name, double currentGrade , double potentialGrade)
     {
@@ -50,4 +53,9 @@ public class Assignment implements AssignmentInterface, java.io.Serializable
     {
         this.currentGrade = currentGrade;
     }
+
+    public void setDate(Date date){ dueDate = date; }
+
+    public Date getDate(){return dueDate; }
+
 }
