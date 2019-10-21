@@ -72,7 +72,7 @@ public class Main extends Application {
         ArrayList<Assignment> quizAssignments = new ArrayList<Assignment>();
         NumberFormat formatter = new DecimalFormat("#0.00");
         for (int i = 0; i < 8; ++i) {
-            Assignment a1 = new Assignment("Quiz " + i, 100, 90 + i);
+            Assignment a1 = new Assignment("Quiz " + i, 90 + i, 100);
             quizAssignments.add(a1);
         }
         Category quiz = new Category("Quiz", 0.20, quizAssignments);
