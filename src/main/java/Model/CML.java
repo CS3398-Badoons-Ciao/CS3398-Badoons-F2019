@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class CML {
 
     Model model;
-    Main main;
-    String[] args;
     Scanner console;
     Boolean running = false;
     Boolean mainCalled = false;
@@ -29,10 +27,8 @@ public class CML {
      * @param c The scanner from main
      * @param model A copy of model to be able to access its methods
      */
-    public CML(Scanner c, Model model, Main main, String[] args){
+    public CML(Scanner c, Model model){
         this.model = model;
-        this.main = main;
-        this.args = args;
         System.out.println("Starting up command line interface V1.0");
         System.out.println("Type \"help\" for help menu");
         System.out.println("----------------------------------------------------");
@@ -80,8 +76,8 @@ public class CML {
         n.add("DeleteAssignment *name                      Command not available to user, only showed to list parameters");
         n.add("");
         n.add("Test                                        Used for testing purpouses.");
-        n.add("ShowGUI          *CourseName                Shows the given course in the gui");
-        n.add("ShowTitleScreen                             Shows the login title screen");
+//        n.add("ShowGUI          *CourseName                Shows the given course in the gui");
+//        n.add("ShowTitleScreen                             Shows the login title screen");
         n.add("-");
         n.add("*'s are paramaters that the command can take in, to insure that it works correctly you must have a space between paramaters.");
 
@@ -152,8 +148,8 @@ public class CML {
 
 
                 case "test"             : test(); break;
-                case "showgui"          : showGUI(n); break;
-                case "showtitlescreen"  : showTitlescreen(n); break;
+//                case "showgui"          : showGUI(n); break;
+//                case "showtitlescreen"  : showTitlescreen(n); break;
                 default                 : System.out.println("Command not reconized"); break;
             }
         }catch (Exception e){
@@ -636,37 +632,37 @@ public class CML {
 
     }
 
-    public void showGUI(String[] n){
-        if (checkDefaults(n,2)){
-            if (!mainCalled){
-                if (model.checkCourseName(n[1])){
-                    System.out.println("Launching Gui with course: " + n[1]);
-                    Course c = model.findCourse(n[1]);
-                    mainCalled = true;
-                    //main.setCourse(c);
-                    //main.setStartMode(2);
-                    //main.launchGUI(args);
-                }else{
-                    System.out.println("Course not found");
-                }
-            }else{
-                System.out.println("These functions can only be called once.");
-            }
-
-        }
-    }
-
-    public void showTitlescreen(String[] n){
-        if(!mainCalled){
-            System.out.println("Displaying title screen");
-            mainCalled = true;
-            main.setStartMode(1);
-            main.launchGUI(args);
-        }else{
-            System.out.println("These functions can only be called once.");
-        }
-
-    }
+//    public void showGUI(String[] n){
+//        if (checkDefaults(n,2)){
+//            if (!mainCalled){
+//                if (model.checkCourseName(n[1])){
+//                    System.out.println("Launching Gui with course: " + n[1]);
+//                    Course c = model.findCourse(n[1]);
+//                    mainCalled = true;
+//                    //main.setCourse(c);
+//                    //main.setStartMode(2);
+//                    //main.launchGUI(args);
+//                }else{
+//                    System.out.println("Course not found");
+//                }
+//            }else{
+//                System.out.println("These functions can only be called once.");
+//            }
+//
+//        }
+//    }
+//
+//    public void showTitlescreen(String[] n){
+//        if(!mainCalled){
+//            System.out.println("Displaying title screen");
+//            mainCalled = true;
+//            main.setStartMode(1);
+//            main.launchGUI(args);
+//        }else{
+//            System.out.println("These functions can only be called once.");
+//        }
+//
+//    }
 
     /**
      * Given the grade value it returns a String of the grade in letter form

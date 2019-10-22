@@ -4,6 +4,7 @@ import Model.*;
 import GUI.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.util.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Main extends Application {
 
     public static Stage mainStage;
     public static MainGUI gui;
-    public static int startMode = 2; //0 = cl, 1 = Course Login, 2 = course scene
+    public static int startMode = 0; //0 = cl, 1 = Course Login, 2 = course scene
     public static Model model;
     public static Main program;
     public static Course testCourse;
@@ -62,8 +63,8 @@ public class Main extends Application {
     }
 
     private void startCML(){
-        //Scanner console = new Scanner(System.in);
-        //CML cml = new CML(console, model, main, args);
+        Scanner console = new Scanner(System.in);
+        CML cml = new CML(console, model);
     }
 
 
