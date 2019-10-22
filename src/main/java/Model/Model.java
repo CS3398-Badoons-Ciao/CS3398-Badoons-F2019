@@ -14,7 +14,7 @@ import java.util.*;
 public class Model
 {
     private Calculator calculator = new Calculator();
-    private DatabaseManager dbManager;
+    public DatabaseManager dbManager;
     public UserData user = null;
 
 
