@@ -20,12 +20,13 @@ public class Main extends Application {
     @Override
     public void start(Stage mainApp) throws Exception {
         gui = new MainGUI(); // GUI that contains each scene for our class.
-        //mainStage = new Stage();
+        model = new Model(); // Duplicate model that other GUI classes can access.
+        mainStage = new Stage(); // Duplicate stage that other GUI classes can access.
 
         if (startMode == 0){
             startCML();
         }else if (startMode == 1){
-            mainApp = new Stage();
+            mainApp = mainStage;
             mainApp.setTitle("Grade Manager"); // Sets the top bar to "Grade Manager"
             mainApp.setScene(gui.getTitleScene()); // Sets the window the title window, "titleScene"
             mainApp.show(); // Displays the current window.
