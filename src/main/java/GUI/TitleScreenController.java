@@ -47,4 +47,8 @@ public class TitleScreenController {
         }
 
     }
+
+    public void createAccount(ActionEvent e) {
+        Main.mainStage.setScene(Main.gui.getAccountCreationScene()); // Set the Scene to Account Creation.
+    }
 }

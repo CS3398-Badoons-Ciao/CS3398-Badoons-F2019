@@ -10,10 +10,7 @@ public class TitleScreen {
   private Scene sceneTitle; // Stores the titleScreen created by this class.
   
   public TitleScreen() throws IOException {
-    // This resolved my problem; check if this version breaks your build.
-    // My project now displays GUI correctly.
-    // JP
-    Parent root = FXMLLoader.load(getClass().getResource("sample.fxml")); // Loads the FXML
+    Parent root = FXMLLoader.load(getClass().getResource("titlescreen.fxml")); // Loads the FXML
     root.setId("AnchorPane"); // Sets the root of the CSS file. Used for the background image.
 
     // TitleScene Creation

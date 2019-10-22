@@ -21,6 +21,7 @@ public class MainGUI {
 
     private TitleScreen title;
     private CourseOverview catalogue;
+    private TitleAccountCreation accountcreation;
 
     /**
      * Constructs the main by calling the setGUI method.
@@ -36,6 +37,7 @@ public class MainGUI {
     private void setGUIS() throws IOException{
         title = new TitleScreen();
         catalogue = new CourseOverview();
+        accountcreation = new TitleAccountCreation();
     }
 
     /**
@@ -56,6 +58,15 @@ public class MainGUI {
             return catalogue.getScene();
         } catch (IOException e) {
             System.out.println("Error loading catalogue fxml" + e);
+        }
+        return null;
+    }
+
+    public Scene getAccountCreationScene() {
+        try {
+            return accountcreation.getScene();
+        } catch (IOException e) {
+            System.out.println("Error loading accountcreation.fxml");
         }
         return null;
     }
