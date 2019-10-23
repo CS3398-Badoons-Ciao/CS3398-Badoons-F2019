@@ -32,7 +32,23 @@ public class TitleAccountController {
 
         // Check if there already exists a username.
         // Might need to discuss with model how to get the DB.
-        if (Main.model.dbManager.checkUser(user) != -1) {
+//        if (Main.model.dbManager.checkUser(user) != -1) {
+//            Alert nameError = new Alert(Alert.AlertType.INFORMATION);
+//            nameError.setTitle("Duplicate Username");
+//            nameError.setHeaderText("Your username already exists.");
+//            nameError.showAndWait();
+//        } else if (!pass.equals(confirmPass)) { // Check if the passwords don't match, and then prompt the user.
+//            Alert nameError = new Alert(Alert.AlertType.INFORMATION);
+//            nameError.setTitle("Password Error");
+//            nameError.setHeaderText("Your confirmed password does not match the password you entered.");
+//            nameError.showAndWait();
+//        } else { // Create the account.
+//            Main.model.createNewUser(user, id, pass); // Create a user with the inputs.
+//            Main.model.login(id, pass);
+//            Main.mainStage.setScene(Main.gui.getCourseOverviewScene());
+//        }
+
+        if (Main.model.checkUser(id) != -1) {
             Alert nameError = new Alert(Alert.AlertType.INFORMATION);
             nameError.setTitle("Duplicate Username");
             nameError.setHeaderText("Your username already exists.");

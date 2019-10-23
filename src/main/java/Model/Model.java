@@ -14,7 +14,7 @@ import java.util.*;
 public class Model
 {
     private Calculator calculator = new Calculator();
-    public DatabaseManager dbManager;
+    private DatabaseManager dbManager;
     public UserData user = null;
 
 
@@ -31,12 +31,29 @@ public class Model
      * @param name The user name of the user, Note: no spaces are allowed use _
      * @param id The users id
      * @param password The users password
+     * @return 1 for success -1 for failar
      */
     public void createNewUser(String name, String id, String password){
-        user = new UserData(name,id,password);
-        dbManager.addUserListEntry(id + "|" + name);
-        saveUser();
+        if (checkUser(id) == -1){
+            user = new UserData(name,id,password);
+            dbManager.addUserListEntry(id + "|" + name);
+            saveUser();
+            System.out.println("New User " + id + " created.");
+        }else{
+            System.out.println("User " + id + " already exist.");
+        }
+
     }
+
+    /**
+     * Checks the given user id with the data base to see if its all ready used
+     * @param id The stirng id of the user
+     * @return A positve index of the user if found and -1 if the user is not found
+     */
+    public int checkUser(String id){
+        return dbManager.checkUser(id);
+    }
+
 
     /**
      * Given the correct parameters it logs a user in and loads in their data

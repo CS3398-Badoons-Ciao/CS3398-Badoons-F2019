@@ -13,7 +13,7 @@ public class Main extends Application {
 
     public static Stage mainStage;
     public static MainGUI gui;
-    public static int startMode = 0; //0 = cl, 1 = Course Login, 2 = course scene
+    public static int startMode = 1; //0 = cl, 1 = Course Login, 2 = course scene
     public static Model model;
     public static Main program;
     public static Course testCourse;
