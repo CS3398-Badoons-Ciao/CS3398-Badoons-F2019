@@ -223,6 +223,7 @@ public class CML {
 
     /**
      * Logs the current user out and saves their data to file
+     * @param n The String[] of parameters, no aruments should be passed
      */
     public void logout(String[] n){
         if(checkDefaults(n,1)){
@@ -540,7 +541,7 @@ public class CML {
      * @param fixedLength -1 for default, greater than or equal to 0 for a specifed width of the box
      */
     public void printBox(String[] n, int fixedLength){
-        //┌ ─ ┐ │ └ ─ ┘ ├ ┤
+        //
         //https://en.wikipedia.org/wiki/Box-drawing_character
         int longest = 0;
         int padding = 5;

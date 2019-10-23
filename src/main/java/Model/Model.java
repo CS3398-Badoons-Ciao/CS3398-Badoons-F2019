@@ -31,7 +31,6 @@ public class Model
      * @param name The user name of the user, Note: no spaces are allowed use _
      * @param id The users id
      * @param password The users password
-     * @return 1 for success -1 for failar
      */
     public void createNewUser(String name, String id, String password){
         if (checkUser(id) == -1){
