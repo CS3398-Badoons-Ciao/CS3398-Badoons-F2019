@@ -1,13 +1,9 @@
 package GUI;
 
 import Factory.AssignmentFactory;
-import Interfaces.AssignmentInterface;
-import Interfaces.CategoryInterface;
-import Interfaces.Listener;
-import Interfaces.Publisher;
+import Interfaces.*;
 import Model.Category;
 import Model.Course;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,12 +13,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.converter.DoubleStringConverter;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +37,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     private List<CategoryTable> categoryTables = new ArrayList<>();
     private ObservableList<String> dropDownListCategories;
+    CategoryCalculatorInterface categoryCalculator;
 
     // potential undo feature
     // stack would need assignment & category for entry - perhaps make class
@@ -49,8 +47,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
      * sets course and builds scene
       * @param course course for scene
      */
-    public CourseScene(Course course) {
+    public CourseScene(Course course, CategoryCalculatorInterface categoryCalculator) {
         this.course = course;
+        this.categoryCalculator = categoryCalculator;
         register(course);
         buildScene();
     }
@@ -71,7 +70,6 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         Menu menu = new Menu("Menu");
         MenuItem backItem = new MenuItem("Back");
         backItem.setOnAction(event -> {
-
         });
 
         menu.getItems().add(backItem);
@@ -140,6 +138,11 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                         categoryTable.getItems().add(AssignmentFactory.createAssignment(
                                 courseName, currentGrade, potentialGrade));
 
+                        String updatedCategoryGrade =
+                                String.valueOf(categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments()));
+
+                        categoryTable.gradeLabel.setText(updatedCategoryGrade);
+
                     } catch(Exception exception) {
                         System.out.println(exception.getMessage());
                     } // TODO handle pop-up bad format
@@ -171,7 +174,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
             Category newCategory = new Category(categoryNameText, categoryWeight);
             course.addCategory(newCategory);
-            CategoryTable newCategoryTable = buildCategoryTable(newCategory);
+            CategoryTable newCategoryTable = new CategoryTable(newCategory, categoryCalculator);
             categoryTables.add(newCategoryTable);
             categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
             dropDownListCategories.add(newCategory.getName());
@@ -183,115 +186,11 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         categoryMenu.getChildren().addAll(addCategoryName, addCategoryWeight, addCategoryBtn);
     }
 
-    // builds single category table
-    private CategoryTable buildCategoryTable(Category category) {
-        CategoryTable categoryTable = new CategoryTable(category);
-        categoryTable.setEditable(true);
-
-        // creates a name column
-        TableColumn<AssignmentInterface, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(100);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // property must match object
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameColumn.setOnEditCommit( event -> {
-            // TODO Ask Model developer to throw exceptions with bad input
-            try {
-                // this also updates the model
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
-            } catch(Exception e) {
-                // TODO catch specific exception related to bad input
-                // this updates table with data model if exception is caught
-                categoryTable.refresh();
-            }
-
-                /* DEBUG
-                System.out.println("Assignments in Observable List: ");
-                for (AssignmentInterface a : event.getTableView().getItems()) {
-                    System.out.println(a.getName());
-                }
-                System.out.println("Assignments in category (Model): ");
-                for (AssignmentInterface a : category.getAssignments()) {
-                    System.out.println(a.getName());
-                }
-                /* END DEBUG */
-        });
-
-        // creates a grade column
-        TableColumn<AssignmentInterface, Double> gradeColumn = new TableColumn<>("Grade");
-        gradeColumn.setMinWidth(100);
-        gradeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("currentGrade"));
-        gradeColumn.setOnEditCommit( event -> {
-            try {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).
-                        setCurrentGrade(event.getNewValue());
-            } catch(Exception e) {
-                // TODO catch specific exception related to bad input
-                // this updates table with data model if exception is caught
-                categoryTable.refresh();
-            }
-        });
-
-        // creates a potential grade column
-        TableColumn<AssignmentInterface, Double> potentialGradeColumn = new TableColumn<>("Potential Grade");
-        potentialGradeColumn.setMinWidth(100);
-        potentialGradeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        potentialGradeColumn.setCellValueFactory(new PropertyValueFactory<>("potentialGrade"));
-        potentialGradeColumn.setOnEditCommit( event -> {
-            try {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).
-                        setPotentialGrade(event.getNewValue());
-            } catch(Exception e) {
-                // TODO catch specific exception related to bad input
-                // this updates table with data model if exception is caught
-                categoryTable.refresh();
-            }
-        });
-
-        // delete assignment with delete key feature
-        categoryTable.setOnKeyPressed(keyEvent -> {
-            AssignmentInterface selectedAssignment = categoryTable.getSelectionModel().getSelectedItem();
-            if (selectedAssignment !=  null) {
-                if (keyEvent.getCode().equals(KeyCode.DELETE)) {
-                    // adds removed assignment to stack for undo feature
-                    // must also store category
-                    // deletedAssignments.push(selectedAssignment);
-
-                    // remove assignment from category (model)
-                    categoryTable.category.removeAssignment(selectedAssignment.getName());
-
-                    // delete from table
-                    categoryTable.getItems().remove(selectedAssignment);
-
-                }
-            }
-        });
-
-        categoryTable.getColumns().addAll(nameColumn, gradeColumn, potentialGradeColumn);
-        categoryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        // removes blank rows
-        categoryTable.setFixedCellSize(28);
-        categoryTable.prefHeightProperty().bind(
-                categoryTable.fixedCellSizeProperty().multiply(Bindings.size(categoryTable.getItems()).add(1.01)));
-        categoryTable.minHeightProperty().bind(categoryTable.prefHeightProperty());
-        categoryTable.maxHeightProperty().bind(categoryTable.prefHeightProperty());
-
-        // removes lines between rows
-        categoryTable.setStyle("-fx-table-cell-border-color: transparent; -fx-focus-color: transparent;");
-
-        //categoryTable.lookup("TableHeaderRow");
-        return categoryTable;
-
-    }
-
     // builds 'category tables' feature from categories
-    private void buildCategoryTables() {
-        ArrayList<Category> categories = course.getCategories();
-
-        for (Category category : categories) {
-            CategoryTable newCategoryTable = buildCategoryTable(category);
-            categoryTables.add(newCategoryTable);
+    private void buildCategories() {
+        for (Category category : course.getCategories()) {
+            CategoryTable categoryTable = new CategoryTable(category, categoryCalculator);
+            categoryTables.add(categoryTable);
         }
     }
 
@@ -300,7 +199,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         buildMenu();
         buildTitle();
         buildCategoryMenu();
-        buildCategoryTables();
+        buildCategories();
         buildAssignmentMenu();
 
         sceneLayout.setFillWidth(true);
@@ -331,38 +230,5 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
     }
 
-    class CategoryTable extends TableView<AssignmentInterface> {
-        CategoryInterface category;
-        ObservableList<AssignmentInterface> assignments = FXCollections.observableArrayList();
-        HBox titleLayout = new HBox();
-        TextField title;
-        VBox categoryTableLayout = new VBox();
 
-
-        CategoryTable(CategoryInterface category) {
-            this.category = category;
-            this.assignments.setAll(category.getAssignments());
-            setItems(assignments);
-            title = new TextField(category.getName());
-            title.focusedProperty().addListener(
-                    (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
-                        if (lostFocus) {
-                            category.setName(title.getText());
-                            System.out.println("Focus Lost");
-                        }
-                    });
-
-            title.setStyle(
-                    "-fx-text-box-border: transparent; " +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font-weight: bold; " +
-                    "-fx-font-size: 14pt; ");
-
-            titleLayout.getChildren().add(title);
-
-            categoryTableLayout.setPadding(new Insets(8,0,8,0));
-            categoryTableLayout.getChildren().add(titleLayout);
-            categoryTableLayout.getChildren().add(this);
-        }
-    }
 }

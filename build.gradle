@@ -55,10 +55,11 @@ sourceSets {
     }
 }
 
+/*
 run {
     standardInput = System.in
 }
-
+*/
 
 
 
