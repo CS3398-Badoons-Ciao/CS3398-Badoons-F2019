@@ -128,11 +128,34 @@ public class Model
         dbManager.removeUserListEntry("CW60|Charlie_Walker");
     }
 
+    /**
+     * Runs through the database of the current logged in user and updates and recalulateds all their grades
+     */
     public void cal(){
         ArrayList<Course> c = user.getPresentCourses();
         for (int i = 0; i < c.size(); i++) {
             c.get(i).setGrade(calculator.getCourseGrade(c.get(i))*100);
         }
+        user.setGPA(calculator.getGPAOverall(user.getPastCourses(),user.getPresentCourses()));
+    }
+
+    /**
+     * Given a grade value form 1-100 it returns a string letter grade
+     * (Example 100 = A)
+     * @param grade A double value of the users grade
+     * @return String of the users current grade
+     */
+    public String getGradeLetter(double grade){
+        if (grade >= 90.0)
+            return "A";
+        else if (grade >= 80.0)
+            return "B";
+        else if (grade >= 70.0)
+            return "C";
+        else if (grade >= 60.0)
+            return "F";
+        else
+            return "U";
     }
 
 
@@ -156,12 +179,21 @@ public class Model
 //            user.getId());
 //    }
 
+    /**
+     * Changes the name of the current logged in user, only call if a user is all ready logged in.
+     * @param n The string of the name you wish to change the to
+     */
     public void setName(String n){
         user.setName(n);
         dbManager.changeUserListEntry(user.getId() + "|" + user.getName());
         saveUser();
     }
 
+    /**
+     * Changes the password given the old password
+     * @param oldPS The previous password
+     * @param newPS The new password the user wishes the change it too
+     */
     public void setPassword(String oldPS, String newPS){
         if (oldPS.equals(newPS)){
             System.out.println("Passwords are the same, choose a diffrent password");
@@ -179,6 +211,10 @@ public class Model
         }
     }
 
+    /**
+     * Checks if a user is current logged in a returns a boolean
+     * @return Boolean if user is logged in in the model
+     */
     public boolean loggedIn(){
         if (user == null){
             return false;
@@ -186,6 +222,11 @@ public class Model
         return true;
     }
 
+    /**
+     * Given the string of the curse name it will return that course object
+     * @param name String name of the course
+     * @return Course object matching the name given if found, if not found a null is returned
+     */
     public Course findCourse(String name){
         ArrayList<Course> courses = user.getPresentCourses();
         for (int i = 0; i < courses.size(); i++){
@@ -196,6 +237,12 @@ public class Model
         return null;
     }
 
+    /**
+     * Given both the course and the category it returns the category object with that name
+     * @param courseName Stirng of the course name
+     * @param categoryName String of the category name
+     * @return The catagory object from the given name, if not found returns a null
+     */
     public Category findCategory(String courseName, String categoryName){
         Course course =  findCourse((courseName));
         ArrayList<Category> categories = course.getCategories();
@@ -206,7 +253,13 @@ public class Model
         }
         return null;
     }
-
+    /**
+     * Given the course, category and assignment it returns the assignment object with that name
+     * @param courseName Stirng of the course name
+     * @param categoryName String of the category name
+     * @param assignmentName String of the assignment name
+     * @return The assignment object from the given name, if not found returns a null
+     */
     public Assignment findAssignment(String courseName, String categoryName, String assignmentName){
         Category category = findCategory(courseName,categoryName);
         ArrayList<Assignment> assignments = category.getAssignments();
@@ -218,6 +271,11 @@ public class Model
         return null;
     }
 
+    /**
+     * Returns a boolean if a given course name is in the users database
+     * @param name Stirng of the course name
+     * @return Boolean if the object appears in the list
+     */
     public boolean checkCourseName(String name){
         ArrayList<Course> courses = user.getPresentCourses();
         for (int i = 0; i < courses.size(); i++){
@@ -227,7 +285,12 @@ public class Model
         }
         return false;
     }
-
+    /**
+     * Returns a boolean if a given catagory name is in the users database
+     * @param courseName Stirng of the course name
+     * @param categoryName String of the category name
+     * @return Boolean if the object appears in the list
+     */
     public boolean chcekCatagoryName(String courseName, String categoryName){
         Course course =  findCourse((courseName));
         ArrayList<Category> categories = course.getCategories();
@@ -238,6 +301,13 @@ public class Model
         }
         return false;
     }
+    /**
+     * Returns a boolean if a given assignment name is in the users database
+     * @param courseName Stirng of the course name
+     * @param categoryName String of the category name
+     * @param assignmentName String of the assignment name
+     * @return Boolean if the object appears in the list
+     */
     public boolean checkAssignmentName(String courseName, String categoryName, String assignmentName){
         Category category = findCategory(courseName,categoryName);
         ArrayList<Assignment> assignments = category.getAssignments();
@@ -249,19 +319,32 @@ public class Model
         return false;
     }
 
+    /**
+     * Given the sting name of the course it deletes it from the data base and every thing under it.
+     * @param n Stirng name of the desired object you wish to delete
+     */
     public void deleteCourse(String n){
         Course c = findCourse(n);
         user.removeCourse(user.getPresentCourses().indexOf(c));
         System.out.println("Course has been deleted");
     }
-
+    /**
+     * Given the sting name of the category it deletes it from the data base and every thing under it.
+     * @param course Stirng of the course
+     * @param n Stirng name of the desired object you wish to delete
+     */
     public void deleteCategory(String course, String n){
         Category c = findCategory(course,n);
         findCourse(course).removeCategory(findCourse(course).getCategories().indexOf(c));
         System.out.println("Catagory has been removed");
     }
-
-    public void deleteAssiginment(String course, String catagory, String n){
+    /**
+     * Given the sting name of the assignment it deletes it from the data base and every thing under it.
+     * @param course Stirng of the course
+     * @param catagory Stirng of the catagory
+     * @param n Stirng name of the desired object you wish to delete
+     */
+    public void deleteAssignment(String course, String catagory, String n){
         Assignment a = findAssignment(course,catagory,n);
         findCategory(course,catagory).removeAssignment(findCategory(course,catagory).getAssignments().indexOf(a));
         System.out.println("Assignment has been removed");
@@ -273,10 +356,10 @@ public class Model
     //getGPA
 
     //-----------------------------------------------------------------------------------------------------------------
-    public void update(){
 
-    }
-
+    /**
+     * Logs the user out saves data to file and exit(0)'s the program
+     */
     public void safeShutDown(){
         if (loggedIn()){
             saveUser();
