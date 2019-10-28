@@ -47,7 +47,7 @@ public class CML {
     /**
      * Prints out a list of avaliable help commands
      */
-    public void help(){
+    private void help(){
         ArrayList<String> n = new ArrayList<String>();
         n.add("List of help commands");
         n.add("-");
@@ -70,7 +70,7 @@ public class CML {
         n.add("Edit             *Arguments                 This is a short cut that delets and replaces the old object in one command.");
         n.add("AddCourse        *name *school              Command not available to user, only showed to list parameters");
         n.add("Addcategory      *name *weight              Command not available to user, only showed to list parameters");
-        n.add("AddAssginment    *name *grade *potential    Command not available to user, only showed to list parameters");
+        n.add("AddAssignment    *name *grade *potential    Command not available to user, only showed to list parameters");
         n.add("DeleteCourse     *name                      Command not available to user, only showed to list parameters");
         n.add("DeleteCategory   *name                      Command not available to user, only showed to list parameters");
         n.add("DeleteAssignment *name                      Command not available to user, only showed to list parameters");
@@ -87,7 +87,7 @@ public class CML {
     /**
      * The main loop that confines asking the user for commands unless stopped
      */
-    public void loop(){
+    private void loop(){
         while (running){
             if(console.hasNextLine()) {
                 decode(takeParameters(console.nextLine()));
@@ -100,7 +100,7 @@ public class CML {
      * @param n The listed command
      * @return A String[] of command parameters
      */
-    public String[] takeParameters(String n){
+    private String[] takeParameters(String n){
         return(n.split("\\s+", 0));
     }
 
@@ -108,7 +108,7 @@ public class CML {
      * Runs a given command from with in the command line class, used for testing fuctions quickly
      * @param n The string usally passed to the system via Systm.in
      */
-    public void runCommand(String n){
+    private void runCommand(String n){
         System.err.println(n);
         decode(takeParameters(n));
     }
@@ -117,7 +117,7 @@ public class CML {
      * Decodes the given command and calls the corresponding faction
      * @param n The String[] of the command and its parameters
      */
-    public void decode(String[] n){
+    private void decode(String[] n){
         try {
             switch(n[0].toLowerCase()){
                 case "help"             : help(); break;
@@ -135,12 +135,12 @@ public class CML {
 
                 case "dashboard"        :  displayDashboard(); break;
 
-//                case "addcourse"        : addCourse(n); break;
-//                case "addcategory"      : addCategory(n); break;
-//                case "addassignment"   : addAssginments(n); break;
-//                case "deletecourse"     : deleteCourse(n); break;
-//                case "deletecategory"   : deleteCategory(n); break;
-//                case "deleteassignment" : deleteAssiginment(n); break;
+                case "addcourse"        : addCourse(n); break;
+                case "addcategory"      : addCategory(n); break;
+                case "addassignment"    : addAssignments(n); break;
+                case "deletecourse"     : deleteCourse(n); break;
+                case "deletecategory"   : deleteCategory(n); break;
+                case "deleteassignment" : deleteAssignment(n); break;
 
                 case "add"              : add(n); break;
                 case "delete"           : delete(n); break;
@@ -161,7 +161,7 @@ public class CML {
     /**
      * Stops the command line and exit(0) the program
      */
-    public void stop(){
+    private void stop(){
         System.out.println("Quiting Command line...");
         running = false;
         model.safeShutDown();
@@ -171,7 +171,7 @@ public class CML {
      * Creates a new user
      * @param n The String[] *name *id *password
      */
-    public void createNewUser(String[] n){
+    private void createNewUser(String[] n){
         if (n.length != 4){
             System.out.println("Invalid Number of arguments");
         }else{
@@ -183,7 +183,7 @@ public class CML {
      * Deletes the current user given the correct password
      * @param n The String[] *command *password
      */
-    public void deleteUser(String[] n){
+    private void deleteUser(String[] n){
         if (checkDefaults(n,2)){
             model.deleteCurrentUser(n[1]);
         }
@@ -193,7 +193,7 @@ public class CML {
      * Changes the name of the current user
      * @param n The String[] *command *new name
      */
-    public void changeName(String[] n){
+    private void changeName(String[] n){
         if (checkDefaults(n,2)){
             model.setName(n[1]);
         }
@@ -203,7 +203,7 @@ public class CML {
      * Changes the users currnt password
      * @param n The String[] *command *old passwrod *new password
      */
-    public void changePassword(String [] n){
+    private void changePassword(String [] n){
         if (checkDefaults(n,3)){
             model.setPassword(n[1],n[2]);
         }
@@ -213,7 +213,7 @@ public class CML {
      * Logs in the user given the correct credential
      * @param n The String[] *command *id *password
      */
-    public void login(String[] n){
+    private void login(String[] n){
         if (n.length != 3){
             System.out.println("Invalid Number of arguments");
         }else{
@@ -225,7 +225,7 @@ public class CML {
      * Logs the current user out and saves their data to file
      * @param n The String[] of parameters, no aruments should be passed
      */
-    public void logout(String[] n){
+    private void logout(String[] n){
         if(checkDefaults(n,1)){
             model.saveUser();
             model.user = null;
@@ -237,7 +237,7 @@ public class CML {
      * Works like a linx ls command to truvers directories
      * @param n Has no function, is only given by default
      */
-    public void ls(String[] n){
+    private void ls(String[] n){
         if(checkDefaults(n,1)){
             if (course_s == null){
                 ArrayList<Course> c = model.user.getPresentCourses();
@@ -277,7 +277,7 @@ public class CML {
      * Works like a linx cd command to truvers directories
      * @param n The String[] *file path
      */
-    public void cd(String[] n){
+    private void cd(String[] n){
         if (model.loggedIn()){
             if (n[1].equals("root")){
                 course_s = null;
@@ -339,7 +339,7 @@ public class CML {
     /**
      * Displays the current users dash board and all needed info
      */
-    public void displayDashboard() {
+    private void displayDashboard() {
         if (model.loggedIn()){
             model.cal();
             ArrayList<String> n = new ArrayList<String>();
@@ -349,7 +349,7 @@ public class CML {
             n.add(model.user.getPresentCourses().size() + " active courses detected");
             //n.add("Grades and stuff would go down here");
             printBox(n.toArray(new String[n.size()]),0);
-
+            System.out.println("Current GPA: " + model.user.getGPA());
             displayGrades(n);
         }else{
             System.out.println("No user logged in");
@@ -357,14 +357,14 @@ public class CML {
 
     }
 
-    public void displayGrades(ArrayList<String> n){
+    private void displayGrades(ArrayList<String> n){
         int numOfCorses = model.user.getPresentCourses().size();
         for (int i = 0; i < numOfCorses; i++){
             Course course = model.user.getPresentCourses().get(i);
             int numOfCatagories = course.getCategories().size();
 
             System.out.println("\n");
-            System.out.println("\nCorse: " + course.getName() + "\t\t\tGrade: " + String.format("%.2f", course.getGrade()) + " (" + getGradeLetter(course.getGrade()) + ")");
+            System.out.println("\nCorse: " + course.getName() + "\t\t\tGrade: " + String.format("%.2f", course.getGrade()) + " (" + model.getGradeLetter(course.getGrade()) + ")");
             System.out.println("-------------------------------------------------------------------------------");
             System.out.println("| Credit Hours: " + course.getCreditHours() + "\tSchool: " + course.getSchool().getName());
             System.out.println("-------------------------------------------------------------------------------");
@@ -382,7 +382,7 @@ public class CML {
         }
     }
 
-    public void addCourse(String[] n){
+    private void addCourse(String[] n){
         if (checkDefaults(n,3)) {
             if (course_s == null) {
                 if (checkDefaults(n, 3)) {
@@ -397,7 +397,7 @@ public class CML {
 
     }
 
-    public void addCategory(String[] n){
+    private void addCategory(String[] n){
         if (checkDefaults(n,3)){
             if (course_s != null){
                 Course course = model.findCourse(course_s);
@@ -413,7 +413,7 @@ public class CML {
         }
     }
 
-    public void addAssginments(String[] n){
+    private void addAssignments(String[] n){
         if(checkDefaults(n, 4)){
             if (course_s != null){
                 if (catagory_s != null){
@@ -433,7 +433,7 @@ public class CML {
         }
     }
 
-    public void deleteCourse(String[] n){
+    private void deleteCourse(String[] n){
         if (model.loggedIn()){
             if (model.checkCourseName(n[1])){
                 model.deleteCourse(n[1]);
@@ -441,7 +441,7 @@ public class CML {
         }
     }
 
-    public void deleteCategory(String[] n){
+    private void deleteCategory(String[] n){
         if (model.loggedIn()){
             if (model.chcekCatagoryName(course_s,n[1])){
                 model.deleteCategory(course_s,n[1]);
@@ -449,35 +449,35 @@ public class CML {
         }
     }
 
-    public void deleteAssiginment(String[] n){
+    private void deleteAssignment(String[] n){
         if (model.loggedIn()){
             if (model.checkAssignmentName(course_s,catagory_s,n[1])){
-                model.deleteAssiginment(course_s,catagory_s,n[1]);
+                model.deleteAssignment(course_s,catagory_s,n[1]);
             }
         }
     }
 
-    public void add(String[] n){
+    private void add(String[] n){
         if (course_s == null){
             addCourse(n);
         }else if(catagory_s == null){
             addCategory(n);
         }else{
-            addAssginments(n);
+            addAssignments(n);
         }
     }
 
-    public void delete(String[] n){
+    private void delete(String[] n){
         if (course_s == null){
             deleteCourse(n);
         }else if(catagory_s == null){
             deleteCategory(n);
         }else{
-            deleteAssiginment(n);
+            deleteAssignment(n);
         }
     }
 
-    public void edit(String[] n){
+    private void edit(String[] n){
         if (course_s == null){
             deleteCourse(n);
             addCourse(n);
@@ -485,13 +485,13 @@ public class CML {
             deleteCategory(n);
             addCategory(n);
         }else{
-            deleteAssiginment(n);
-            addAssginments(n);
+            deleteAssignment(n);
+            addAssignments(n);
         }
     }
 
 
-    public boolean checkCourse(Course c){
+    private boolean checkCourse(Course c){
         if (c == null){
             System.out.println("A course with that name was not found.");
             return false;
@@ -499,7 +499,7 @@ public class CML {
         return true;
     }
 
-    public boolean checkCatagory(Category c){
+    private boolean checkCatagory(Category c){
         if (c == null){
             System.out.println("A course with that name was not found.");
             return false;
@@ -508,13 +508,13 @@ public class CML {
     }
 
 
-    public void defaultFunction(String[] n){
+    private void defaultFunction(String[] n){
         if (checkDefaults(n,3)){
             //Your code goes here
         }
     }
 
-    public boolean checkDefaults(String[] n, int numOfArguments){
+    private boolean checkDefaults(String[] n, int numOfArguments){
         if (model.loggedIn()){
             if (n.length != numOfArguments){
                 System.out.println("Invalid Number of arguments");
@@ -540,7 +540,7 @@ public class CML {
      * @param n A string[] of text to be decorated
      * @param fixedLength -1 for default, greater than or equal to 0 for a specifed width of the box
      */
-    public void printBox(String[] n, int fixedLength){
+    private void printBox(String[] n, int fixedLength){
         //
         //https://en.wikipedia.org/wiki/Box-drawing_character
         int longest = 0;
@@ -600,7 +600,7 @@ public class CML {
     /**
      * A test function only to be called by the CML for devolment
      */
-    public void test(){
+    private void test(){
         System.out.println("Starting test Function");
         //model.test();
         //runCommand("Login bkh60 500946");
@@ -608,24 +608,24 @@ public class CML {
         runCommand("cd Math");
         runCommand("addCategory Dailey_Assignments 0.3");
         runCommand("cd Dailey_Assignments");
-        runCommand("addAssginments Quiz_1 30 30");
-        runCommand("addAssginments Quiz_2 30 30");
+        runCommand("add Quiz_1 30 30");
+        runCommand("add Quiz_2 30 30");
         runCommand("cd ..");
         runCommand("addCategory Test 0.7");
         runCommand("cd Test");
-        runCommand("addAssginments Test_1 100 100");
+        runCommand("add Test_1 100 100");
 
         runCommand("cd root");
         runCommand("addCourse Science TxState");
         runCommand("cd Science");
         runCommand("addCategory Dailey_Assignments 0.3");
         runCommand("cd Dailey_Assignments");
-        runCommand("addAssginments Quiz_1 20 30");
-        runCommand("addAssginments Quiz_2 5 30");
+        runCommand("add Quiz_1 20 30");
+        runCommand("add Quiz_2 5 30");
         runCommand("cd ..");
         runCommand("addCategory Test 0.7");
         runCommand("cd Test");
-        runCommand("addAssginments Test_1 70 100");
+        runCommand("add Test_1 70 100");
 
 
         runCommand("dashboard");
@@ -665,21 +665,5 @@ public class CML {
 //
 //    }
 
-    /**
-     * Given the grade value it returns a String of the grade in letter form
-     * @param grade The grade of the Course
-     * @return A string char of the grade value
-     */
-    public String getGradeLetter(double grade){
-        if (grade >= 90.0)
-            return "A";
-        else if (grade >= 80.0)
-            return "B";
-        else if (grade >= 70.0)
-            return "C";
-        else if (grade >= 60.0)
-            return "F";
-        else
-            return "U";
-    }
+
 }
