@@ -9,6 +9,4 @@ public interface CategoryCalculatorInterface {
     int getGradePoints(double grade);
     double getCategoryGrade(ArrayList<Assignment> assign);
     double getCourseGrade(Course c);
-    double getGradeImportance(Course c, Assignment a);
-
 }

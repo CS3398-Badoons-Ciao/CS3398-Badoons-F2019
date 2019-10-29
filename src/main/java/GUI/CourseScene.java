@@ -23,25 +23,59 @@ import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
+/**
+ * Scene for displaying a Course
+ */
 public class CourseScene implements Listener, EventHandler<ActionEvent> {
+    /** This Class represents a single Course **/
     private Course course;
+
+    /** Scene for Stage */
     private Scene scene;
+
+    /** 'scroll bar' feature */
+    ScrollPane scrollPane = new ScrollPane();
+
+    /** root layout */
     private VBox sceneLayout = new VBox();
+
+    /** 'Menu Bar' feature */
     private MenuBar menuBar = new MenuBar();
+
+    /** root layout for scene title */
     private HBox titleLayout = new HBox();
-    private HBox assignmentMenuLayout = new HBox();
-    private ComboBox assignmentMenuDropDown = new ComboBox();
-    private HBox categoryMenu =  new HBox();
+
+    /** root layout for 'add assignment' feature */
+    private BoxSplitLayout addAssignmentLayout = new BoxSplitLayout();
+
+    /** child Node for 'add assignment' feature */
+    private ComboBox<String> addAssignmentDropDown = new ComboBox<>();
+
+    /** root layout for 'add category' feature */
+    private BoxSplitLayout addCategoryLayout =  new BoxSplitLayout();
+
+    /** root layout for 'remove category' feature */
+    private BoxSplitLayout removeCategoryLayout = new BoxSplitLayout();
+
+    /** child Node for 'remove category' feature */
+    private ComboBox<String> removeCategoryDropDown = new ComboBox<>();
+
+    /** root layout for 'category tables' feature */
     private VBox categoryTablesLayout = new VBox();
 
+    /** List of CategoryTable, one-to-one relationship for all categories in Course */
     private List<CategoryTable> categoryTables = new ArrayList<>();
+
+    /** ObservableList stores all Course Category for use in any drop down list */
     private ObservableList<String> dropDownListCategories;
+
+    /** a grade calculator injected dependency */
     CategoryCalculatorInterface categoryCalculator;
 
-    // potential undo feature
-    // stack would need assignment & category for entry - perhaps make class
-    // private Stack<AssignmentInterface> deletedAssignments = new Stack<AssignmentInterface>();
+    // potential undo feature for assignments, stack could hold maps, key = assignment, value = category)
+    // private Stack<Map> deletedAssignments = new Stack<AssignmentInterface>();
 
     /**
      * sets course and builds scene
@@ -98,19 +132,23 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         titleLayout.setAlignment(Pos.CENTER);
     }
 
-    // builds 'add assignment'feature
-    private void buildAssignmentMenu() {
-        dropDownListCategories = FXCollections.observableArrayList();
-        for (CategoryTable categoryTable : categoryTables) {
-            dropDownListCategories.add(categoryTable.category.getName());
+    private void buildAddAssignmentLayout() {
+        addAssignmentLayout.headLabel.setText("Add Assignment");
+
+        // creates addAssignmentBodyLayout
+        if (dropDownListCategories == null) {
+            dropDownListCategories = FXCollections.observableArrayList();
+            for (CategoryInterface category : course.getCategories()) {
+                dropDownListCategories.add(category.getName());
+            }
         }
 
-        assignmentMenuDropDown = new ComboBox(dropDownListCategories);
-        assignmentMenuDropDown.setOnAction(event -> {
+        addAssignmentDropDown = new ComboBox<>(dropDownListCategories);
+        addAssignmentDropDown.setOnAction(event -> {
             // TODO highlight table to add course to
         });
 
-        assignmentMenuDropDown.setPromptText("Category");
+        addAssignmentDropDown.setPromptText("Category");
 
         final TextField addCourseName = new TextField();
         addCourseName.setPromptText("Course Name");
@@ -124,7 +162,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         final Button addAssignmentBtn = new Button("+");
         addAssignmentBtn.setOnAction(addEvent -> {
             for (CategoryTable categoryTable : categoryTables) {
-                if (categoryTable.category.getName() == assignmentMenuDropDown.getValue()) {
+                if (categoryTable.category.getName().equals(addAssignmentDropDown.getValue())) {
                     try {
                         String courseName = addCourseName.getText();
                         double currentGrade = Double.parseDouble(addCurrentGrade.getText());
@@ -154,13 +192,13 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
             addPotentialGrade.clear();
         });
 
-        assignmentMenuLayout.getChildren().addAll(
-                assignmentMenuDropDown, addCourseName, addCurrentGrade, addPotentialGrade, addAssignmentBtn);
-        assignmentMenuLayout.setSpacing(3);
+        addAssignmentLayout.bodyLayout.getChildren().addAll(
+                addAssignmentDropDown, addCourseName, addCurrentGrade, addPotentialGrade, addAssignmentBtn);
     }
 
-    // builds category menu
-    private void buildCategoryMenu() {
+    private void buildAddCategoryLayout() {
+        addCategoryLayout.headLabel.setText("Add Category");
+
         final TextField addCategoryName = new TextField();
         addCategoryName.setPromptText("Category Name");
 
@@ -168,25 +206,88 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         addCategoryWeight.setPromptText("Category Weight");
 
         final Button addCategoryBtn = new Button("+");
+
+        /*
+         * handles button press for adding a category
+         */
         addCategoryBtn.setOnAction(event -> {
             String categoryNameText = addCategoryName.getText();
             double categoryWeight = Double.valueOf(addCategoryWeight.getText());
 
+            // creates new Category
             Category newCategory = new Category(categoryNameText, categoryWeight);
+
+            // adds Category to Course
             course.addCategory(newCategory);
+
+            // builds new CategoryTable Node for Scene
             CategoryTable newCategoryTable = new CategoryTable(newCategory, categoryCalculator);
+
+            // adds Node to collection of all CategoryTable Node
             categoryTables.add(newCategoryTable);
+
+            // adds (appends) the child CategoryTableLayout to parent CategoryTableslayout
             categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
+
+            // adds Category to Observable drop down list; multiple ComboBox listeners to list.
             dropDownListCategories.add(newCategory.getName());
 
             addCategoryName.clear();
             addCategoryWeight.clear();
         });
 
-        categoryMenu.getChildren().addAll(addCategoryName, addCategoryWeight, addCategoryBtn);
+        addCategoryLayout.bodyLayout.getChildren().addAll(addCategoryName, addCategoryWeight, addCategoryBtn);
     }
 
-    // builds 'category tables' feature from categories
+    private void buildCategoryRemoveLayout() {
+        removeCategoryLayout.headLabel.setText("Remove Category");
+
+        if (dropDownListCategories == null) {
+            dropDownListCategories = FXCollections.observableArrayList();
+            for (CategoryInterface category : course.getCategories()) {
+                dropDownListCategories.add(category.getName());
+            }
+        }
+
+        removeCategoryDropDown = new ComboBox<>(dropDownListCategories);
+        removeCategoryDropDown.setPromptText("Category");
+        removeCategoryDropDown.setOnAction(event -> {
+        });
+
+        final Button removeCategoryBtn = new Button("-");
+
+        /*
+         * handles button for removing a Category
+         */
+        removeCategoryBtn.setOnAction(event -> {
+            CategoryTable categoryTableToRemove = null;
+            for (CategoryTable categoryTable : categoryTables) {
+                if (categoryTable.category.getName() == removeCategoryDropDown.getValue()) {
+                    categoryTableToRemove = categoryTable;
+                    break;
+                }
+            }
+
+            if (categoryTableToRemove != null) {
+                // removes Category from Course
+                course.removeCategory(categoryTableToRemove.category);
+
+                // removes Category from ObservableList for representing categories ComboBox
+                boolean found = dropDownListCategories.remove(categoryTableToRemove.category.getName());
+
+                // removes Category from list of CategoryTable
+                categoryTables.remove(categoryTableToRemove);
+
+                // removes CategoryTable from Scene
+                categoryTablesLayout.getChildren().remove(categoryTableToRemove);
+                categoryTablesLayout.getChildren().remove(categoryTableToRemove.categoryTableLayout);
+                }
+        });
+
+        removeCategoryLayout.bodyLayout.getChildren().addAll(removeCategoryDropDown, removeCategoryBtn);
+    }
+
+
     private void buildCategories() {
         for (Category category : course.getCategories()) {
             CategoryTable categoryTable = new CategoryTable(category, categoryCalculator);
@@ -194,21 +295,23 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         }
     }
 
-    // adds layouts to scene
+    /**
+     * builds and adds Nodes to Scene
+     */
     private void buildScene() {
         buildMenu();
         buildTitle();
-        buildCategoryMenu();
+        buildAddCategoryLayout();
+        buildCategoryRemoveLayout();
         buildCategories();
-        buildAssignmentMenu();
+        buildAddAssignmentLayout();
 
         sceneLayout.setFillWidth(true);
         sceneLayout.setSpacing(20);
         sceneLayout.setPadding(new Insets(5, 35, 35, 35));
 
-        // adds components to scene layout
         sceneLayout.getChildren().addAll
-                (menuBar, titleLayout, assignmentMenuLayout, categoryMenu);
+                (menuBar, titleLayout, addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
 
         for (CategoryTable categoryTable : categoryTables) {
             categoryTablesLayout.getChildren().add(categoryTable.categoryTableLayout);
@@ -216,8 +319,6 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         sceneLayout.getChildren().add(categoryTablesLayout);
 
-        // adds scrollbar for sceneLayout
-        ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(sceneLayout);
         scrollPane.setPannable(true);
         scrollPane.fitToWidthProperty().set(true);
@@ -229,6 +330,5 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
     }
-
 
 }

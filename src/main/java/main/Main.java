@@ -81,15 +81,15 @@ public class Main extends Application {
 
         // Test
         ArrayList<Assignment> testAssignments = new ArrayList<Assignment>();
-        Assignment b1 = new Assignment("Test 1", 100, 100);
-        Assignment b2 = new Assignment("Test 2", 96, 92);
+        Assignment b1 = new Assignment("Test 1", 90, 100);
+        Assignment b2 = new Assignment("Test 2", 80, 90);
         testAssignments.add(b1);
         testAssignments.add(b2);
         Category test = new Category("Test", 0.40, testAssignments);
 
         // Project
         ArrayList<Assignment> projectAssignments = new ArrayList<Assignment>();
-        Assignment c1 = new Assignment("Project 1", 99, 85);
+        Assignment c1 = new Assignment("Project 1", 99, 99);
         projectAssignments.add(c1);
         Category project = new Category("Project", 0.40, projectAssignments);
 
