@@ -19,10 +19,15 @@ public class List{
     for (int i = 0; i < courses.size(); i++)
       for (int j = 0; j < courses.get(i).getCategories().size(); j++)
         for (int k = 0; k < courses.get(i).getCategories().get(j).getAssignments().size(); k++)
-          if (courses.get(i).getCategories().get(j).getAssignments().get(k).getDate() != null)
+          if (courses.get(i).getCategories().get(j).getAssignments().get(k).getDate() != null){
+            dueDate = courses.get(i).getCategories().get(j).getAssignments().get(k).getDate();
+            courses.get(i).getCategories().get(j).getAssignments().get(k).setIsPast(pastDue());
             assignmentList.add(courses.get(i).getCategories().get(j).getAssignments().get(k));
+          }
   }
-  public void pastDue() throws ParseException{
+  //Needs isPast value in Assignments.
+  
+/*  public boolean pastDue() throws ParseException{
     currentDate = new Date();
     if (dueDate.after(currentDate)) {
       isPast = true;
@@ -30,5 +35,7 @@ public class List{
     else if (dueDate.equals(currentDate)) {
       isPast = true;
     }
+    return isPast;
   }
+  */
 }
