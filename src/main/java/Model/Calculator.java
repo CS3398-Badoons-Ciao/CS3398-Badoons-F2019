@@ -1,9 +1,11 @@
 package Model;
 
+import Interfaces.CategoryCalculatorInterface;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class Calculator
+public class Calculator implements CategoryCalculatorInterface
 {
     public Calculator()
     {
@@ -80,7 +82,7 @@ public class Calculator
     }
 
     
-    public double getCatagoryGrade(ArrayList<Assignment> assign){
+    public double getCategoryGrade(ArrayList<Assignment> assign){
       double[] n = new double[assign.size()];
       for (int i = 0; i < assign.size(); i++){
         n[i] = (assign.get(i).getCurrentGrade() / assign.get(i).getPotentialGrade());
@@ -92,7 +94,7 @@ public class Calculator
       ArrayList<Category> categories = c.getCategories();
       double currentSum = 0;
       for (int i = 0; i < categories.size(); i++){
-        currentSum += getCatagoryGrade((categories.get(i).getAssignments())) *  categories.get(i).getWeight();
+        currentSum += getCategoryGrade((categories.get(i).getAssignments())) *  categories.get(i).getWeight();
       }
       return(currentSum);
     }

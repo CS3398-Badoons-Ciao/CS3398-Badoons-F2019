@@ -85,6 +85,15 @@ public class Course implements Publisher, java.io.Serializable
         categories.remove(i);
     }
 
+    /**
+     * removes a category from the categories collection
+     * @param c Category to remove from the collection
+     */
+    public void removeCategory(CategoryInterface c) {
+        categories.remove(c);
+        notifyChanged();
+    }
+
     public void setCategories(ArrayList<Category> categories)
     {
         this.categories = categories;
