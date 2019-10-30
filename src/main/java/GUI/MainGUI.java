@@ -1,5 +1,7 @@
 package GUI;
 
+import Interfaces.CategoryCalculatorInterface;
+import Model.Course;
 import com.sun.javafx.iio.ios.IosDescriptor;
 import javafx.application.*;
 import javafx.event.*;
@@ -22,6 +24,7 @@ public class MainGUI {
     private TitleScreen title;
     private CourseOverview catalogue;
     private TitleAccountCreation accountcreation;
+    private CourseScene courseDisplay;
 
     /**
      * Constructs the main by calling the setGUI method.
@@ -38,6 +41,10 @@ public class MainGUI {
         title = new TitleScreen();
         catalogue = new CourseOverview();
         accountcreation = new TitleAccountCreation();
+    }
+
+    public void setCourse(Course c, CategoryCalculatorInterface ccI) {
+        courseDisplay = new CourseScene(c, ccI);
     }
 
     /**
@@ -69,5 +76,9 @@ public class MainGUI {
             System.out.println("Error loading accountcreation.fxml");
         }
         return null;
+    }
+
+    public Scene getCourseScene() {
+        return courseDisplay.getScene();
     }
 }
