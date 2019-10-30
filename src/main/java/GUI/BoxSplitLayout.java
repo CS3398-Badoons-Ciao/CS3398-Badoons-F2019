@@ -15,11 +15,11 @@ public class BoxSplitLayout extends VBox {
     public Label headLabel = new Label();
 
     /**
-     * a child layout for 'add assignment' feature
+     * child Layout for head
      */
     public HBox headLayout = new HBox();
     /**
-     * a child layout for 'add assignment' feature
+     * a child layout body
      */
     public HBox bodyLayout = new HBox();
 

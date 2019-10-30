@@ -41,7 +41,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         /** child header layout contains summary data for the Category */
         VBox headerLayout = new VBox();
 
-        /** child title layout for headerLayout */
+        /** child layout for headerLayout displays title */
         HBox titleLayout = new HBox();
 
         /** child layout for headerLayout displays Category Weight */

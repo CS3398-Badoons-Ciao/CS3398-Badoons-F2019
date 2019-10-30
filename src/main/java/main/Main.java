@@ -34,10 +34,12 @@ public class Main extends Application {
         }else if (startMode == 2){
             mainApp.setTitle("Grade Manager");
             Course testCourse = buildTestCourse();
-            mainApp.setScene((new CourseScene(testCourse, new Calculator())).getScene());
+            mainApp.setScene((new CourseScene(gui.getCourseOverviewScene(), testCourse, new Calculator())).getScene());
             mainApp.show();
         }
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

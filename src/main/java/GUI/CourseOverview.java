@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Course;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.stage.*;
@@ -21,10 +22,12 @@ public class CourseOverview {
 
         // TitleScene Creation
         sceneOverview = new Scene(root,900,640); // Creates the Scene, "the window" of our program
+
     }
 
     public Scene getScene() throws IOException {
         return sceneOverview;
     }
+
 
 }

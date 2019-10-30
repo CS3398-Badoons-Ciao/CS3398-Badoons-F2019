@@ -20,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,14 @@ import java.util.Observable;
  * Scene for displaying a Course
  */
 public class CourseScene implements Listener, EventHandler<ActionEvent> {
-    /** This Class represents a single Course **/
-    private Course course;
-
     /** Scene for Stage */
     private Scene scene;
+
+    /** The previous scene */
+    private Scene previousScene;
+
+    /** This Class represents a single Course **/
+    private Course course;
 
     /** 'scroll bar' feature */
     ScrollPane scrollPane = new ScrollPane();
@@ -81,7 +85,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
      * sets course and builds scene
       * @param course course for scene
      */
-    public CourseScene(Course course, CategoryCalculatorInterface categoryCalculator) {
+    public CourseScene(Scene previousScene, Course course, CategoryCalculatorInterface categoryCalculator) {
+        this.previousScene = previousScene;
         this.course = course;
         this.categoryCalculator = categoryCalculator;
         register(course);
@@ -104,6 +109,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         Menu menu = new Menu("Menu");
         MenuItem backItem = new MenuItem("Back");
         backItem.setOnAction(event -> {
+            ((Stage)scene.getWindow()).setScene(previousScene);
         });
 
         menu.getItems().add(backItem);
