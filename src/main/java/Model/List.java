@@ -2,40 +2,38 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-public class List{
-  private ArrayList<Assignment> assignmentList = new ArrayList<>();
+public class List {
+  private ArrayList<ListObject> assignmentList = new ArrayList<>();
+  private Assignment assignment;
   private Date dueDate, currentDate;
-  private boolean isPast = false;
   private Model model = null;
+  private boolean isPast = false;
+
+  ArrayList<Course> courses = model.user.getPastCourses();
 
   public List(Model model) {
     this.model = model;
-    //Code to look for what assignments have dates associated with them
-    //and add them to the assignments list.
-    ArrayList<Course> courses = model.user.getPastCourses();
     for (int i = 0; i < courses.size(); i++)
       for (int j = 0; j < courses.get(i).getCategories().size(); j++)
         for (int k = 0; k < courses.get(i).getCategories().get(j).getAssignments().size(); k++)
           if (courses.get(i).getCategories().get(j).getAssignments().get(k).getDate() != null){
-            dueDate = courses.get(i).getCategories().get(j).getAssignments().get(k).getDate();
-            courses.get(i).getCategories().get(j).getAssignments().get(k).setIsPast(pastDue());
-            assignmentList.add(courses.get(i).getCategories().get(j).getAssignments().get(k));
+            assignmentList.add(new ListObject(courses.get(i).getCategories().get(j).getAssignments().get(k)));
           }
   }
-  //Needs isPast value in Assignments.
-  
-/*  public boolean pastDue() throws ParseException{
+  public void determineIsPastDue(){
+    for (int i = 0; i < assignmentList.size(); i++) {
+      dueDate = assignmentList.get(i).getAssignment().getDate();
+      assignmentList.get(i).setPastDue(pastDue(dueDate));
+    }
+  }
+  public boolean pastDue(Date dueDate) {
     currentDate = new Date();
-    if (dueDate.after(currentDate)) {
+    if (dueDate.after(currentDate) || dueDate.equals(currentDate))
       isPast = true;
-    }
-    else if (dueDate.equals(currentDate)) {
-      isPast = true;
-    }
     return isPast;
   }
-  */
+  public ArrayList getAssignmentList() {
+    return assignmentList;
+  }
 }

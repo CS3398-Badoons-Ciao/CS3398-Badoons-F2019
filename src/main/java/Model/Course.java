@@ -107,7 +107,7 @@ public class Course implements Publisher, java.io.Serializable
 
     public void setCreditHours(int creditHrs)
     {
-        this.creditHours = creditHours;
+        this.creditHours = creditHrs;
         notifyChanged();
     }
 
