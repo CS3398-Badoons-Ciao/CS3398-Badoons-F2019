@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Model;
 import main.*;
 
 import javafx.scene.text.Text;
@@ -13,9 +14,12 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 /**
- * TitleScreenController is the FXML controller of of the TitleScreen.
+ * TitleScreenController is the FXML controller of the TitleScreen
+ * fxml controller instantiation does not allow constructor parameters.
+ * Invariants (must call):  setModel(Model)
+ *                          setMainGUI(MainGUI)
  */
-public class TitleScreenController {
+public class TitleScreenController extends SceneController {
     @FXML
     private TextField loginField;
     @FXML
@@ -34,10 +38,10 @@ public class TitleScreenController {
         String login = loginField.getText();
         String password = passwordField.getText();
 
-        Main.model.login(login,password);
+        model.login(login,password);
 
-        if (Main.model.user != null) {
-            Main.mainStage.setScene(Main.gui.getCourseOverviewScene());
+        if (model.user != null) {
+            mainGUI.getPrimaryStage().setScene(mainGUI.getCourseOverviewScene());
             passwordField.setText(""); // Resets the text.
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);
@@ -49,6 +53,6 @@ public class TitleScreenController {
     }
 
     public void createAccount(ActionEvent e) {
-        Main.mainStage.setScene(Main.gui.getAccountCreationScene()); // Set the Scene to Account Creation.
+        mainGUI.getPrimaryStage().setScene(mainGUI.getAccountCreationScene()); // Set the Scene to Account Creation.
     }
 }

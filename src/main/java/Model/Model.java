@@ -6,12 +6,14 @@ To do list:
 Finish deleteCurrentUser() needs to be able to delete files
  */
 
+import Interfaces.SaveUserInterface;
+
 import java.util.*;
 /**
  Model: The back end of EZGrader
  @author Bailey H.
  */
-public class Model
+public class Model implements SaveUserInterface
 {
     private Calculator calculator = new Calculator();
     private DatabaseManager dbManager;

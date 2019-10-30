@@ -24,23 +24,25 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Scene for displaying a Course
  */
 public class CourseScene implements Listener, EventHandler<ActionEvent> {
-    /** Scene for Stage */
-    private Scene scene;
-
     /** The previous scene */
     private Scene previousScene;
 
-    /** This Class represents a single Course **/
+    /** Scene for Stage */
+    private Scene scene;
+
+    /** Course to display **/
     private Course course;
 
+    /** Save feature */
+    private SaveUserInterface userSaver;
+
     /** 'scroll bar' feature */
-    ScrollPane scrollPane = new ScrollPane();
+    private ScrollPane scrollPane = new ScrollPane();
 
     /** root layout */
     private VBox sceneLayout = new VBox();
@@ -76,7 +78,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     private ObservableList<String> dropDownListCategories;
 
     /** a grade calculator injected dependency */
-    CategoryCalculatorInterface categoryCalculator;
+    private CategoryCalculatorInterface categoryCalculator;
 
     // potential undo feature for assignments, stack could hold maps, key = assignment, value = category)
     // private Stack<Map> deletedAssignments = new Stack<AssignmentInterface>();
@@ -85,10 +87,15 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
      * sets course and builds scene
       * @param course course for scene
      */
-    public CourseScene(Scene previousScene, Course course, CategoryCalculatorInterface categoryCalculator) {
+    public CourseScene(Scene previousScene,
+                       Course course,
+                       CategoryCalculatorInterface categoryCalculator,
+                       SaveUserInterface userSaver) {
+
         this.previousScene = previousScene;
         this.course = course;
         this.categoryCalculator = categoryCalculator;
+        this.userSaver = userSaver;
         register(course);
         buildScene();
     }
@@ -268,7 +275,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         removeCategoryBtn.setOnAction(event -> {
             CategoryTable categoryTableToRemove = null;
             for (CategoryTable categoryTable : categoryTables) {
-                if (categoryTable.category.getName() == removeCategoryDropDown.getValue()) {
+                if (categoryTable.category.getName().equals(removeCategoryDropDown.getValue())) {
                     categoryTableToRemove = categoryTable;
                     break;
                 }

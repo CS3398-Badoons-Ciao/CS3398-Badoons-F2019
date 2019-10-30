@@ -1,43 +1,43 @@
 package GUI;
 
-import com.sun.javafx.iio.ios.IosDescriptor;
-import javafx.application.*;
-import javafx.event.*;
+import Model.Model;
 import javafx.stage.*;
-import javafx.scene.layout.*;
 import javafx.scene.*;
-import javafx.fxml.FXMLLoader;
+
 import java.io.IOException;
 
 /**
- * MainGUI is the overarching GUI class.
- *
- * MainGUI contains all the GUIS for this program, these including...
- * TitleScreen
- * CourseOverview
+ * MainGUI holds references to composed Scene GUI's
  */
 
-public class MainGUI {
-
+public class Scenes {
+    private Stage primaryStage;
     private TitleScreen title;
-    private CourseOverview catalogue;
+    private CourseOverview courseOverview;
     private TitleAccountCreation accountcreation;
 
     /**
      * Constructs the main by calling the setGUI method.
      */
-    public MainGUI() {
+    public Scenes(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+
         try {
-            this.setGUIS(); // Sets the GUIS within the object
+            this.buildGUIS(); // composes GUI's
         } catch (IOException e) {
             System.out.println("Error loading FXML files." + e);
         }
     }
 
-    private void setGUIS() throws IOException{
-        title = new TitleScreen();
-        catalogue = new CourseOverview();
-        accountcreation = new TitleAccountCreation();
+    private void buildGUIS() throws IOException{
+        Model model = new Model();
+        title = new TitleScreen(model, this);
+        courseOverview = new CourseOverview(model, this);
+        accountcreation = new TitleAccountCreation(model, this);
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     /**
@@ -54,11 +54,13 @@ public class MainGUI {
     }
 
     public Scene getCourseOverviewScene() {
+
         try {
-            return catalogue.getScene();
+            return courseOverview.getScene();
         } catch (IOException e) {
             System.out.println("Error loading catalogue fxml" + e);
         }
+
         return null;
     }
 

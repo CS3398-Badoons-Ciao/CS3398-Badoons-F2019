@@ -1,24 +1,22 @@
 package GUI;
 
-import Model.Course;
-import javafx.application.*;
-import javafx.event.*;
-import javafx.stage.*;
-import javafx.scene.layout.*;
-import javafx.scene.*;
+import Model.Model;
 import javafx.fxml.FXMLLoader;
-import java.io.IOException;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 import java.io.IOException;
 
 public class CourseOverview {
-
     private Scene sceneOverview; // Stores the courseScreen created by this class.
 
-    public CourseOverview() throws IOException {
-        // This resolved my problem; check if this version breaks your build.
-        // My project now displays GUI correctly.
-        // JP
-        Parent root = FXMLLoader.load(getClass().getResource("courseoverview.fxml")); // Loads the FXML
+    CourseOverview(Model model, Scenes mainGUI) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("courseoverview.fxml")); // Loads the FXML
+        Parent root = loader.load();
+
+        CourseOverviewController controller = loader.getController();
+        controller.setModel(model);
+        controller.setMainGUI(mainGUI);
 
         // TitleScene Creation
         sceneOverview = new Scene(root,900,640); // Creates the Scene, "the window" of our program

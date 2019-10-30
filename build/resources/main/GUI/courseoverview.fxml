@@ -5,7 +5,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CourseOverviewController">
+<?import javafx.scene.control.Button?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CourseOverviewController">
    <children>
       <MenuBar layoutY="1.0" prefHeight="27.0" prefWidth="900.0">
         <menus>
@@ -27,5 +28,6 @@
           </Menu>
         </menus>
       </MenuBar>
+       <Button layoutX="125" layoutY="90" text="Click me" onAction="#changeCourse" fx:id="button"></Button>
    </children>
 </AnchorPane>
