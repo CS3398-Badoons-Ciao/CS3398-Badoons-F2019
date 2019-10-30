@@ -43,9 +43,15 @@ public class Scenes {
         return primaryStage;
     }
 
+    /** TODO IS THIS NEEDED
     public void setCourse(Course c, CategoryCalculatorInterface ccI) {
         courseDisplay = new CourseScene(c, ccI);
     }
+
+    public Scene getCourseScene() {
+        return courseDisplay.getScene();
+    }
+     */
 
     /**
      * getTitleScene returns the scene of the TitleScreen class.
@@ -80,7 +86,4 @@ public class Scenes {
         return null;
     }
 
-    public Scene getCourseScene() {
-        return courseDisplay.getScene();
-    }
 }

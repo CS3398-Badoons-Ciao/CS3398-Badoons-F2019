@@ -40,9 +40,15 @@ public class CourseOverviewController extends SceneController {
                 TestCourseFactory.buildCourse(), new Calculator(), model);
         mainGUI.getPrimaryStage().setScene(courseScene.getScene());
     }
+
+
     /*
      * End Example
      */
 
 
+
+    public void Add(ActionEvent actionEvent) {
+
+    }
 }
