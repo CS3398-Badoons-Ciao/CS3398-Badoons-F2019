@@ -114,6 +114,7 @@ public class Course implements Publisher, java.io.Serializable
 
     @Override
     public void addListener(Listener l) {
+        // TODO fix
         listeners = new ArrayList<>();
         listeners.add(l);
     }

@@ -168,7 +168,8 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     String updatedCategoryGrade =
                             String.valueOf(categoryCalculator.getCategoryGrade(category.getAssignments()));
 
-                    gradeLabel.setText(updatedCategoryGrade);
+                    gradeLabel.setText(doubleFormatter.format(
+                            categoryCalculator.getCategoryGrade(category.getAssignments())));
 
                 } catch(Exception e) {
                     // TODO catch specific exception related to bad input

@@ -65,8 +65,10 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
     public void load() {
-        for (Course course : model.user.getPresentCourses())
+        for (Course course : model.user.getPresentCourses()) {
             register(course);
+        }
+
         courses.setAll(model.user.getPresentCourses());
         courseTable.setItems(courses);
         courseTable.getColumns().add(courseNameColumn);
@@ -113,9 +115,7 @@ public class CourseOverviewController extends SceneController implements Initial
 
     @Override
     public void update(Publisher publisher) {
-        courses.clear();
-        courses.setAll(model.user.getPresentCourses());
-        System.out.println("HELLO");
+        courseTable.refresh();
     }
 
     @Override
