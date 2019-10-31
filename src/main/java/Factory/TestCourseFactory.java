@@ -48,7 +48,7 @@ public class TestCourseFactory {
             Assignment a1 = new Assignment("Homework " + i*2, 50 + i, 100);
             homeworkAssignments.add(a1);
         }
-        Category homeWork = new Category("HomeWork", 0.60, homeworkAssignments);
+        Category homeWork = new Category("Homework", 0.60, homeworkAssignments);
 
         // Test
         ArrayList<Assignment> testAssignments = new ArrayList<>();

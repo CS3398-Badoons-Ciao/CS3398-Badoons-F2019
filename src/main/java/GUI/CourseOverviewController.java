@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,7 +47,10 @@ public class CourseOverviewController extends SceneController implements Initial
      * This function should ask the user to save their data before closing.
      */
     public void close() {
-        mainGUI.getPrimaryStage().setScene(mainGUI.getTitleScene());
+        Stage primaryStage = mainGUI.getPrimaryStage();
+        Scenes scenes = new Scenes(primaryStage);
+        primaryStage.setTitle("Grade Manager");
+        primaryStage.setScene(scenes.getTitleScene());
     }
 
 
@@ -60,37 +64,14 @@ public class CourseOverviewController extends SceneController implements Initial
         courses.add(course);
     }
 
-    public void changeCourse(String courseName) {
-        Course selectedCourse = null;
-
-        if (courseName != null) {
-            for (Course course : model.user.getPresentCourses())
-                if (course.getName().equals(courseName)) {
-                    selectedCourse = course;
-                    break;
-                }
-
-            if (selectedCourse != null) {
-                CourseScene courseScene = new CourseScene(mainGUI.getCourseOverviewScene(),
-                        selectedCourse, new Calculator(), model);
-                mainGUI.getPrimaryStage().setScene(courseScene.getScene());
-            }
-        }
-    }
-
     public void load() {
-        // TODO delete- for class demo
-        model.user.addPresentCourse(TestCourseFactory.buildCourse());
-        model.user.addPresentCourse(TestCourseFactory.buildCourse2());
-        // end delete
-
         courses.setAll(model.user.getPresentCourses());
         courseTable.setItems(courses);
         courseTable.getColumns().add(courseNameColumn);
     }
 
     public void save() {
-        //model.saveUser();
+        model.saveUser();
     }
 
     @Override
@@ -98,7 +79,6 @@ public class CourseOverviewController extends SceneController implements Initial
         // NOTE: User is not logged-in during initialization
 
         courseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
         courseNameColumn = new TableColumn<>("Course Name");
         courseNameColumn.setMinWidth(100);
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // property must match object
@@ -119,5 +99,13 @@ public class CourseOverviewController extends SceneController implements Initial
         model.user.getPresentCourses().remove(selectedCourse);
         courses.remove(selectedCourse);
     }
+
+    public void addDemoCourse() {
+        model.user.addPresentCourse(TestCourseFactory.buildCourse());
+        model.user.addPresentCourse(TestCourseFactory.buildCourse2());
+        courses.setAll(model.user.getPresentCourses());
+        courseTable.setItems(courses);
+    }
+
 
 }

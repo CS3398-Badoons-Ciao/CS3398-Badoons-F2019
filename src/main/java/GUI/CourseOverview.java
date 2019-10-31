@@ -20,7 +20,7 @@ public class CourseOverview {
         controller.setMainGUI(mainGUI);
 
         // TitleScene Creation
-        sceneOverview = new Scene(root,900,640); // Creates the Scene, "the window" of our program
+        sceneOverview = new Scene(root); // Creates the Scene, "the window" of our program
 
     }
 

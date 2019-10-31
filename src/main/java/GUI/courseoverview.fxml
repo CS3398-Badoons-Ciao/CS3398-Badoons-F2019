@@ -18,8 +18,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Close " />
-                <!-- <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save"/> -->
+                <MenuItem fx:id="DemoCourse" mnemonicParsing="false" onAction="#addDemoCourse" text="Add Demo Courses"/>
+                <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save"/>
+                <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Exit" />
                 <!-- <MenuItem mnemonicParsing="false" text="Add School" /> -->
             </items>
           </Menu>
@@ -40,7 +41,7 @@
       <Button layoutX="265.0" layoutY="96.0" mnemonicParsing="false" onAction="#Add" text="Add" />
        <VBox layoutX="116.0" layoutY="122.0">
            <TableView fx:id="courseTable" ></TableView>
-           <Button text="Change Course" onAction="#handleChangeCourseBtn" fx:id="changeCourseBtn"></Button>
+           <Button text="View Course" onAction="#handleChangeCourseBtn" fx:id="changeCourseBtn"></Button>
            <Button text="Delete Course" onAction="#handleDeleteCourseBtn" fx:id="deleteCourseBtn"></Button>
        </VBox>
    </children>
