@@ -101,7 +101,6 @@ public class Model implements SaveUserInterface
             System.out.println(e);
         }
         System.out.println("User \'" + user.getName() + "\" found.");
-
     }
 
     /**

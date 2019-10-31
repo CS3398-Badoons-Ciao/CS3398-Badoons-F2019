@@ -98,7 +98,6 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                         }
                     });
 
-
             weightField.setStyle(   "-fx-text-box-border: transparent; " +
                                     "-fx-background-color: transparent;");
             weightLayout.getChildren().addAll(weightLabel, weightField);

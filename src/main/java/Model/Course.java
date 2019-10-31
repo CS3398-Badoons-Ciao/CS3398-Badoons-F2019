@@ -11,7 +11,7 @@ public class Course implements Publisher, java.io.Serializable
 {
     ArrayList<Listener> listeners = new ArrayList<Listener>();
 
-    private String name;
+    public String name;
     private double grade;
     private School school;
     private int creditHours;

@@ -41,6 +41,7 @@ public class TitleScreenController extends SceneController {
         model.login(login,password);
 
         if (model.user != null) {
+            mainGUI.loadCourseOverview();
             mainGUI.getPrimaryStage().setScene(mainGUI.getCourseOverviewScene());
             passwordField.setText(""); // Resets the text.
         } else {

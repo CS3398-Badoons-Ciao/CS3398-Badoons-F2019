@@ -9,12 +9,13 @@ import java.io.IOException;
 
 public class CourseOverview {
     private Scene sceneOverview; // Stores the courseScreen created by this class.
+    private CourseOverviewController controller;
 
     CourseOverview(Model model, Scenes mainGUI) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("courseoverview.fxml")); // Loads the FXML
         Parent root = loader.load();
 
-        CourseOverviewController controller = loader.getController();
+        controller = loader.getController();
         controller.setModel(model);
         controller.setMainGUI(mainGUI);
 
@@ -27,5 +28,7 @@ public class CourseOverview {
         return sceneOverview;
     }
 
-
+    public CourseOverviewController getController() {
+        return controller;
+    }
 }

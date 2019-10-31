@@ -60,6 +60,7 @@ public class TitleAccountController extends SceneController {
         } else { // Create the account.
             model.createNewUser(user, id, pass); // Create a user with the inputs.
             model.login(id, pass);
+            mainGUI.loadCourseOverview();
             mainGUI.getPrimaryStage().setScene(mainGUI.getCourseOverviewScene());
         }
     }

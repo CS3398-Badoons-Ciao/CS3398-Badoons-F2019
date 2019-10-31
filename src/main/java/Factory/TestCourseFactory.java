@@ -39,4 +39,29 @@ public class TestCourseFactory {
         categories.add(project);
         return new Course("CS 3398", new School("Texas State"), categories);
     }
+
+    public static Course buildCourse2(){
+
+        // Homework
+        ArrayList<Assignment> homeworkAssignments = new ArrayList<>();
+        for (int i = 0; i < 8; ++i) {
+            Assignment a1 = new Assignment("Homework " + i*2, 50 + i, 100);
+            homeworkAssignments.add(a1);
+        }
+        Category homeWork = new Category("HomeWork", 0.60, homeworkAssignments);
+
+        // Test
+        ArrayList<Assignment> testAssignments = new ArrayList<>();
+        Assignment b1 = new Assignment("Test 1", 100, 100);
+        Assignment b2 = new Assignment("Test 2", 95, 90);
+        testAssignments.add(b1);
+        testAssignments.add(b2);
+        Category test = new Category("Test", 0.40, testAssignments);
+
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(homeWork);
+        categories.add(test);
+        return new Course("CS 4371", new School("Texas State"), categories);
+    }
+
 }

@@ -1,8 +1,7 @@
 package GUI;
 
+import Factory.TestCourseFactory;
 import Model.Model;
-import Interfaces.CategoryCalculatorInterface;
-import Model.Course;
 import javafx.stage.*;
 import javafx.scene.*;
 
@@ -16,7 +15,7 @@ public class Scenes {
     private Stage primaryStage;
     private TitleScreen title;
     private CourseOverview courseOverview;
-    private TitleAccountCreation accountcreation;
+    private TitleAccountCreation accountCreation;
     private CourseScene courseDisplay;
 
     /**
@@ -36,7 +35,14 @@ public class Scenes {
         Model model = new Model();
         title = new TitleScreen(model, this);
         courseOverview = new CourseOverview(model, this);
-        accountcreation = new TitleAccountCreation(model, this);
+        accountCreation = new TitleAccountCreation(model, this);
+    }
+
+    /**
+     * loads User course data for CourseOverviewScene
+     */
+    public void loadCourseOverview() {
+        courseOverview.getController().load();
     }
 
     public Stage getPrimaryStage() {
@@ -79,7 +85,7 @@ public class Scenes {
 
     public Scene getAccountCreationScene() {
         try {
-            return accountcreation.getScene();
+            return accountCreation.getScene();
         } catch (IOException e) {
             System.out.println("Error loading accountcreation.fxml");
         }
