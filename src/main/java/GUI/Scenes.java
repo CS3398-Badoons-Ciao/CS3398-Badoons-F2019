@@ -16,7 +16,6 @@ public class Scenes {
     private TitleScreen title;
     private CourseOverview courseOverview;
     private TitleAccountCreation accountCreation;
-    private CourseScene courseDisplay;
 
     /**
      * Constructs the main by calling the setGUI method.
@@ -48,16 +47,6 @@ public class Scenes {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
-    /** TODO IS THIS NEEDED
-    public void setCourse(Course c, CategoryCalculatorInterface ccI) {
-        courseDisplay = new CourseScene(c, ccI);
-    }
-
-    public Scene getCourseScene() {
-        return courseDisplay.getScene();
-    }
-     */
 
     /**
      * getTitleScene returns the scene of the TitleScreen class.

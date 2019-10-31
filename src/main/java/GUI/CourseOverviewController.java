@@ -2,6 +2,8 @@ package GUI;
 
 import Factory.TestCourseFactory;
 import Interfaces.AssignmentInterface;
+import Interfaces.Listener;
+import Interfaces.Publisher;
 import Model.Calculator;
 import Model.Course;
 import Model.School;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
  * Invariants: setModel(Model)
  *             setMainGUI(MainGUI)
  */
-public class CourseOverviewController extends SceneController implements Initializable {
+public class CourseOverviewController extends SceneController implements Initializable, Listener {
     @FXML
     private MenuItem Close;
 
@@ -49,10 +51,8 @@ public class CourseOverviewController extends SceneController implements Initial
     public void close() {
         Stage primaryStage = mainGUI.getPrimaryStage();
         Scenes scenes = new Scenes(primaryStage);
-        primaryStage.setTitle("Grade Manager");
         primaryStage.setScene(scenes.getTitleScene());
     }
-
 
     public void Add(ActionEvent actionEvent) {
         String courseName = addCourseTextField.getText();
@@ -65,6 +65,8 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
     public void load() {
+        for (Course course : model.user.getPresentCourses())
+            register(course);
         courses.setAll(model.user.getPresentCourses());
         courseTable.setItems(courses);
         courseTable.getColumns().add(courseNameColumn);
@@ -88,10 +90,11 @@ public class CourseOverviewController extends SceneController implements Initial
 
     public void handleChangeCourseBtn(ActionEvent actionEvent) {
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
-
-        CourseScene courseScene = new CourseScene(mainGUI.getCourseOverviewScene(),
-                selectedCourse, new Calculator(), model);
-        mainGUI.getPrimaryStage().setScene(courseScene.getScene());
+        if (selectedCourse != null) {
+            CourseScene courseScene = new CourseScene(mainGUI.getCourseOverviewScene(),
+                    selectedCourse, new Calculator(), model);
+            mainGUI.getPrimaryStage().setScene(courseScene.getScene());
+        }
     }
 
     public void handleDeleteCourseBtn(ActionEvent actionEvent) {
@@ -108,4 +111,15 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
 
+    @Override
+    public void update(Publisher publisher) {
+        courses.clear();
+        courses.setAll(model.user.getPresentCourses());
+        System.out.println("HELLO");
+    }
+
+    @Override
+    public void register(Publisher publisher) {
+        publisher.addListener(this);
+    }
 }

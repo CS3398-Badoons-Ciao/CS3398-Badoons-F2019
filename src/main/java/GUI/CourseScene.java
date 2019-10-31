@@ -324,7 +324,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         sceneLayout.setPadding(new Insets(5, 35, 35, 35));
 
         sceneLayout.getChildren().addAll
-                (menuBar, titleLayout, addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
+                (menuBar, titleLayout, addCategoryLayout, removeCategoryLayout, addAssignmentLayout);
 
         for (CategoryTable categoryTable : categoryTables) {
             categoryTablesLayout.getChildren().add(categoryTable.categoryTableLayout);

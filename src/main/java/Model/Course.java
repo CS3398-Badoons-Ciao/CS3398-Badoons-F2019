@@ -9,7 +9,8 @@ import java.util.Collection;
 
 public class Course implements Publisher, java.io.Serializable
 {
-    ArrayList<Listener> listeners = new ArrayList<Listener>();
+    // skips field when serializing
+    transient ArrayList<Listener> listeners = new ArrayList<>();
 
     public String name;
     private double grade;
@@ -113,6 +114,7 @@ public class Course implements Publisher, java.io.Serializable
 
     @Override
     public void addListener(Listener l) {
+        listeners = new ArrayList<>();
         listeners.add(l);
     }
 
