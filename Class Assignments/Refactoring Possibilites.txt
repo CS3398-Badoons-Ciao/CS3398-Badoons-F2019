@@ -1,0 +1,34 @@
+Bailey Hubbard (bkh60)
+Charles Walker (ctw60)
+Jon Pierre (jfp35)
+Rebekah Barber (rab257)
+Alex Morman (ajm278)
+-------------------------------
+Due: Nov 1st 2019
+CS3398 Software Eng
+
+A12 Refactoring Possibilities (For Sprint 1 & 2)
+Note: Edited in one drive word document and copy pasted to a .txt document to upload to github
+------------------------------------------------------------------------------------------------------------------------------------------
+File Name: Model.java
+
+File location on Github: CS3398-Badoons-FS2019/scr/main/java/Model/Model.java
+
+Classes or other descriptions of code object: This is the class that ties the front end and the back in, so the GUI calls functions and objects with in this calls to communicate with the back end of the program.
+	Suggested change: A lot of the functions used in this use temp variables, example:
+		public void setName(String n){…}
+	This function is used to set the name of the current user using the string passed to it, ei: n, it would be better if this variable was named “name”.
+
+Reasoning: This change in naming makes it more descriptive to any future readers of the code and those that are using it.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+File Name: There are multiple files under the directory named bellow
+
+File location on Github: CS3398-Badoons-FS2019/scr/main/java/GUI/*All fires under this dir*
+
+Classes or other descriptions of code object: These are the classes that handle displaying Gui objects that allows the user to communicate with the back-end model.
+	Suggested change: During the implementation of these classes in the manner that they were implemented differed, half of the team created FXML files which functions as a template builder from a Gui while the other half hard code it. Because of these two different approaches it makes trying to read the other teams code difficult due to the lack of standardization.
+	The fix to this is to choose one of the approaches and force the adoption of that approach among all team members to insure standardization. 
+
+Reasoning: Allows other member to read and understand other team members code allowing for quick and easier communication between members
+

@@ -1,0 +1,44 @@
+Bailey Hubbard (bkh60)
+Charles Walker (ctw60)
+Jon Pierre (jfp35)
+Rebekah Barber (rab257)
+Alex Morman (ajm278)
+-------------------------------
+Due: Oct 31st 2019
+CS3398 Software Engineering
+
+Review and Retrospective for Sprint 2
+Note: Edited in one drive word document and copy pasted to a .txt document to upload to github
+------------------------------------------------------------------------------------------------------------------------------------------
+What went well
+  *(Team) We managed to get the back in and the Gui working together without having to rely on the old command line interface from before.
+  *(Team) We were able to efficiently plan things out on Zen Hub and write code more related to our tasks.
+  *(Team) Our idea of user’s perspective going through the project was good with our design.
+  *(Team) We had a working demo  
+  *(Team) We were able to decide how we wanted to refactor our code to improve communication between GUI and the backend
+
+
+  *(Individual: Bailey Hubbard) Was able to get all items on Zen hub done and did much better with estimating the hours and time each step would take.
+  *(Individual: Charles Walker) Our ability to organize code when looking back on things we did poorly or awkwardly in our code.
+  *(Individual: Jon) Created individual tasks with more specificity to more accurately estimate completion time. 
+  *(Individual: Alex Morman) Successfully wrote test cases for our backend model, as well as completed the excel exporting feature.
+  *(Individual: Rebekah Barber) I was able to space out and complete all the tasks assigned so I wasn’t rushing my work or doing nothing by the end of the sprint.
+
+ 
+
+What might be impeding Us from performing better?
+  *(Team) Organization among the team members, we have two very different ways that the gui was implemented and while it still works as a hole it makes member who have to read others code difficult because we have not standardized the way we are implementing the code
+
+What can we do to improve? (And what measurements we be done to track improvement)
+  *(Team) We can be better prepared on using each other’s functionality by meeting with each other and discussing how to use their code. We can measure this by keeping track of our meetings and what code we place from that meeting.
+
+  *(Individual: Bailey Hubbard) There was some miss communication between the GUI team and the back in model (Mainly two individuals)  in how function and classes where going to be used, so more communication and diagraming functionality in meets to ensure that all team members are up to date is needed. This is be measured by logging meetings.
+  *(Individual: Charles Walker) Our team can improve on the structure of how we use different code between different sections of our projects. We can measure this by discussing with our team members how we would use each other’s code and implement it. 
+  *(Individual: Jon) Better communication by suggesting areas to improve along with potential solutions and why they are areas to improve. This can be measured by having a solution with tradeoffs as part of the discussion.
+  *(Individual: Alex Morman) I can get more work done early in the sprint so that I have more time to check for mistakes, as well as check Slack more often.
+  *(Individual: Rebekah Barber) We can improve by communicating what needs to be put in our code so that it can be implemented.
+
+
+
+
+
