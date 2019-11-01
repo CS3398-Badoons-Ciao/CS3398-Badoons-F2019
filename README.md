@@ -1,8 +1,8 @@
 # Grade Manager
 
-A lot of our artifacts and commits are in another branch called, Ez-Gradr. When looking for our artifacts please check there.
+A lot of our artifacts and commits for the first sprint are in another branch called, Ez-Gradr. When looking for our artifacts please check there.
 
-## Sprint 1 Features
+## Sprint 2 Features
 * Jon Pierre
   * Course GUI -> courseScene.java
   * Scene visuals include information about a course. Consists of tables representing categories (e.g. "test", "quiz") where each category table holds Assignments (e.g. "test 1", "test 2"). This scene is used on main application stage when user selects a course to edit.
@@ -22,12 +22,12 @@ A lot of our artifacts and commits are in another branch called, Ez-Gradr. When 
   * GPA calculations functionality -> Calculator.java
   * Set up the base functionalities of the model related classes -> Calculator.java, Course.java, Assignment.java, Model.java, School.java, UserData.java
 
-## Sprint 1 Project Status
+## Sprint 2 Project Status
 Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
 Next Steps:
 * Jon - Finish drop down list for adding a course and GUI changes to reflect model
-* Bailey - All model functions have been implemented and most tested via the use of CML and DataBaseManager functions to ensure correct functionality
-  * Next Step: Get with GUI team and work on tested model implmentation into the GUI
+* Bailey - Connect the GUI with model and make sure that all features are acceable from the GUI
+  * Next Step: Continue adding model back in features to the GUI and add Travic ci Junit testing and connecting further featuers to the model
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
 * Rebekah -  Transition to working on the GUI.
 * Alex - Got the GPA calculations set up and Organized file structure of the project
