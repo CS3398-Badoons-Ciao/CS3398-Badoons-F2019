@@ -4,8 +4,8 @@ A lot of our artifacts and commits for the first sprint are in another branch ca
 
 ## Sprint 2 Features
 * Jon Pierre
-  * Course GUI -> courseScene.java
-  * Scene visuals include information about a course. Consists of tables representing categories (e.g. "test", "quiz") where each category table holds Assignments (e.g. "test 1", "test 2"). This scene is used on main application stage when user selects a course to edit.
+  * courseScene.java, categoryTable.java, boxSplitLayout.java, sceneController.java, courseOverviewController.java
+  * Refactored project structure and worked on GUI Scenes.
 * Bailey Hubbard
   * Modle and back end -> Java files ["model.java", "CML.java", "dataBaseManager.java" and parts of "calulator.java"]
   * Model: implication and back end program functionality
@@ -25,7 +25,7 @@ A lot of our artifacts and commits for the first sprint are in another branch ca
 ## Sprint 2 Project Status
 Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
 Next Steps:
-* Jon - Finish drop down list for adding a course and GUI changes to reflect model
+* Jon - Continue refactor and GUI scenes course overview and course.
 * Bailey - Connect the GUI with model and make sure that all features are acceable from the GUI
   * Next Step: Continue adding model back in features to the GUI and add Travic ci Junit testing and connecting further featuers to the model
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
