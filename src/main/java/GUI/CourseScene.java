@@ -22,12 +22,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Scene for displaying a Course
  */
+// TODO remove Listener
 public class CourseScene implements Listener, EventHandler<ActionEvent> {
     /** The previous scene */
     private Scene previousScene;
@@ -74,11 +77,16 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     /** List of CategoryTable, one-to-one relationship for all categories in Course */
     private List<CategoryTable> categoryTables = new ArrayList<>();
 
-    /** ObservableList stores all Course Category for use in any drop down list */
+    /** ObservableList stores Course Category names.
+     *  Must be updated when any Course Category Name changes by calling updateCategoryNames()
+     */
     private ObservableList<String> dropDownListCategories;
 
     /** a grade calculator injected dependency */
     private CategoryCalculatorInterface categoryCalculator;
+
+    /** formatter for displaying doubles */
+    NumberFormat doubleFormatter = new DecimalFormat("#0.00");
 
     // potential undo feature for assignments, stack could hold maps, key = assignment, value = category)
     // private Stack<Map> deletedAssignments = new Stack<AssignmentInterface>();
@@ -149,12 +157,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         addAssignmentLayout.headLabel.setText("Add Assignment");
 
         // creates addAssignmentBodyLayout
-        if (dropDownListCategories == null) {
-            dropDownListCategories = FXCollections.observableArrayList();
-            for (CategoryInterface category : course.getCategories()) {
-                dropDownListCategories.add(category.getName());
-            }
-        }
+
+        updateCategoryNames();
 
         addAssignmentDropDown = new ComboBox<>(dropDownListCategories);
         addAssignmentDropDown.setOnAction(event -> {
@@ -181,18 +185,15 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                         double currentGrade = Double.parseDouble(addCurrentGrade.getText());
                         double potentialGrade = Double.parseDouble(addPotentialGrade.getText());
 
-                        // adds assignment to model
+                        // creates new assignment and adds to model
                         categoryTable.category.addAssignment(AssignmentFactory.createAssignment(
                                 courseName, currentGrade, potentialGrade));
 
-                        // adds assignment to table
-                        categoryTable.getItems().add(AssignmentFactory.createAssignment(
-                                courseName, currentGrade, potentialGrade));
+                        // replace table items (assignments) with model assignments
+                        categoryTable.getItems().setAll(categoryTable.category.getAssignments());
 
-                        String updatedCategoryGrade =
-                                String.valueOf(categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments()));
-
-                        categoryTable.gradeLabel.setText(updatedCategoryGrade);
+                        Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments());
+                        categoryTable.gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
 
                     } catch(Exception exception) {
                         System.out.println(exception.getMessage());
@@ -234,12 +235,12 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
             course.addCategory(newCategory);
 
             // builds new CategoryTable Node for Scene
-            CategoryTable newCategoryTable = new CategoryTable(newCategory, categoryCalculator);
+            CategoryTable newCategoryTable = new CategoryTable(newCategory, categoryCalculator, this);
 
             // adds Node to collection of all CategoryTable Node
             categoryTables.add(newCategoryTable);
 
-            // adds (appends) the child CategoryTableLayout to parent CategoryTableslayout
+            // adds (appends) the child CategoryTableLayout to parent CategoryTables layout
             categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
 
             // adds Category to Observable drop down list; multiple ComboBox listeners to list.
@@ -255,12 +256,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     private void buildCategoryRemoveLayout() {
         removeCategoryLayout.headLabel.setText("Remove Category");
 
-        if (dropDownListCategories == null) {
-            dropDownListCategories = FXCollections.observableArrayList();
-            for (CategoryInterface category : course.getCategories()) {
-                dropDownListCategories.add(category.getName());
-            }
-        }
+        updateCategoryNames();
 
         removeCategoryDropDown = new ComboBox<>(dropDownListCategories);
         removeCategoryDropDown.setPromptText("Category");
@@ -285,10 +281,10 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                 // removes Category from Course
                 course.removeCategory(categoryTableToRemove.category);
 
-                // removes Category from ObservableList for representing categories ComboBox
-                boolean found = dropDownListCategories.remove(categoryTableToRemove.category.getName());
+                // update Course Category Name's ObservableList
+                updateCategoryNames();
 
-                // removes Category from list of CategoryTable
+                // removes Category from list of CategoryTable's
                 categoryTables.remove(categoryTableToRemove);
 
                 // removes CategoryTable from Scene
@@ -303,7 +299,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     private void buildCategories() {
         for (Category category : course.getCategories()) {
-            CategoryTable categoryTable = new CategoryTable(category, categoryCalculator);
+            CategoryTable categoryTable = new CategoryTable(category, categoryCalculator, this);
             categoryTables.add(categoryTable);
         }
     }
@@ -342,6 +338,20 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
+    }
+
+    /** updates Observable list of Course Category names */
+    public void updateCategoryNames() {
+        if (dropDownListCategories == null) {
+            dropDownListCategories = FXCollections.observableArrayList();
+        }
+        else {
+            dropDownListCategories.clear();
+
+            for (CategoryInterface category : course.getCategories()) {
+                dropDownListCategories.add(category.getName());
+            }
+        }
     }
 
 }

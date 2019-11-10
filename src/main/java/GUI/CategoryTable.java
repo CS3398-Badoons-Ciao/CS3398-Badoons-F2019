@@ -29,6 +29,9 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         /** calculator for category data */
         CategoryCalculatorInterface categoryCalculator;
 
+        /** courseScene using this CategoryTable */
+        CourseScene courseScene;
+
         /** formatter for displaying doubles */
         NumberFormat doubleFormatter = new DecimalFormat("#0.00");
 
@@ -50,15 +53,16 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         /** child layout for headLayout displays Category Grade */
         HBox gradeLayout = new HBox();
 
-        /** editable TextField displays Category Title*/
-        TextField titleField;
+        /** editable TextField displays Category Name*/
+        TextField CategoryNameField;
 
         /** editable TextField displays Category Weight */
         TextField weightField;
         Label gradeLabel;
 
         CategoryTable(CategoryInterface category,
-                      CategoryCalculatorInterface categoryCalculator) {
+                      CategoryCalculatorInterface categoryCalculator,
+                      CourseScene courseScene) {
             this.category = category;
             this.categoryCalculator = categoryCalculator;
             this.assignments.setAll(category.getAssignments());
@@ -67,20 +71,22 @@ public class CategoryTable extends TableView<AssignmentInterface> {
 
             // creates titleLayout
             Label titleLabel = new Label("Category:");
-            titleField = new TextField(category.getName());
-            titleField.focusedProperty().addListener(
+            CategoryNameField = new TextField(category.getName());
+
+            CategoryNameField.focusedProperty().addListener(
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
-                            category.setName(titleField.getText());
+                            category.setName(CategoryNameField.getText());
+                            courseScene.updateCategoryNames();
                         }
                     });
 
-            titleField.setStyle("-fx-text-box-border: transparent; " +
+            CategoryNameField.setStyle("-fx-text-box-border: transparent; " +
                                 "-fx-background-color: transparent;" +
                                 "-fx-font-weight: bold;" +
                                 "-fx-font-size: 16");
-            titleField.setAlignment(Pos.CENTER);
-            titleLayout.getChildren().addAll(titleField);
+            CategoryNameField.setAlignment(Pos.CENTER);
+            titleLayout.getChildren().addAll(CategoryNameField);
             titleLayout.setAlignment(Pos.CENTER);
             titleLayout.setStyle("-fx-background-color: lightgrey;");
 
@@ -91,7 +97,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
                             try {
-                                category.setWeight(Double.valueOf(titleField.getText()));
+                                category.setWeight(Double.valueOf(CategoryNameField.getText()));
                             }
                             catch (Exception e) {
                             }
@@ -161,15 +167,16 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             gradeColumn.setCellValueFactory(new PropertyValueFactory<>("currentGrade"));
             gradeColumn.setOnEditCommit( event -> {
                 try {
-                    event.getTableView().getItems().get(event.getTablePosition().getRow()).
-                            setCurrentGrade(event.getNewValue());
+                    // update assignment grade in model
+                    AssignmentInterface assignment = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                    assignment.setCurrentGrade(event.getNewValue());
 
-                    // update category table grade
-                    String updatedCategoryGrade =
-                            String.valueOf(categoryCalculator.getCategoryGrade(category.getAssignments()));
+                    // replace table items with new assignments from model
+                    getItems().setAll(category.getAssignments());
 
-                    gradeLabel.setText(doubleFormatter.format(
-                            categoryCalculator.getCategoryGrade(category.getAssignments())));
+                    // re-calculate Category grade
+                    Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
+                    gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
 
                 } catch(Exception e) {
                     // TODO catch specific exception related to bad input
@@ -177,7 +184,6 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     refresh();
                 }
             });
-
 
             /*
              * creates a PotentialGrade Column
