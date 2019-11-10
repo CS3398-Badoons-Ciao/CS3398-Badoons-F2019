@@ -167,7 +167,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             gradeColumn.setCellValueFactory(new PropertyValueFactory<>("currentGrade"));
             gradeColumn.setOnEditCommit( event -> {
                 try {
-                    // update assignment grade in model
+                    // update assignment current grade in model
                     AssignmentInterface assignment = event.getTableView().getItems().get(event.getTablePosition().getRow());
                     assignment.setCurrentGrade(event.getNewValue());
 
@@ -194,8 +194,17 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             potentialGradeColumn.setCellValueFactory(new PropertyValueFactory<>("potentialGrade"));
             potentialGradeColumn.setOnEditCommit( event -> {
                 try {
-                    event.getTableView().getItems().get(event.getTablePosition().getRow()).
-                            setPotentialGrade(event.getNewValue());
+                    // update assignment potential grade in model
+                    AssignmentInterface assignment = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                    assignment.setPotentialGrade(event.getNewValue());
+
+                    // replace table items with new assignments from model
+                    getItems().setAll(category.getAssignments());
+
+                    // re-calculate Category grade
+                    Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
+                    gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
+
                 } catch(Exception e) {
                     // TODO catch specific exception related to bad input
                     // this updates table with data model if exception is caught
