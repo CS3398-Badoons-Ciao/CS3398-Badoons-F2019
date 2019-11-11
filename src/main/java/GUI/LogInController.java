@@ -13,13 +13,15 @@ import javafx.scene.control.Alert;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 
+import java.io.IOException;
+
 /**
  * TitleScreenController is the FXML controller of the TitleScreen
  * fxml controller instantiation does not allow constructor parameters.
  * Invariants (must call):  setModel(Model)
  *                          setMainGUI(MainGUI)
  */
-public class TitleScreenController extends SceneController {
+public class LogInController extends SceneController {
     @FXML
     private TextField loginField;
     @FXML
@@ -34,16 +36,14 @@ public class TitleScreenController extends SceneController {
      * @param e e
      */
     public void Go(ActionEvent e) {
-        // Default test login.
         String login = loginField.getText();
         String password = passwordField.getText();
 
         model.login(login,password);
 
         if (model.user != null) {
-            mainGUI.loadCourseOverview();
-            mainGUI.getPrimaryStage().setScene(mainGUI.getCourseOverviewScene());
-            passwordField.setText(""); // Resets the text.
+            primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
+            passwordField.setText("");
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);
             loginError.setTitle("Login Error");
@@ -53,7 +53,7 @@ public class TitleScreenController extends SceneController {
 
     }
 
-    public void createAccount(ActionEvent e) {
-        mainGUI.getPrimaryStage().setScene(mainGUI.getAccountCreationScene()); // Set the Scene to Account Creation.
+    public void createAccount(ActionEvent e) throws IOException {
+        primaryStage.setScene((new AccountCreation(model, primaryStage)).getScene());
     }
 }

@@ -4,6 +4,7 @@ import Factory.AssignmentFactory;
 import Interfaces.*;
 import Model.Category;
 import Model.Course;
+import Model.Model;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,17 +33,17 @@ import java.util.List;
  */
 // TODO remove Listener
 public class CourseScene implements Listener, EventHandler<ActionEvent> {
-    /** The previous scene */
-    private Scene previousScene;
+    /** The primary Stage */
+    private Stage primaryStage;
 
-    /** Scene for Stage */
+    /** Course Scene for Stage */
     private Scene scene;
 
     /** Course to display **/
     private Course course;
 
-    /** Save feature */
-    private SaveUserInterface userSaver;
+    /** User Model */
+    private Model model;
 
     /** 'scroll bar' feature */
     private ScrollPane scrollPane = new ScrollPane();
@@ -95,15 +96,15 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
      * sets course and builds scene
       * @param course course for scene
      */
-    public CourseScene(Scene previousScene,
+    public CourseScene(Stage primaryStage,
                        Course course,
                        CategoryCalculatorInterface categoryCalculator,
-                       SaveUserInterface userSaver) {
+                       Model model) {
 
-        this.previousScene = previousScene;
+        this.primaryStage = primaryStage;
         this.course = course;
         this.categoryCalculator = categoryCalculator;
-        this.userSaver = userSaver;
+        this.model = model;
         register(course);
         buildScene();
     }
@@ -122,9 +123,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     private void buildMenu() {
         Menu menu = new Menu("Menu");
-        MenuItem backItem = new MenuItem("Back");
+        MenuItem backItem = new MenuItem("Courses");
         backItem.setOnAction(event -> {
-            ((Stage)scene.getWindow()).setScene(previousScene);
+            primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
         });
 
         menu.getItems().add(backItem);

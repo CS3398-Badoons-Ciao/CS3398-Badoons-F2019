@@ -5,13 +5,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 /**
  * TitleAccountController is the FXML controller of accountCreation
  * fxml controller instantiation does not allow constructor parameters.
  * Invariants: setModel(Model)
  *             setMainGUI(MainGUI)
  */
-public class TitleAccountController extends SceneController {
+public class AccountCreationController extends SceneController {
     @FXML
     private TextField userID;
     @FXML
@@ -60,12 +62,11 @@ public class TitleAccountController extends SceneController {
         } else { // Create the account.
             model.createNewUser(user, id, pass); // Create a user with the inputs.
             model.login(id, pass);
-            mainGUI.loadCourseOverview();
-            mainGUI.getPrimaryStage().setScene(mainGUI.getCourseOverviewScene());
+            primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
         }
     }
 
-    public void back(ActionEvent e) {
-        mainGUI.getPrimaryStage().setScene(mainGUI.getTitleScene()); // Sets the scene back to the title screen.
+    public void back(ActionEvent e) throws IOException {
+        primaryStage.setScene((new LogIn(model, primaryStage)).getScene());
     }
 }

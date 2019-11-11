@@ -4,27 +4,33 @@ import Model.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class CourseOverview {
-    private Scene sceneOverview; // Stores the courseScreen created by this class.
+    private Scene sceneOverview;
     private CourseOverviewController controller;
 
-    CourseOverview(Model model, Scenes mainGUI) throws IOException {
+    CourseOverview(Model model, Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("courseoverview.fxml")); // Loads the FXML
-        Parent root = loader.load();
+
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         controller = loader.getController();
+        controller.setPrimaryStage(primaryStage);
         controller.setModel(model);
-        controller.setMainGUI(mainGUI);
+        controller.load();
 
-        // TitleScene Creation
-        sceneOverview = new Scene(root); // Creates the Scene, "the window" of our program
-
+        sceneOverview = new Scene(root);
     }
 
-    public Scene getScene() throws IOException {
+    public Scene getScene() {
         return sceneOverview;
     }
 

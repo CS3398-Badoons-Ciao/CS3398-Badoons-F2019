@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,10 +49,8 @@ public class CourseOverviewController extends SceneController implements Initial
      * close() handles the File, Close button to just go back to the title Screen.
      * This function should ask the user to save their data before closing.
      */
-    public void close() {
-        Stage primaryStage = mainGUI.getPrimaryStage();
-        Scenes scenes = new Scenes(primaryStage);
-        primaryStage.setScene(scenes.getTitleScene());
+    public void close() throws IOException {
+        primaryStage.setScene( (new LogIn(model, primaryStage)).getScene());
     }
 
     public void Add(ActionEvent actionEvent) {
@@ -93,9 +92,8 @@ public class CourseOverviewController extends SceneController implements Initial
     public void handleChangeCourseBtn(ActionEvent actionEvent) {
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
         if (selectedCourse != null) {
-            CourseScene courseScene = new CourseScene(mainGUI.getCourseOverviewScene(),
-                    selectedCourse, new Calculator(), model);
-            mainGUI.getPrimaryStage().setScene(courseScene.getScene());
+            CourseScene courseScene = new CourseScene(primaryStage, selectedCourse, new Calculator(), model);
+            primaryStage.setScene(courseScene.getScene());
         }
     }
 

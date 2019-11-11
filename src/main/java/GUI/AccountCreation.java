@@ -3,25 +3,27 @@ package GUI;
 import Model.Model;
 import javafx.scene.*;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
-public class TitleAccountCreation {
-    private Scene titleAccount;
+public class AccountCreation {
+    private Scene AccountCreationScene;
 
-    TitleAccountCreation(Model model, Scenes mainGUI) throws IOException {
+    AccountCreation(Model model, Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("accountcreation.fxml")); // Loads the FXML
         Parent root = loader.load();
         root.setId("AnchorPane"); // Sets the root of the CSS file. Used for the background image.
 
-        TitleAccountController controller = loader.getController();
+        AccountCreationController controller = loader.getController();
         controller.setModel(model);
-        controller.setMainGUI(mainGUI);
+        controller.setPrimaryStage(primaryStage);
 
         // TitleScene Creation
-        titleAccount = new Scene(root,900,640); // Creates the Scene, "the window" of our program
+        AccountCreationScene = new Scene(root,900,640); // Creates the Scene, "the window" of our program
     }
 
     public Scene getScene() throws IOException {
-        return titleAccount;
+        return AccountCreationScene;
     }
 }

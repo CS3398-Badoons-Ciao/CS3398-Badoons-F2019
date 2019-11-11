@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.Model;
+import javafx.stage.Stage;
 
 /**
  * injects FXML controllers with model and mainGUI references as FXML Controllers
@@ -8,13 +9,12 @@ import Model.Model;
  */
 public abstract class SceneController {
     Model model;
-    Scenes mainGUI;
+    Stage primaryStage;
 
     public void setModel(Model model) {
         this.model = model;
     }
-
-    void setMainGUI(Scenes mainGUI) {
-        this.mainGUI = mainGUI;
+    void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }
