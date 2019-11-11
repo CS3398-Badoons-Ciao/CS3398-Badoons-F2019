@@ -11,7 +11,7 @@ public class AccountCreation {
     private Scene AccountCreationScene;
 
     AccountCreation(Model model, Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("accountcreation.fxml")); // Loads the FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("accountCreation.fxml")); // Loads the FXML
         Parent root = loader.load();
         root.setId("AnchorPane"); // Sets the root of the CSS file. Used for the background image.
 

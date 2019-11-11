@@ -13,7 +13,7 @@ public class CourseOverview {
     private CourseOverviewController controller;
 
     CourseOverview(Model model, Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("courseoverview.fxml")); // Loads the FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("courseOverview.fxml")); // Loads the FXML
 
         Parent root = null;
         try {

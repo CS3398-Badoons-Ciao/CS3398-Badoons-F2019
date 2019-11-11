@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -122,15 +123,31 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     }
 
     private void buildMenu() {
-        Menu menu = new Menu("Menu");
-        MenuItem backItem = new MenuItem("Courses");
-        backItem.setOnAction(event -> {
+        Menu fileMenu = new Menu("File");
+
+        MenuItem saveItem = new MenuItem("Save");
+        saveItem.setOnAction(event -> {
+            model.saveUser();
+        });
+
+        MenuItem logOutItem = new MenuItem("Log Out");
+        logOutItem.setOnAction(event -> {
+            try {
+                primaryStage.setScene((new LogIn(model, primaryStage)).getScene());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        MenuItem coursesItem = new MenuItem("Back");
+        coursesItem.setOnAction(event -> {
             primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
         });
 
-        menu.getItems().add(backItem);
+        fileMenu.getItems().addAll(coursesItem, saveItem, logOutItem);
+
         menuBar = new MenuBar();
-        menuBar.getMenus().add(menu);
+        menuBar.getMenus().addAll(fileMenu);
     }
 
     private void buildTitle() {
