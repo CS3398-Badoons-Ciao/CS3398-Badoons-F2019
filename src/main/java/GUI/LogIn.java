@@ -28,7 +28,7 @@ public class LogIn {
 
 
     // TitleScene Creation
-    logInScene = new Scene(root,900,640); // Creates the Scene, "the window" of our program
+    logInScene = new Scene(root); // Creates the Scene, "the window" of our program
     logInScene.getStylesheets().addAll(getClass().getResource("resources/titlescreen.css").toExternalForm()); // Loads the CSS file.
   }
 

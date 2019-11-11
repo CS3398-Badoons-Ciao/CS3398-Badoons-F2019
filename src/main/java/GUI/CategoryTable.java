@@ -54,11 +54,23 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         HBox gradeLayout = new HBox();
 
         /** editable TextField displays Category Name*/
-        TextField CategoryNameField;
+        TextField categoryNameField;
 
         /** editable TextField displays Category Weight */
         TextField weightField;
+
+        /** editable TextField displays Category Grade */
         Label gradeLabel;
+
+        String tableNameStyle =
+                "-fx-text-box-border: transparent; " +
+                "-fx-background-color: transparent;" +
+                "-fx-font-weight: bold;" +
+                "-fx-font-size: 16";
+
+        String tableNameStyleOnFocus =
+                "-fx-font-weight: bold;" +
+                "-fx-font-size: 16";
 
         CategoryTable(CategoryInterface category,
                       CategoryCalculatorInterface categoryCalculator,
@@ -71,22 +83,25 @@ public class CategoryTable extends TableView<AssignmentInterface> {
 
             // creates titleLayout
             Label titleLabel = new Label("Category:");
-            CategoryNameField = new TextField(category.getName());
+            categoryNameField = new TextField(category.getName());
 
-            CategoryNameField.focusedProperty().addListener(
+            categoryNameField.focusedProperty().addListener(
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
-                            category.setName(CategoryNameField.getText());
+                            categoryNameField.setStyle(tableNameStyle);
+                            category.setName(categoryNameField.getText());
                             courseScene.updateCategoryNames();
+                        }
+
+                        if (gainFocus) {
+                            categoryNameField.setStyle(tableNameStyleOnFocus);
                         }
                     });
 
-            CategoryNameField.setStyle("-fx-text-box-border: transparent; " +
-                                "-fx-background-color: transparent;" +
-                                "-fx-font-weight: bold;" +
-                                "-fx-font-size: 16");
-            CategoryNameField.setAlignment(Pos.CENTER);
-            titleLayout.getChildren().addAll(CategoryNameField);
+
+            categoryNameField.setStyle(tableNameStyle);
+            categoryNameField.setAlignment(Pos.CENTER);
+            titleLayout.getChildren().addAll(categoryNameField);
             titleLayout.setAlignment(Pos.CENTER);
             titleLayout.setStyle("-fx-background-color: lightgrey;");
 
@@ -97,7 +112,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
                             try {
-                                category.setWeight(Double.valueOf(CategoryNameField.getText()));
+                                category.setWeight(Double.valueOf(categoryNameField.getText()));
                             }
                             catch (Exception e) {
                             }
@@ -246,7 +261,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             /*
              * removes lines between rows
              */
-            setStyle("-fx-table-cell-border-color: transparent; -fx-focus-color: transparent;");
+            //setStyle("-fx-table-cell-border-color: transparent; -fx-focus-color: transparent;");
         }
 
 

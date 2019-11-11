@@ -79,14 +79,11 @@ public class CourseOverviewController extends SceneController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // NOTE: User is not logged-in during initialization
-
         courseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         courseNameColumn = new TableColumn<>("Course Name");
         courseNameColumn.setMinWidth(100);
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // property must match object
         courseNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
     }
 
     public void handleChangeCourseBtn(ActionEvent actionEvent) {

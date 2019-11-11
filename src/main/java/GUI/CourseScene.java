@@ -90,8 +90,15 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     /** formatter for displaying doubles */
     NumberFormat doubleFormatter = new DecimalFormat("#0.00");
 
-    // potential undo feature for assignments, stack could hold maps, key = assignment, value = category)
-    // private Stack<Map> deletedAssignments = new Stack<AssignmentInterface>();
+    String courseNameStyle =
+            "-fx-text-box-border: transparent; " +
+            "-fx-background-color: transparent;" +
+            "-fx-font-weight: bold; " +
+            "-fx-font-size: 24pt;";
+
+    String courseNameStyleOnFocus =
+            "-fx-font-weight: bold; " +
+            "-fx-font-size: 24pt;";
 
     /**
      * sets course and builds scene
@@ -152,19 +159,26 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     private void buildTitle() {
         TextField sceneTitle = new TextField(course.getName());
-        sceneTitle.setStyle(
-                "-fx-text-box-border: transparent; " +
-                "-fx-background-color: transparent;" +
-                "-fx-font-weight: bold; " +
-                "-fx-font-size: 24pt;");
+        sceneTitle.setStyle(courseNameStyle);
 
-        sceneTitle.setFocusTraversable(false); // disables focus on start
+        sceneTitle.setFocusTraversable(false);
         sceneTitle.setAlignment(Pos.CENTER);
         sceneTitle.focusedProperty().addListener(
                 (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
+
             if (lostFocus) {
+                sceneTitle.setStyle(courseNameStyle);
                 course.setName(sceneTitle.getText());
             }
+            else if (gainFocus) {
+                sceneTitle.setStyle(courseNameStyleOnFocus);
+            }
+        });
+
+        sceneTitle.setOnAction(event -> {
+            sceneTitle.setStyle(courseNameStyle);
+            titleLayout.requestFocus();
+            course.setName(sceneTitle.getText());
         });
 
         titleLayout.getChildren().add(sceneTitle);

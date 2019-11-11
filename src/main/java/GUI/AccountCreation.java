@@ -20,7 +20,7 @@ public class AccountCreation {
         controller.setPrimaryStage(primaryStage);
 
         // TitleScene Creation
-        AccountCreationScene = new Scene(root,900,640); // Creates the Scene, "the window" of our program
+        AccountCreationScene = new Scene(root); // Creates the Scene, "the window" of our program
     }
 
     public Scene getScene() throws IOException {

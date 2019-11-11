@@ -43,7 +43,6 @@ public class LogInController extends SceneController {
 
         if (model.user != null) {
             primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
-            passwordField.setText("");
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);
             loginError.setTitle("Login Error");
