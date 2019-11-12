@@ -5,6 +5,7 @@ import Interfaces.*;
 import Model.Category;
 import Model.Course;
 import Model.Model;
+import Exception.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -163,12 +164,10 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         sceneTitle.setFocusTraversable(false);
         sceneTitle.setAlignment(Pos.CENTER);
-        sceneTitle.focusedProperty().addListener(
-                (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
-
+        sceneTitle.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
             if (lostFocus) {
                 sceneTitle.setStyle(courseNameStyle);
-                course.setName(sceneTitle.getText());
+                sceneTitle.setText(course.getName());
             }
             else if (gainFocus) {
                 sceneTitle.setStyle(courseNameStyleOnFocus);
@@ -177,8 +176,15 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         sceneTitle.setOnAction(event -> {
             sceneTitle.setStyle(courseNameStyle);
+
+            try {
+                model.user.changeCourseName(course, sceneTitle.getText());
+                sceneTitle.setText(course.getName());
+            } catch (DuplicateNameException d) {
+                AlertPopUp.alert(d.title, d.header, d.toString());
+            }
+
             titleLayout.requestFocus();
-            course.setName(sceneTitle.getText());
         });
 
         titleLayout.getChildren().add(sceneTitle);
@@ -188,10 +194,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     private void buildAddAssignmentLayout() {
         addAssignmentLayout.headLabel.setText("Add Assignment");
 
-        // creates addAssignmentBodyLayout
-
         updateCategoryNames();
 
+        // creates addAssignmentBodyLayout
         addAssignmentDropDown = new ComboBox<>(dropDownListCategories);
         addAssignmentDropDown.setOnAction(event -> {
             // TODO highlight table to add course to
@@ -227,7 +232,11 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                         Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments());
                         categoryTable.gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
 
-                    } catch(Exception exception) {
+                    }
+                    catch (DuplicateNameException d) {
+                        AlertPopUp.alert(d.title, d.header, d.toString());
+                    }
+                    catch(Exception exception) {
                         System.out.println(exception.getMessage());
                     } // TODO handle pop-up bad format
                 }
@@ -254,32 +263,38 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         final Button addCategoryBtn = new Button("+");
 
         /*
-         * handles button press for adding a category
+         * handles button for adding Category
          */
         addCategoryBtn.setOnAction(event -> {
-            String categoryNameText = addCategoryName.getText();
-            double categoryWeight = Double.valueOf(addCategoryWeight.getText());
+            try {
+                String categoryNameText = addCategoryName.getText();
+                double categoryWeight = Double.valueOf(addCategoryWeight.getText());
 
-            // creates new Category
-            Category newCategory = new Category(categoryNameText, categoryWeight);
+                // creates new Category
+                Category newCategory = new Category(categoryNameText, categoryWeight);
 
-            // adds Category to Course
-            course.addCategory(newCategory);
+                // adds Category to Course
+                course.addCategory(newCategory);
 
-            // builds new CategoryTable Node for Scene
-            CategoryTable newCategoryTable = new CategoryTable(newCategory, categoryCalculator, this);
 
-            // adds Node to collection of all CategoryTable Node
-            categoryTables.add(newCategoryTable);
+                // builds new CategoryTable Node for Scene
+                CategoryTable newCategoryTable = new CategoryTable(course, newCategory, categoryCalculator, this);
 
-            // adds (appends) the child CategoryTableLayout to parent CategoryTables layout
-            categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
+                // adds Node to collection of all CategoryTable Node
+                categoryTables.add(newCategoryTable);
 
-            // adds Category to Observable drop down list; multiple ComboBox listeners to list.
-            dropDownListCategories.add(newCategory.getName());
+                // adds (appends) the child CategoryTableLayout to parent CategoryTables layout
+                categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
 
-            addCategoryName.clear();
-            addCategoryWeight.clear();
+                // adds Category to Observable drop down list; multiple ComboBox listeners to list.
+                dropDownListCategories.add(newCategory.getName());
+
+                addCategoryName.clear();
+                addCategoryWeight.clear();
+            }
+            catch (DuplicateNameException d) {
+                AlertPopUp.alert(d.title, d.header, d.toString());
+            }
         });
 
         addCategoryLayout.bodyLayout.getChildren().addAll(addCategoryName, addCategoryWeight, addCategoryBtn);
@@ -328,10 +343,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         removeCategoryLayout.bodyLayout.getChildren().addAll(removeCategoryDropDown, removeCategoryBtn);
     }
 
-
     private void buildCategories() {
         for (Category category : course.getCategories()) {
-            CategoryTable categoryTable = new CategoryTable(category, categoryCalculator, this);
+            CategoryTable categoryTable = new CategoryTable(course, category, categoryCalculator, this);
             categoryTables.add(categoryTable);
         }
     }

@@ -1,8 +1,6 @@
 package Model;
 
-import GUI.CourseScene;
-import com.sun.glass.ui.Application;
-import main.*;
+import Exception.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -152,7 +150,7 @@ public class CML {
 //                case "showtitlescreen"  : showTitlescreen(n); break;
                 default                 : System.out.println("Command not reconized"); break;
             }
-        }catch (Exception e){
+        }catch (Exception | DuplicateNameException e){
             //System.err.println(e.printStackTrace());
             e.printStackTrace();
         }
@@ -387,7 +385,12 @@ public class CML {
             if (course_s == null) {
                 if (checkDefaults(n, 3)) {
                     Course course = new Course(n[1], new School(n[2]));
-                    model.user.addPresentCourse(course);
+                    try {
+                        model.user.addPresentCourse(course);
+                    }
+                    catch (DuplicateNameException d) {
+
+                    }
                     System.out.println("Course \"" + n[1] + "\" has been added.");
                 }
             } else {
@@ -397,7 +400,7 @@ public class CML {
 
     }
 
-    private void addCategory(String[] n){
+    private void addCategory(String[] n) throws DuplicateNameException {
         if (checkDefaults(n,3)){
             if (course_s != null){
                 Course course = model.findCourse(course_s);
@@ -421,7 +424,11 @@ public class CML {
                     Category category = model.findCategory(course_s,catagory_s);
                     if (checkCourse(course) && checkCatagory(category)){
                         Assignment assignment = new Assignment(n[1],Double.parseDouble(n[2]),Double.parseDouble(n[3]));
-                        category.addAssignment(assignment);
+                        try {
+                            category.addAssignment(assignment);
+                        } catch (DuplicateNameException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("Assignment \"" + n[1] + "\" has been added to [" + course.getName() + "->" + category.getName() + "]");
                     }
                 }else{
@@ -457,7 +464,7 @@ public class CML {
         }
     }
 
-    private void add(String[] n){
+    private void add(String[] n) throws DuplicateNameException {
         if (course_s == null){
             addCourse(n);
         }else if(catagory_s == null){
@@ -477,7 +484,7 @@ public class CML {
         }
     }
 
-    private void edit(String[] n){
+    private void edit(String[] n) throws DuplicateNameException {
         if (course_s == null){
             deleteCourse(n);
             addCourse(n);

@@ -3,6 +3,8 @@ package GUI;
 import Interfaces.AssignmentInterface;
 import Interfaces.CategoryCalculatorInterface;
 import Interfaces.CategoryInterface;
+import Model.Course;
+import Exception.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +25,9 @@ import java.text.NumberFormat;
  * a Node for displaying a Category
  */
 public class CategoryTable extends TableView<AssignmentInterface> {
+        /** the Course in which this CategoryTable belongs */
+        Course course;
+
         /** the Category to represent */
         CategoryInterface category;
 
@@ -72,9 +77,11 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                 "-fx-font-weight: bold;" +
                 "-fx-font-size: 16";
 
-        CategoryTable(CategoryInterface category,
+        CategoryTable(Course course,
+                      CategoryInterface category,
                       CategoryCalculatorInterface categoryCalculator,
                       CourseScene courseScene) {
+            this.course = course;
             this.category = category;
             this.categoryCalculator = categoryCalculator;
             this.assignments.setAll(category.getAssignments());
@@ -85,19 +92,29 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             Label titleLabel = new Label("Category:");
             categoryNameField = new TextField(category.getName());
 
-            categoryNameField.focusedProperty().addListener(
-                    (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
-                        if (lostFocus) {
-                            categoryNameField.setStyle(tableNameStyle);
-                            category.setName(categoryNameField.getText());
-                            courseScene.updateCategoryNames();
-                        }
+            categoryNameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
+                if (lostFocus) {
+                    categoryNameField.setStyle(tableNameStyle);
+                    categoryNameField.setText(category.getName());
+                }
 
-                        if (gainFocus) {
-                            categoryNameField.setStyle(tableNameStyleOnFocus);
-                        }
-                    });
+                if (gainFocus) {
+                    categoryNameField.setStyle(tableNameStyleOnFocus);
+                }
+            });
 
+            categoryNameField.setOnAction(event -> {
+                categoryNameField.setStyle(tableNameStyle);
+
+                try {
+                    course.changeCategoryName(category, categoryNameField.getText());
+                    categoryNameField.setText(category.getName());
+                } catch (DuplicateNameException d) {
+                    AlertPopUp.alert(d.title, d.header, d.toString());
+                }
+
+                titleLayout.requestFocus();
+            });
 
             categoryNameField.setStyle(tableNameStyle);
             categoryNameField.setAlignment(Pos.CENTER);
@@ -166,8 +183,13 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             nameColumn.setOnEditCommit( event -> {
                 // TODO Ask Model developer to throw exceptions with bad input
                 try {
-                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
-                } catch(Exception e) {
+                    AssignmentInterface a = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                    category.changeAssignmentName(a, event.getNewValue());
+                } catch (DuplicateNameException d) {
+                    AlertPopUp.alert(d.title, d.header, d.toString());
+                    refresh();
+                }
+                catch(Exception e) {
                     // TODO catch specific exception related to bad input
                     refresh();
                 }

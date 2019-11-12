@@ -4,12 +4,13 @@ import Model.Assignment;
 import Model.Category;
 import Model.Course;
 import Model.School;
+import Exception.*;
 
 import java.util.ArrayList;
 
 public class TestCourseFactory {
 
-    public static Course buildCourse(){
+    public static Course buildCourse() throws DuplicateNameException {
 
         // Quiz
         ArrayList<Assignment> quizAssignments = new ArrayList<>();
@@ -40,7 +41,7 @@ public class TestCourseFactory {
         return new Course("CS 3398", new School("Texas State"), categories);
     }
 
-    public static Course buildCourse2(){
+    public static Course buildCourse2() throws DuplicateNameException {
 
         // Homework
         ArrayList<Assignment> homeworkAssignments = new ArrayList<>();

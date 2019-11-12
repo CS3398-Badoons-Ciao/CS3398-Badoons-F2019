@@ -29,11 +29,6 @@ public class Assignment implements AssignmentInterface, java.io.Serializable
         return name;
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public double getPotentialGrade()
     {
         return potentialGrade;
@@ -58,4 +53,6 @@ public class Assignment implements AssignmentInterface, java.io.Serializable
 
     public Date getDate(){return dueDate; }
 
+    /** to enforce invariant, call only through Assignment container */
+    void setName(String name) { this.name = name; }
 }

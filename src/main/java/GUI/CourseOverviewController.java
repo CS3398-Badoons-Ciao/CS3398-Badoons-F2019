@@ -1,9 +1,9 @@
 package GUI;
 
 import Factory.TestCourseFactory;
-import Interfaces.AssignmentInterface;
 import Interfaces.Listener;
 import Interfaces.Publisher;
+import Exception.*;
 import Model.Calculator;
 import Model.Course;
 import Model.School;
@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +42,7 @@ public class CourseOverviewController extends SceneController implements Initial
     private TableColumn<Course, String>  courseNameColumn;
 
     /** ObservableList representation of the Category list of Assignment */
-    private ObservableList<Course> courses = FXCollections.observableArrayList();
+    private ObservableList<Course> observableCourses = FXCollections.observableArrayList();
 
     /**
      * close() handles the File, Close button to just go back to the title Screen.
@@ -54,13 +53,18 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
     public void Add(ActionEvent actionEvent) {
-        String courseName = addCourseTextField.getText();
+        try {
+            String courseName = addCourseTextField.getText();
 
-        // TODO school handle School input
-        Course course = new Course(courseName, new School("Texas State University"));
+            // TODO school handle School input
+            Course course = new Course(courseName, new School("Texas State University"));
 
-        model.user.addPresentCourse(course);
-        courses.add(course);
+            model.user.addPresentCourse(course);
+            observableCourses.add(course);
+        }
+        catch (DuplicateNameException d) {
+            AlertPopUp.alert(d.title, d.header, d.toString());
+        }
     }
 
     public void load() {
@@ -68,8 +72,8 @@ public class CourseOverviewController extends SceneController implements Initial
             register(course);
         }
 
-        courses.setAll(model.user.getPresentCourses());
-        courseTable.setItems(courses);
+        observableCourses.setAll(model.user.getPresentCourses());
+        courseTable.setItems(observableCourses);
         courseTable.getColumns().add(courseNameColumn);
     }
 
@@ -97,14 +101,20 @@ public class CourseOverviewController extends SceneController implements Initial
     public void handleDeleteCourseBtn(ActionEvent actionEvent) {
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
         model.user.getPresentCourses().remove(selectedCourse);
-        courses.remove(selectedCourse);
+        observableCourses.remove(selectedCourse);
     }
 
     public void addDemoCourse() {
-        model.user.addPresentCourse(TestCourseFactory.buildCourse());
-        model.user.addPresentCourse(TestCourseFactory.buildCourse2());
-        courses.setAll(model.user.getPresentCourses());
-        courseTable.setItems(courses);
+        try {
+            model.user.addPresentCourse(TestCourseFactory.buildCourse());
+            model.user.addPresentCourse(TestCourseFactory.buildCourse2());
+        }
+        catch (DuplicateNameException d) {
+            AlertPopUp.alert(d.title, d.header, d.toString());
+        }
+
+        observableCourses.setAll(model.user.getPresentCourses());
+        courseTable.setItems(observableCourses);
     }
 
 
