@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CourseOverviewController">
+   <children>
+      <MenuBar layoutY="1.0" prefHeight="27.0" prefWidth="900.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                <MenuItem fx:id="DemoCourse" mnemonicParsing="false" onAction="#addDemoCourse" text="Add Demo Courses"/>
+                <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save"/>
+                <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Log Out" />
+                <!-- <MenuItem mnemonicParsing="false" text="Add School" /> -->
+            </items>
+          </Menu>
+            <!--<Menu mnemonicParsing="false" text="Account">
+                 <items>
+                    <MenuItem mnemonicParsing="false" text="Edit Info" />
+                 </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu> -->
+        </menus>
+      </MenuBar>
+      <Text layoutX="116.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name" wrappingWidth="126.13671875" />
+      <TextField fx:id="addCourseTextField" layoutX="116.0" layoutY="96.0" promptText="Enter Course Name" />
+      <Button layoutX="265.0" layoutY="96.0" mnemonicParsing="false" onAction="#Add" text="Add" />
+       <VBox layoutX="116.0" layoutY="122.0">
+           <TableView fx:id="courseTable" ></TableView>
+           <Button text="View Course" onAction="#handleChangeCourseBtn" fx:id="changeCourseBtn"></Button>
+           <Button text="Delete Course" onAction="#handleDeleteCourseBtn" fx:id="deleteCourseBtn"></Button>
+       </VBox>
+   </children>
+</AnchorPane>
