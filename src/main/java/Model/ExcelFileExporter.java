@@ -22,6 +22,8 @@ public class ExcelFileExporter
 
     public void exportFile() throws IOException {
         File file = new File(filePath);
+        if (!file.isFile())
+            file.createNewFile();
         FileInputStream fileInputStream = new FileInputStream(file);
         Workbook workbook = WorkbookFactory.create(fileInputStream);
         excelFormatter = new ExcelFormatter(workbook, userData);

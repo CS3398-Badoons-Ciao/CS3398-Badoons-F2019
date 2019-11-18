@@ -43,6 +43,7 @@
            <TableView fx:id="courseTable" ></TableView>
            <Button text="View Course" onAction="#handleChangeCourseBtn" fx:id="changeCourseBtn"></Button>
            <Button text="Delete Course" onAction="#handleDeleteCourseBtn" fx:id="deleteCourseBtn"></Button>
+           <Button text="Export to Excel" onAction="#handleExportBtn" fx:id="exportBtn"></Button>
        </VBox>
    </children>
 </AnchorPane>
