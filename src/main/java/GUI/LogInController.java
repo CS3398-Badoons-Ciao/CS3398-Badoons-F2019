@@ -42,7 +42,8 @@ public class LogInController extends SceneController {
         model.login(login,password);
 
         if (model.user != null) {
-            primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
+            //primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
+            primaryStage.setScene((new Menu(primaryStage, model)).getScene());
         } else {
             Alert loginError = new Alert(Alert.AlertType.INFORMATION);
             loginError.setTitle("Login Error");
