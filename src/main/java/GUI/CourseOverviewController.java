@@ -106,7 +106,7 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
     public void handleExportBtn(ActionEvent actionEvent) {
-        ExcelFileExporter excelFileExporter = new ExcelFileExporter("ExportedGradeData.xlsx", model.user);
+        ExcelFileExporter excelFileExporter = new ExcelFileExporter("src\\main\\java\\GUI\\resources\\ExportedGradeData.xlsx", model.user);
         try {
             excelFileExporter.exportFile();
         } catch (IOException e) {
