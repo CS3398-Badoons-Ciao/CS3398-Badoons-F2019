@@ -21,6 +21,7 @@
                 <MenuItem fx:id="DemoCourse" mnemonicParsing="false" onAction="#addDemoCourse" text="Add Demo Courses"/>
                 <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save"/>
                 <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Log Out" />
+                <MenuItem fx:id="Help" mnemonicParsing="false" onAction="#help" text="Help" />
                 <!-- <MenuItem mnemonicParsing="false" text="Add School" /> -->
             </items>
           </Menu>
