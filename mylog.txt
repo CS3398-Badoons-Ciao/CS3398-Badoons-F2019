@@ -1,0 +1,10 @@
+Nov 25, 2019 11:36:04 AM Model.Model initLogger
+FINE: Logger Start
+Nov 25, 2019 11:36:12 AM Model.Model login
+FINE: User ID not found, please check your spelling
+Nov 25, 2019 11:36:36 AM Model.Model createNewUser
+FINE: New User bkh60 created.
+Nov 25, 2019 11:36:36 AM Model.Model loadUser
+FINE: User 'Bailey" found.
+Nov 25, 2019 11:36:36 AM Model.Model login
+FINE: You are now logged as Bailey
