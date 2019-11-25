@@ -7,8 +7,27 @@ Finish deleteCurrentUser() needs to be able to delete files
  */
 
 import Interfaces.SaveUserInterface;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.*;
 
 import java.util.*;
+
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.logging.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.util.Date;
+import java.text.*;
 /**
  Model: The back end of EZGrader
  @author Bailey H.
@@ -18,6 +37,11 @@ public class Model implements SaveUserInterface
     private Calculator calculator = new Calculator();
     private DatabaseManager dbManager;
     public UserData user = null;
+    Logger logger = Logger.getLogger("MainApp");
+
+
+    //log.setLevel(Level.INFO);
+
 
 
 
@@ -25,7 +49,48 @@ public class Model implements SaveUserInterface
 
     public Model() {
         dbManager = new DatabaseManager();
+        initLogger();
+        startLogger();
+    }
 
+    /**
+     * Sets up and runs looger
+     */
+    public void initLogger(){
+        logger.setUseParentHandlers(false);
+        FileHandler fh= null;
+        try{
+            fh = new FileHandler("mylog.txt");
+        }catch(Exception e){
+            System.err.println("Failed to create FileHandler(\"mylog.txt\")\n" + e);
+        }
+        logger.addHandler(fh);
+        SimpleFormatter formatter = new SimpleFormatter();
+        fh.setFormatter(formatter);
+        logger.setLevel(Level.ALL);
+        //SEVERE (highest)
+        //WARNING
+        //INFO
+        //CONFIG
+        //FINE
+        //FINER
+        //FINEST
+        logger.fine("Logger Start");
+        logger.setLevel(Level.OFF);
+    }
+
+    /**
+     * Starts Logger
+     */
+    public void startLogger(){
+        logger.setLevel(Level.ALL);
+    }
+
+    /**
+     * Stops Logger
+     */
+    public void stopLogger(){
+        logger.setLevel(Level.OFF);
     }
     //--------------------------------------------------------------------------
     /**
@@ -40,8 +105,10 @@ public class Model implements SaveUserInterface
             dbManager.addUserListEntry(id + "|" + name);
             saveUser();
             System.out.println("New User " + id + " created.");
+            logger.fine("New User " + id + " created.");
         }else{
             System.out.println("User " + id + " already exist.");
+            logger.info("User " + id + " already exist.");
         }
 
     }
@@ -67,10 +134,13 @@ public class Model implements SaveUserInterface
             if(!user.checkPassword(password)){
                 user = null;
                 System.out.println("Login attempt failed, inncorect password");
+               logger.info("Login attempt failed, inncorect password");
             }
             System.out.println("You are now logged as " + dbManager.lookUpUserName(id));
+            logger.fine("You are now logged as " + dbManager.lookUpUserName(id));
         }else{
             System.out.println("User ID not found, please check your spelling");
+            logger.fine("User ID not found, please check your spelling");
         }
 
     }
@@ -85,6 +155,8 @@ public class Model implements SaveUserInterface
         }catch(Exception e){
             System.out.println("[Model -> saveUser()] Exception caught");
             System.out.println(e);
+            logger.warning("[Model -> saveUser()] Exception caught");
+            logger.warning(e.toString());
         }
         dbManager.saveUserList();
     }
@@ -99,8 +171,11 @@ public class Model implements SaveUserInterface
         }catch(Exception e){
             System.out.println("[Model -> loadUser()] Exception caught");
             System.out.println(e);
+            logger.warning("[Model -> loadUser()] Exception caught");
+            logger.warning(e.toString());
         }
         System.out.println("User \'" + user.getName() + "\" found.");
+        logger.fine("User \'" + user.getName() + "\" found.");
     }
 
     /**
@@ -110,6 +185,7 @@ public class Model implements SaveUserInterface
     public void deleteCurrentUser(String password){
         if (!loggedIn()){
             System.out.println("No user logged in, unable to delete");
+            logger.fine("No user logged in, unable to delete");
         }else{
             if (user.checkPassword(password)) {
                 dbManager.deleteFile(user.getId() + ".ser");
@@ -198,16 +274,20 @@ public class Model implements SaveUserInterface
     public void setPassword(String oldPS, String newPS){
         if (oldPS.equals(newPS)){
             System.out.println("Passwords are the same, choose a diffrent password");
+            logger.info("Passwords are the same, choose a diffrent password");
         }else{
             if (loggedIn()){
                 if (user.checkPassword(oldPS)){
                     user.setPassword(newPS);
                     System.out.println("Password correctly changed.");
+                    logger.fine("Password correctly changed.");
                 }else{
                     System.out.println("Old password inncorrect, no changes made.");
+                    logger.fine("Old password inncorrect, no changes made.");
                 }
             }else {
                 System.out.println("No users logged in");
+                logger.fine("No users logged in");
             }
         }
     }
@@ -328,6 +408,7 @@ public class Model implements SaveUserInterface
         Course c = findCourse(n);
         user.removeCourse(user.getPresentCourses().indexOf(c));
         System.out.println("Course has been deleted");
+        logger.fine("Course has been deleted");
     }
     /**
      * Given the sting name of the category it deletes it from the data base and every thing under it.
@@ -338,6 +419,7 @@ public class Model implements SaveUserInterface
         Category c = findCategory(course,n);
         findCourse(course).removeCategory(findCourse(course).getCategories().indexOf(c));
         System.out.println("Catagory has been removed");
+        logger.fine("Catagory has been removed");
     }
     /**
      * Given the sting name of the assignment it deletes it from the data base and every thing under it.
@@ -349,6 +431,7 @@ public class Model implements SaveUserInterface
         Assignment a = findAssignment(course,catagory,n);
         findCategory(course,catagory).removeAssignment(findCategory(course,catagory).getAssignments().indexOf(a));
         System.out.println("Assignment has been removed");
+        logger.fine("Assignment has been removed");
 
     }
 

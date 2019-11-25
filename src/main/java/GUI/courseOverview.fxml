@@ -21,6 +21,7 @@
                 <MenuItem fx:id="DemoCourse" mnemonicParsing="false" onAction="#addDemoCourse" text="Add Demo Courses"/>
                 <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save"/>
                 <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Log Out" />
+                <MenuItem fx:id="Help" mnemonicParsing="false" onAction="#help" text="Help" />
                 <!-- <MenuItem mnemonicParsing="false" text="Add School" /> -->
             </items>
           </Menu>
@@ -43,6 +44,7 @@
            <TableView fx:id="courseTable" ></TableView>
            <Button text="View Course" onAction="#handleChangeCourseBtn" fx:id="changeCourseBtn"></Button>
            <Button text="Delete Course" onAction="#handleDeleteCourseBtn" fx:id="deleteCourseBtn"></Button>
+           <Button text="Export to Excel" onAction="#handleExportBtn" fx:id="exportBtn"></Button>
        </VBox>
    </children>
 </AnchorPane>

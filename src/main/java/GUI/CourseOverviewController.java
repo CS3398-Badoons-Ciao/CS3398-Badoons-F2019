@@ -6,6 +6,7 @@ import Interfaces.Publisher;
 import Exception.*;
 import Model.Calculator;
 import Model.Course;
+import Model.ExcelFileExporter;
 import Model.School;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +31,9 @@ import java.util.ResourceBundle;
 public class CourseOverviewController extends SceneController implements Initializable, Listener {
     @FXML
     private MenuItem Close;
+
+    @FXML
+    private MenuItem Help;
 
     @FXML
     private TextField addCourseTextField;
@@ -51,6 +56,38 @@ public class CourseOverviewController extends SceneController implements Initial
     public void close() throws IOException {
         primaryStage.setScene( (new LogIn(model, primaryStage)).getScene());
     }
+
+    /**
+     * this function handles the File, Help button to open the help menu
+     */
+    public void help() {
+        Popup popup = new Popup();
+
+        final String helpText = "Welcome to the course overview scene! Here you can add new courses,\n" +
+                                "delete courses, export your courses to excel, or navigate to the \n" +
+                                "individual course scenes via the view course button! :)";
+
+        Label label = new Label(helpText);
+
+        Button exitButton = new Button("Close Popup");
+        exitButton.setOnAction(addEvent -> {
+            popup.hide();
+        });
+
+        BoxSplitLayout popupLayout = new BoxSplitLayout();
+
+        //centers popup
+        popup.centerOnScreen();
+
+        //define the popups background color
+        popupLayout.setStyle("-fx-background-color: #4287f5;");
+
+        popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
+
+        popup.getContent().add(popupLayout);
+        popup.show(primaryStage);
+    }
+
 
     public void Add(ActionEvent actionEvent) {
         try {
@@ -102,6 +139,15 @@ public class CourseOverviewController extends SceneController implements Initial
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
         model.user.getPresentCourses().remove(selectedCourse);
         observableCourses.remove(selectedCourse);
+    }
+
+    public void handleExportBtn(ActionEvent actionEvent) {
+        ExcelFileExporter excelFileExporter = new ExcelFileExporter("src\\main\\java\\GUI\\resources\\ExportedGradeData.xlsx", model.user);
+        try {
+            excelFileExporter.exportFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addDemoCourse() {

@@ -6,6 +6,7 @@ import Model.Category;
 import Model.Course;
 import Model.Model;
 import Exception.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -22,6 +24,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -152,7 +157,44 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
             primaryStage.setScene((new CourseOverview(model, primaryStage)).getScene());
         });
 
-        fileMenu.getItems().addAll(coursesItem, saveItem, logOutItem);
+        MenuItem helpItem = new MenuItem("Help");
+        helpItem.setOnAction(event -> {
+            Popup popup = new Popup();
+
+            final String helpText = "Welcome to the course scene! Here you can find and edit\n" +
+                                    "all of the information relating to this course. To start,\n" +
+                                    "add a new category by giving it a name and a weight.\n" +
+                                    "For example, if quizzes are worth 20% of the course's grade\n" +
+                                    "then you would create a category called \"Quizzes\" with a\n" +
+                                    "weight of \".20\". Once you've added all of the categories, \n" +
+                                    "you can add assignments to the category. For example if you \n" +
+                                    "got a 90 on a test with 100 total points, you would create an\n" +
+                                    "assignment named \"Test One\" with 90 as the current score and\n" +
+                                    "100 as the potential score.";
+
+
+            Label label = new Label(helpText);
+
+            Button exitButton = new Button("Close Popup");
+            exitButton.setOnAction(addEvent -> {
+                popup.hide();
+            });
+
+            BoxSplitLayout popupLayout = new BoxSplitLayout();
+
+            //centers popup
+            popup.centerOnScreen();
+
+            //define the popups background color
+            popupLayout.setStyle("-fx-background-color: #4287f5;");
+
+            popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
+
+            popup.getContent().add(popupLayout);
+            popup.show(primaryStage);
+        });
+
+        fileMenu.getItems().addAll(coursesItem, saveItem, logOutItem, helpItem);
 
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu);

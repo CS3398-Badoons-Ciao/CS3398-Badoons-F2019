@@ -23,6 +23,13 @@ public class ExcelFormatter
         ArrayList<Course> courses = userData.getPresentCourses();
         courses.addAll(userData.getPastCourses());
 
+        //clears all previously saved data
+        while (workbook.getNumberOfSheets() > 0)
+        {
+            workbook.removeSheetAt(0);
+        }
+
+        //format each sheet in the workbook
         for (int i = 0; i < courses.size(); i++)
         {
             formatCourseSheet(i, courses.get(i));
@@ -33,8 +40,10 @@ public class ExcelFormatter
 
     public void formatCourseSheet(int index, Course course)
     {
-        //sets the Sheet Name
+        //creates a new sheet and sets its name
+        workbook.createSheet();
         workbook.setSheetName(index, course.getName());
+
         //gets the Sheet
         Sheet sheet = workbook.getSheetAt(index);
 
@@ -48,25 +57,26 @@ public class ExcelFormatter
         }
 
         //To understand these calculations, check the demo file
-        int rowLength = 3 + 2 * course.getCategories().size();
-        int colLength = 7 + longestCategorySize;
+        int rowLength = 8 + longestCategorySize;
+        int colLength = 3 + 2 * course.getCategories().size();
 
         //It is easier to calculate the locations of each element in a 2-Dimensional array than to do it using the Workbook's functionality, so
         //I chose to organize the data in this sheetArray, before copying into the Sheet itself :)
         String[][] sheetArray = new String[rowLength][colLength];
 
-        sheetArray[0][0] = "School";                        sheetArray[1][0] = "Credit Hours";                  sheetArray[2][0] = "Overall Grade";
-        sheetArray[1][0] = course.getSchool().getName();    sheetArray[1][1] = course.getCreditHours() + "";    sheetArray[1][2] = course.getGrade() + "";
+        sheetArray[0][0] = "School";                    sheetArray[0][1] = course.getSchool().getName();
+        sheetArray[1][0] = "Credit Hours";              sheetArray[1][1] = course.getCreditHours() + "";
+        sheetArray[2][0] = "Overall Grade";             sheetArray[2][1] = course.getGrade() + "";
 
-        sheetArray[3][0] = "Categories:";
+        sheetArray[4][0] = "Categories:";
 
         ArrayList<Category> categories = course.getCategories();
 
         //for each category in the course
         for (int i = 0; i <  categories.size(); i++)
         {
-            sheetArray[5][i * 2] = categories.get(i).getName(); //category name
-            sheetArray[6][i * 2] = "Assignment Name";       sheetArray[6][i * 2 + 1] = "Assignment Grade";
+            sheetArray[6][i * 2] = categories.get(i).getName(); //category name
+            sheetArray[7][i * 2] = "Assignment Name";       sheetArray[7][i * 2 + 1] = "Assignment Grade";
 
             //for each assignment in the category
             for (int j = 0; j < categories.get(i).getAssignments().size(); j++)
@@ -75,7 +85,7 @@ public class ExcelFormatter
                 String name = categories.get(i).getAssignments().get(j).getName();
                 String grade = categories.get(i).getAssignments().get(j).getCurrentGrade() + "";
 
-                sheetArray[7 + j][i * 2] = name;            sheetArray[7 + i][i * 2 + 1] = grade;
+                sheetArray[8 + j][i * 2] = name;            sheetArray[8 + j][i * 2 + 1] = grade;
             }
         }
 
