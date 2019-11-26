@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 
 import java.io.IOException;
@@ -40,6 +41,9 @@ public class CourseOverviewController extends SceneController implements Initial
 
     @FXML
     private TextField courseSelectionTextField;
+
+    @FXML
+    private Text gpaLabel;
 
     @FXML
     private TableView courseTable;
@@ -112,6 +116,13 @@ public class CourseOverviewController extends SceneController implements Initial
         observableCourses.setAll(model.user.getPresentCourses());
         courseTable.setItems(observableCourses);
         courseTable.getColumns().add(courseNameColumn);
+        loadGPA();
+    }
+
+    public void loadGPA() {
+        model.cal(); // Calculate GPA
+        gpaLabel.setText("GPA : " + model.user.getGPA()); // Display GPA
+        System.out.println("User.getGPA() = " + model.user.getGPA());
     }
 
     public void save() {
