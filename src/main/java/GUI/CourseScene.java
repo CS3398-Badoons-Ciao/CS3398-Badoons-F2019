@@ -6,7 +6,6 @@ import Model.Category;
 import Model.Course;
 import Model.Model;
 import Exception.*;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -24,9 +22,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,13 +52,19 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     private ScrollPane scrollPane = new ScrollPane();
 
     /** root layout */
-    private VBox sceneLayout = new VBox();
+    private BorderPane sceneLayout = new BorderPane();
+
+    /** holds menu bar and course name */
+    private VBox sceneLayoutTop = new VBox();
+
+    /** holds edit boxes */
+    private VBox sceneLayoutCenter = new VBox();
 
     /** 'Menu Bar' feature */
     private MenuBar menuBar = new MenuBar();
 
     /** root layout for scene title */
-    private HBox titleLayout = new HBox();
+    private VBox titleLayout = new VBox();
 
     /** root layout for 'add assignment' feature */
     private BoxSplitLayout addAssignmentLayout = new BoxSplitLayout();
@@ -82,6 +84,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     /** root layout for 'category tables' feature */
     private VBox categoryTablesLayout = new VBox();
 
+    /** scrollpane for categoryTablesLayout */
+    private ScrollPane tableScrollPane = new ScrollPane();
+
     /** List of CategoryTable, one-to-one relationship for all categories in Course */
     private List<CategoryTable> categoryTables = new ArrayList<>();
 
@@ -92,6 +97,12 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
     /** a grade calculator injected dependency */
     private CategoryCalculatorInterface categoryCalculator;
+
+    /** layout for course grade */
+    HBox courseGradeLayout = new HBox();
+
+    /** for course grade */
+    Label courseGrade= new Label();
 
     /** formatter for displaying doubles */
     NumberFormat doubleFormatter = new DecimalFormat("#0.00");
@@ -105,6 +116,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
     String courseNameStyleOnFocus =
             "-fx-font-weight: bold; " +
             "-fx-font-size: 24pt;";
+
+    String courseGradeStyle = "-fx-font-weight: bold; "
+            + "-fx-font-size: 16pt;";
 
     /**
      * sets course and builds scene
@@ -229,8 +243,18 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
             titleLayout.requestFocus();
         });
 
-        titleLayout.getChildren().add(sceneTitle);
-        titleLayout.setAlignment(Pos.CENTER);
+        Label courseGradeLabel = new Label("Course Grade: ");
+        courseGradeLabel.setStyle(courseGradeStyle);
+
+        courseGrade.setText(doubleFormatter.format(categoryCalculator.getCourseGrade(course)));
+        courseGrade.setStyle(courseGradeStyle);
+
+        courseGradeLayout.getChildren().addAll(courseGradeLabel, courseGrade);
+        courseGradeLayout.setAlignment(Pos.CENTER);
+
+        titleLayout.getChildren().addAll(sceneTitle, courseGradeLayout);
+        titleLayout.setSpacing(5);
+        titleLayout.setPadding(new Insets(25,0,25,0));
     }
 
     private void buildAddAssignmentLayout() {
@@ -247,7 +271,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         addAssignmentDropDown.setPromptText("Category");
 
         final TextField addCourseName = new TextField();
-        addCourseName.setPromptText("Course Name");
+        addCourseName.setPromptText("Assignment Name");
 
         final TextField addCurrentGrade = new TextField();
         addCurrentGrade.setPromptText("Current Grade");
@@ -274,6 +298,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                         Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments());
                         categoryTable.gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
 
+                        updateCourseGrade();
                     }
                     catch (DuplicateNameException d) {
                         AlertPopUp.alert(d.title, d.header, d.toString());
@@ -331,6 +356,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                 // adds Category to Observable drop down list; multiple ComboBox listeners to list.
                 dropDownListCategories.add(newCategory.getName());
 
+                updateCourseGrade();
+
                 addCategoryName.clear();
                 addCategoryWeight.clear();
             }
@@ -379,7 +406,9 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                 // removes CategoryTable from Scene
                 categoryTablesLayout.getChildren().remove(categoryTableToRemove);
                 categoryTablesLayout.getChildren().remove(categoryTableToRemove.categoryTableLayout);
-                }
+
+                updateCourseGrade();
+            }
         });
 
         removeCategoryLayout.bodyLayout.getChildren().addAll(removeCategoryDropDown, removeCategoryBtn);
@@ -403,23 +432,36 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         buildCategories();
         buildAddAssignmentLayout();
 
-        sceneLayout.setFillWidth(true);
-        sceneLayout.setSpacing(20);
-        sceneLayout.setPadding(new Insets(5, 35, 35, 35));
+        sceneLayoutTop.getChildren().addAll(menuBar, titleLayout);
 
-        sceneLayout.getChildren().addAll
-                (menuBar, titleLayout, addCategoryLayout, removeCategoryLayout, addAssignmentLayout);
+        sceneLayoutCenter.getChildren().addAll(addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
+        sceneLayoutCenter.setPadding(new Insets(90, 50, 35, 100));
+
+        sceneLayout.setTop(sceneLayoutTop);
+        sceneLayout.setCenter(sceneLayoutCenter);
+        sceneLayout.setPadding(new Insets(50, 50, 50, 50));
+
+        Label categoryTablesLabel = new Label("Assignments");
+        categoryTablesLabel.setStyle(
+                "-fx-font-weight: bold; " +
+                "-fx-font-size: 15pt;");
+
+        categoryTablesLayout.getChildren().add(categoryTablesLabel);
+        categoryTablesLayout.setPadding(new Insets(45, 50, 35, 35));
 
         for (CategoryTable categoryTable : categoryTables) {
             categoryTablesLayout.getChildren().add(categoryTable.categoryTableLayout);
         }
 
-        sceneLayout.getChildren().add(categoryTablesLayout);
+        tableScrollPane.setContent(categoryTablesLayout);
+        tableScrollPane.setPannable(true);
+
+        sceneLayout.setLeft(tableScrollPane);
 
         scrollPane.setContent(sceneLayout);
         scrollPane.setPannable(true);
-        scrollPane.fitToWidthProperty().set(true);
-        scrollPane.fitToHeightProperty().set(true);
+        //scrollPane.fitToWidthProperty().set(true);
+        //scrollPane.fitToHeightProperty().set(true);
 
         scene = new Scene(scrollPane);
     }
@@ -440,6 +482,10 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
                 dropDownListCategories.add(category.getName());
             }
         }
+    }
+
+    public void updateCourseGrade() {
+        courseGrade.setText(doubleFormatter.format(categoryCalculator.getCourseGrade(course)));
     }
 
 }

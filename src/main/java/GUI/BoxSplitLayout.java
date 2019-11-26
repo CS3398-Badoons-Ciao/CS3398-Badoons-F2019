@@ -21,7 +21,7 @@ public class BoxSplitLayout extends VBox {
     /**
      * a child layout body
      */
-    public HBox bodyLayout = new HBox();
+    public VBox bodyLayout = new VBox();
 
     /**
      * sets basic style for head and body

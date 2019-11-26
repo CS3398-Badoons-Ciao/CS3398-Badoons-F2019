@@ -81,7 +81,9 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                       CategoryInterface category,
                       CategoryCalculatorInterface categoryCalculator,
                       CourseScene courseScene) {
+
             this.course = course;
+            this.courseScene = courseScene;
             this.category = category;
             this.categoryCalculator = categoryCalculator;
             this.assignments.setAll(category.getAssignments());
@@ -129,12 +131,18 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
                             try {
-                                category.setWeight(Double.valueOf(categoryNameField.getText()));
+                                category.setWeight(Double.parseDouble(weightField.getText()));
+                                courseScene.updateCourseGrade();
                             }
                             catch (Exception e) {
                             }
                         }
                     });
+
+            weightField.setOnAction(event -> {
+                category.setWeight(Double.valueOf(weightField.getText()));
+                courseScene.updateCourseGrade();
+            });
 
             weightField.setStyle(   "-fx-text-box-border: transparent; " +
                                     "-fx-background-color: transparent;");
@@ -215,6 +223,8 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
                     gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
 
+                    courseScene.updateCourseGrade();
+
                 } catch(Exception e) {
                     // TODO catch specific exception related to bad input
                     // updates table with data model if exception is caught
@@ -241,6 +251,8 @@ public class CategoryTable extends TableView<AssignmentInterface> {
                     // re-calculate Category grade
                     Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
                     gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
+
+                    courseScene.updateCourseGrade();
 
                 } catch(Exception e) {
                     // TODO catch specific exception related to bad input
@@ -274,6 +286,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             /*
              * removes blank rows
              */
+
             setFixedCellSize(28);
             prefHeightProperty().bind(
                     fixedCellSizeProperty().multiply(Bindings.size(getItems()).add(1.01)));
