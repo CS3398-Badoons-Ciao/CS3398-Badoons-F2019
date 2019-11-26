@@ -1,6 +1,6 @@
-Nov 25, 2019 9:12:09 PM Model.Model initLogger
+Nov 26, 2019 8:21:30 AM Model.Model initLogger
 FINE: Logger Start
-Nov 25, 2019 9:12:13 PM Model.Model loadUser
-FINE: User 'jp" found.
-Nov 25, 2019 9:12:13 PM Model.Model login
-FINE: You are now logged as jp
+Nov 26, 2019 8:21:42 AM Model.Model loadUser
+FINE: User 'alex" found.
+Nov 26, 2019 8:21:42 AM Model.Model login
+FINE: You are now logged as alex

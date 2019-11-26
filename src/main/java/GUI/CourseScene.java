@@ -280,6 +280,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         addPotentialGrade.setPromptText("Potential Grade");
 
         final Button addAssignmentBtn = new Button("+");
+        final Tooltip addAssignmentBtnTooltip = new Tooltip("Adds a new assignment");
+        Tooltip.install(addAssignmentBtn, addAssignmentBtnTooltip);
         addAssignmentBtn.setOnAction(addEvent -> {
             for (CategoryTable categoryTable : categoryTables) {
                 if (categoryTable.category.getName().equals(addAssignmentDropDown.getValue())) {
@@ -328,6 +330,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         addCategoryWeight.setPromptText("Category Weight");
 
         final Button addCategoryBtn = new Button("+");
+        final Tooltip addCategoryBtnTooltip = new Tooltip("Adds a new category (ex: tests, homework, etc.)");
+        Tooltip.install(addCategoryBtn, addCategoryBtnTooltip);
 
         /*
          * handles button for adding Category
@@ -380,6 +384,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         });
 
         final Button removeCategoryBtn = new Button("-");
+        final Tooltip removeCategoryBtnTooltip = new Tooltip("Removes the selected category");
+        Tooltip.install(removeCategoryBtn, removeCategoryBtnTooltip);
 
         /*
          * handles button for removing a Category

@@ -37,7 +37,7 @@
       </MenuBar>
       <Text layoutX="116.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name" wrappingWidth="126.13671875" />
       <TextField fx:id="addCourseTextField" layoutX="116.0" layoutY="96.0" promptText="Enter Course Name" />
-      <Button layoutX="265.0" layoutY="96.0" mnemonicParsing="false" onAction="#Add" text="Add" />
+      <Button fx:id="addCourseButton" layoutX="265.0" layoutY="96.0" mnemonicParsing="false" onAction="#Add" text="Add" />
        <VBox layoutX="116.0" layoutY="122.0">
            <TableView fx:id="courseTable" />
            <Button fx:id="changeCourseBtn" onAction="#handleChangeCourseBtn" text="View Course" />
