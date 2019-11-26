@@ -87,7 +87,7 @@ public class Menu implements Listener, EventHandler<ActionEvent>
         scrollPane.fitToWidthProperty().set(true);
         scrollPane.fitToHeightProperty().set(true);
 
-        scene = new Scene(scrollPane);
+        scene = new Scene(scrollPane,900,600);
 
     }
 
