@@ -16,6 +16,7 @@ public class CourseOverview {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("courseOverview.fxml")); // Loads the FXML
 
         Parent root = null;
+
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -28,6 +29,9 @@ public class CourseOverview {
         controller.load();
 
         sceneOverview = new Scene(root);
+
+        root.setId("AnchorPane");
+        sceneOverview.getStylesheets().addAll(getClass().getResource("resources/titlescreen.css").toExternalForm()); // Loads the CSS file.
     }
 
     public Scene getScene() {
