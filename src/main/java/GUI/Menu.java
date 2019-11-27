@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -87,7 +84,7 @@ public class Menu implements Listener, EventHandler<ActionEvent>
         scrollPane.fitToWidthProperty().set(true);
         scrollPane.fitToHeightProperty().set(true);
 
-        scene = new Scene(scrollPane);
+        scene = new Scene(scrollPane,900,600);
 
     }
 
@@ -120,6 +117,16 @@ public class Menu implements Listener, EventHandler<ActionEvent>
         final Button goToCoursesSceneBtn = new Button("Courses");
         final Button goToToDoListSceneBtn = new Button("To Do List");
         final Button goToOptionsSceneBtn = new Button("Options");
+
+        //tooltips that display when hovering over the corresponding buttons
+        final Tooltip coursesTooltip = new Tooltip("Goes to the course overview scene");
+        final Tooltip toDoListTooltip = new Tooltip("Goes to the To-Do list scene");
+        final Tooltip optionsTooltip = new Tooltip("Goes to the Options scene");
+
+        //install method assigns the tooltip with the button
+        Tooltip.install(goToCoursesSceneBtn, coursesTooltip);
+        Tooltip.install(goToToDoListSceneBtn, toDoListTooltip);
+        Tooltip.install(goToOptionsSceneBtn, optionsTooltip);
 
         goToCoursesSceneBtn.setOnAction(event ->
         {

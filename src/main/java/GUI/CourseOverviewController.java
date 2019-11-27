@@ -16,8 +16,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import org.apache.poi.ss.formula.functions.T;
 
+import javax.tools.Tool;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +45,22 @@ public class CourseOverviewController extends SceneController implements Initial
     private TextField courseSelectionTextField;
 
     @FXML
+    private Text gpaLabel;
+
+    @FXML
     private TableView courseTable;
+
+    @FXML
+    private Button addCourseButton;
+
+    @FXML
+    private Button changeCourseBtn;
+
+    @FXML
+    private Button deleteCourseBtn;
+
+    @FXML
+    private Button exportBtn;
 
     private TableColumn<Course, String>  courseNameColumn;
 
@@ -112,6 +130,13 @@ public class CourseOverviewController extends SceneController implements Initial
         observableCourses.setAll(model.user.getPresentCourses());
         courseTable.setItems(observableCourses);
         courseTable.getColumns().add(courseNameColumn);
+        loadGPA();
+    }
+
+    public void loadGPA() {
+        model.cal(); // Calculate GPA
+        gpaLabel.setText("GPA : " + model.user.getGPA()); // Display GPA
+        System.out.println("User.getGPA() = " + model.user.getGPA());
     }
 
     public void save() {
@@ -125,6 +150,16 @@ public class CourseOverviewController extends SceneController implements Initial
         courseNameColumn.setMinWidth(100);
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // property must match object
         courseNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        final Tooltip addCourseButtonTooltip = new Tooltip("This button creates a new course");
+        final Tooltip viewCourseButtonTooltip = new Tooltip("This button takes you to the Course scene for the selected scene");
+        final Tooltip deleteCourseButtonTooltip = new Tooltip("This button deletes the selected course from the system");
+        final Tooltip exportButtonTooltip = new Tooltip("This button exports your grade data to an Excel spreadsheet");
+
+        Tooltip.install(addCourseButton, addCourseButtonTooltip);
+        Tooltip.install(changeCourseBtn, viewCourseButtonTooltip);
+        Tooltip.install(deleteCourseBtn, deleteCourseButtonTooltip);
+        Tooltip.install(exportBtn ,exportButtonTooltip);
     }
 
     public void handleChangeCourseBtn(ActionEvent actionEvent) {
