@@ -71,7 +71,7 @@ This app will allow students to save course grade information and will simplify 
 	* gradle clean
 	* gradle fatJar
 	* java -jar EZGrader-V1.0.jar
-* Opetion 3: Just running the program.
+* Option 3: Just running the program.
 	* The jar file is all ready built and ready to run all you have to do is follow to steps bellow.
 	* Open power shell or another command line interface.
 		* To open power shell in the root folder you can either..
