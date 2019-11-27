@@ -3,6 +3,7 @@ package GUI;
 import Interfaces.AssignmentInterface;
 import Interfaces.CategoryCalculatorInterface;
 import Interfaces.CategoryInterface;
+import Model.Assignment;
 import Model.Course;
 import Exception.*;
 import javafx.beans.binding.Bindings;
@@ -207,7 +208,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
              * creates a grade Column
              */
             TableColumn<AssignmentInterface, Double> gradeColumn = new TableColumn<>("Grade");
-            gradeColumn.setMinWidth(100);
+            gradeColumn.setMinWidth(130);
             gradeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
             gradeColumn.setCellValueFactory(new PropertyValueFactory<>("currentGrade"));
             gradeColumn.setOnEditCommit( event -> {
@@ -236,7 +237,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
              * creates a PotentialGrade Column
              */
             TableColumn<AssignmentInterface, Double> potentialGradeColumn = new TableColumn<>("Potential Grade");
-            potentialGradeColumn.setMinWidth(100);
+            potentialGradeColumn.setMinWidth(130);
             potentialGradeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
             potentialGradeColumn.setCellValueFactory(new PropertyValueFactory<>("potentialGrade"));
             potentialGradeColumn.setOnEditCommit( event -> {
@@ -287,7 +288,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
              * removes blank rows
              */
 
-            setFixedCellSize(28);
+            setFixedCellSize(32);
             prefHeightProperty().bind(
                     fixedCellSizeProperty().multiply(Bindings.size(getItems()).add(1.01)));
             minHeightProperty().bind(prefHeightProperty());

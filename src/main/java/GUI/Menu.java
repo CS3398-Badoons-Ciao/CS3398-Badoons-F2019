@@ -8,18 +8,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Menu implements Listener, EventHandler<ActionEvent>
+public class Menu
 {
-    private Scene menuScene;/** The primary Stage */
+    private Scene menuScene;
+
+    /** The primary Stage */
     private Stage primaryStage;
 
     /** Course Scene for Stage */
@@ -28,20 +32,14 @@ public class Menu implements Listener, EventHandler<ActionEvent>
     /** User Model */
     private Model model;
 
-    /** 'scroll bar' feature */
-    private ScrollPane scrollPane = new ScrollPane();
-
     /** root layout */
-    private VBox sceneLayout = new VBox();
+    private BorderPane sceneLayout = new BorderPane();
 
     /** 'Menu Bar' feature */
     private MenuBar menuBar = new MenuBar();
 
-    /** root layout for scene title */
-    private HBox titleLayout = new HBox();
-
     /** root layout for 'menu options' feature */
-    private BoxSplitLayout menuOptionsLayout = new BoxSplitLayout();
+    private VBox menuOptionsLayout = new VBox();
 
     public Menu(Stage primaryStage, Model model)
     {
@@ -52,40 +50,15 @@ public class Menu implements Listener, EventHandler<ActionEvent>
 
     public Scene getScene() {return scene;}
 
-    @Override
-    public void update(Publisher model) {
-        //buildScene();
-    }
-
-    @Override
-    public void register(Publisher publisher) {
-        publisher.addListener(this);
-    }
-
-    @Override
-    public void handle(ActionEvent event) { }
-
     private void buildScene()
     {
-        //build all of the aspects of the Scene
         buildMenuBar();
         buildMenuOptionsLayout();
 
-        //Set up some other parameters
-        //feel free to tweak these as you see fit
-        sceneLayout.setFillWidth(true);
-        sceneLayout.setSpacing(20);
-        sceneLayout.setPadding(new Insets(5, 35, 35, 35));
+        sceneLayout.setTop(menuBar);
+        sceneLayout.setCenter(menuOptionsLayout);
 
-        sceneLayout.getChildren().addAll(menuBar, titleLayout, menuOptionsLayout);
-
-        scrollPane.setContent(sceneLayout);
-        scrollPane.setPannable(true);
-        scrollPane.fitToWidthProperty().set(true);
-        scrollPane.fitToHeightProperty().set(true);
-
-        scene = new Scene(scrollPane,900,600);
-
+        scene = new Scene(sceneLayout,900,600);
     }
 
     //builds the menu bar at the top of the screen
@@ -110,13 +83,20 @@ public class Menu implements Listener, EventHandler<ActionEvent>
     //build the button that directs to the courses scene
     private void buildMenuOptionsLayout()
     {
-        menuOptionsLayout.headLabel.setText("Menu Options");
+        menuOptionsLayout.setAlignment(Pos.CENTER);
+        menuOptionsLayout.setFillWidth(false);
+        menuOptionsLayout.setPadding(new Insets(15,12,15,12));
+        menuOptionsLayout.setSpacing(10);
 
         //The 3 menu option buttons
         //these buttons allow the user to navigate to the corresponding scene
         final Button goToCoursesSceneBtn = new Button("Courses");
         final Button goToToDoListSceneBtn = new Button("To Do List");
         final Button goToOptionsSceneBtn = new Button("Options");
+
+        goToCoursesSceneBtn.setPrefSize(115,25);
+        goToToDoListSceneBtn.setPrefSize(115,25);
+        goToOptionsSceneBtn.setPrefSize(115,25);
 
         //tooltips that display when hovering over the corresponding buttons
         final Tooltip coursesTooltip = new Tooltip("Goes to the course overview scene");
@@ -145,7 +125,12 @@ public class Menu implements Listener, EventHandler<ActionEvent>
             //primaryStage.setScene((new OptionsScene(model, primaryStage)).getScene());
         });
 
-        menuOptionsLayout.bodyLayout.getChildren().addAll(
-                goToCoursesSceneBtn, goToToDoListSceneBtn, goToOptionsSceneBtn);
+        final Label menuLabel = new Label("Menu");
+        menuLabel.setStyle(
+                "-fx-font-weight: bold;" +
+                "-fx-font-size: 20pt;");
+
+        menuOptionsLayout.getChildren().addAll(
+                menuLabel, goToCoursesSceneBtn, goToToDoListSceneBtn, goToOptionsSceneBtn);
     }
 }
