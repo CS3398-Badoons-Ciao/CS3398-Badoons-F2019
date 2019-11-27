@@ -20,11 +20,11 @@ public class AccountCreation {
         controller.setPrimaryStage(primaryStage);
 
         // TitleScene Creation
-        AccountCreationScene = new Scene(root,900,600); // Creates the Scene, "the window" of our program
+        AccountCreationScene = new Scene(root,primaryStage.getWidth(), primaryStage.getHeight()); // Creates the Scene, "the window" of our program
         AccountCreationScene.getStylesheets().addAll(getClass().getResource("resources/titlescreen.css").toExternalForm());
     }
 
-    public Scene getScene() throws IOException {
+    public Scene getScene() {
         return AccountCreationScene;
     }
 }

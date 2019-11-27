@@ -28,7 +28,7 @@ public class CourseOverview {
         controller.setModel(model);
         controller.load();
 
-        sceneOverview = new Scene(root);
+        sceneOverview = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 
         root.setId("AnchorPane");
         sceneOverview.getStylesheets().addAll(getClass().getResource("resources/titlescreen.css").toExternalForm()); // Loads the CSS file.

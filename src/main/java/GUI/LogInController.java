@@ -1,6 +1,8 @@
 package GUI;
 
 import Model.Model;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import main.*;
 
 import javafx.scene.text.Text;
@@ -14,6 +16,8 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * TitleScreenController is the FXML controller of the TitleScreen
@@ -21,11 +25,21 @@ import java.io.IOException;
  * Invariants (must call):  setModel(Model)
  *                          setMainGUI(MainGUI)
  */
-public class LogInController extends SceneController {
+public class LogInController extends SceneController implements Initializable {
+    @FXML
+    private GridPane grid;
     @FXML
     private TextField loginField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private Button go;
+    @FXML
+    private Text title;
+    @FXML
+    private Button create;
+    @FXML
+    private Text need;
 
     /**
      * Go tries to login given a username and password.
@@ -55,5 +69,11 @@ public class LogInController extends SceneController {
 
     public void createAccount(ActionEvent e) throws IOException {
         primaryStage.setScene((new AccountCreation(model, primaryStage)).getScene());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        go.setPrefSize(150,20);
+        create.setPrefSize(150,20);
     }
 }

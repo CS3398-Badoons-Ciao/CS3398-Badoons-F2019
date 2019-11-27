@@ -26,9 +26,7 @@ public class LogIn {
     controller.setModel(model);
     controller.setPrimaryStage(primaryStage);
 
-
-    // TitleScene Creation
-    logInScene = new Scene(root); // Creates the Scene, "the window" of our program
+    logInScene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()); // Creates the Scene, "the window" of our program
     logInScene.getStylesheets().addAll(getClass().getResource("resources/titlescreen.css").toExternalForm()); // Loads the CSS file.
   }
 

@@ -7,27 +7,11 @@ Finish deleteCurrentUser() needs to be able to delete files
  */
 
 import Interfaces.SaveUserInterface;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.*;
-
 import java.util.*;
 
-
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.logging.*;
-import javax.swing.table.DefaultTableModel;
-import java.util.List;
-import java.util.Date;
-import java.text.*;
 /**
  Model: The back end of EZGrader
  @author Bailey H.

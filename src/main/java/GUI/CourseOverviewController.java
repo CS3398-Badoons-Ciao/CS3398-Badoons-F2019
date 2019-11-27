@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  * Invariants: setModel(Model)
  *             setMainGUI(MainGUI)
  */
-public class CourseOverviewController extends SceneController implements Initializable, Listener {
+public class CourseOverviewController extends SceneController implements Initializable {
     @FXML
     private MenuItem Close;
 
@@ -68,22 +68,32 @@ public class CourseOverviewController extends SceneController implements Initial
     private ObservableList<Course> observableCourses = FXCollections.observableArrayList();
 
     /**
-     * close() handles the File, Close button to just go back to the title Screen.
-     * This function should ask the user to save their data before closing.
+     * adds Courses for Demo
      */
-    public void close() throws IOException {
-        primaryStage.setScene( (new LogIn(model, primaryStage)).getScene());
+    @FXML
+    private void addDemoCourse() {
+        try {
+            model.user.addPresentCourse(TestCourseFactory.buildCourse());
+            model.user.addPresentCourse(TestCourseFactory.buildCourse2());
+        }
+        catch (DuplicateNameException d) {
+            AlertPopUp.alert(d.title, d.header, d.toString());
+        }
+
+        observableCourses.setAll(model.user.getPresentCourses());
+        courseTable.setItems(observableCourses);
     }
 
     /**
      * this function handles the File, Help button to open the help menu
      */
-    public void help() {
+    @FXML
+    private void help() {
         Popup popup = new Popup();
 
-        final String helpText = "Welcome to the course overview scene! Here you can add new courses,\n" +
-                                "delete courses, export your courses to excel, or navigate to the \n" +
-                                "individual course scenes via the view course button! :)";
+        final String helpText = "Welcome to the course overview scene. Here you can add new courses,\n" +
+                "delete courses, export your courses to excel, or navigate to the \n" +
+                "individual course scenes via the view course button.";
 
         Label label = new Label(helpText);
 
@@ -98,7 +108,7 @@ public class CourseOverviewController extends SceneController implements Initial
         popup.centerOnScreen();
 
         //define the popups background color
-        popupLayout.setStyle("-fx-background-color: #4287f5;");
+        //popupLayout.setStyle("-fx-background-color: #4287f5;");
 
         popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
 
@@ -106,8 +116,33 @@ public class CourseOverviewController extends SceneController implements Initial
         popup.show(primaryStage);
     }
 
+    /**
+     * saves user data
+     */
+    @FXML
+    private void save() {
+        model.saveUser();
+    }
 
-    public void Add(ActionEvent actionEvent) {
+    /**
+     * changes scene to Menu
+     */
+    @FXML
+    private void back(ActionEvent event) {
+        primaryStage.setScene((new Menu(primaryStage, model)).getScene());
+    }
+
+    /**
+     * close() handles the File, Close button to just go back to the title Screen.
+     * This function should ask the user to save their data before closing.
+     */
+    @FXML
+    private void close() throws IOException {
+        primaryStage.setScene( (new LogIn(model, primaryStage)).getScene());
+    }
+
+    @FXML
+    private void Add(ActionEvent actionEvent) {
         try {
             String courseName = addCourseTextField.getText();
 
@@ -123,10 +158,6 @@ public class CourseOverviewController extends SceneController implements Initial
     }
 
     public void load() {
-        for (Course course : model.user.getPresentCourses()) {
-            register(course);
-        }
-
         observableCourses.setAll(model.user.getPresentCourses());
         courseTable.setItems(observableCourses);
         courseTable.getColumns().add(courseNameColumn);
@@ -137,10 +168,6 @@ public class CourseOverviewController extends SceneController implements Initial
         model.cal(); // Calculate GPA
         gpaLabel.setText("GPA : " + model.user.getGPA()); // Display GPA
         System.out.println("User.getGPA() = " + model.user.getGPA());
-    }
-
-    public void save() {
-        model.saveUser();
     }
 
     @Override
@@ -166,6 +193,7 @@ public class CourseOverviewController extends SceneController implements Initial
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
         if (selectedCourse != null) {
             CourseScene courseScene = new CourseScene(primaryStage, selectedCourse, new Calculator(), model);
+
             primaryStage.setScene(courseScene.getScene());
         }
     }
@@ -185,27 +213,4 @@ public class CourseOverviewController extends SceneController implements Initial
         }
     }
 
-    public void addDemoCourse() {
-        try {
-            model.user.addPresentCourse(TestCourseFactory.buildCourse());
-            model.user.addPresentCourse(TestCourseFactory.buildCourse2());
-        }
-        catch (DuplicateNameException d) {
-            AlertPopUp.alert(d.title, d.header, d.toString());
-        }
-
-        observableCourses.setAll(model.user.getPresentCourses());
-        courseTable.setItems(observableCourses);
-    }
-
-
-    @Override
-    public void update(Publisher publisher) {
-        courseTable.refresh();
-    }
-
-    @Override
-    public void register(Publisher publisher) {
-        publisher.addListener(this);
-    }
 }

@@ -58,7 +58,7 @@ public class Menu
         sceneLayout.setTop(menuBar);
         sceneLayout.setCenter(menuOptionsLayout);
 
-        scene = new Scene(sceneLayout,900,600);
+        scene = new Scene(sceneLayout, primaryStage.getWidth(), primaryStage.getHeight());
     }
 
     //builds the menu bar at the top of the screen

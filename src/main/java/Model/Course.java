@@ -1,8 +1,6 @@
 package Model;
 
 import Interfaces.CategoryInterface;
-import Interfaces.Listener;
-import Interfaces.Publisher;
 import Exception.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +9,8 @@ import java.util.Collection;
  *
  * Course Categories must have unique names.
  */
-public class Course implements Publisher, java.io.Serializable
+public class Course implements java.io.Serializable
 {
-    // skips field when serializing
-    transient ArrayList<Listener> listeners = new ArrayList<>();
-
     private String name;
     private double grade;
     private School school;
@@ -96,7 +91,6 @@ public class Course implements Publisher, java.io.Serializable
     public void setGrade(double grade)
     {
         this.grade = grade;
-        notifyChanged();
     }
 
     public School getSchool()
@@ -107,7 +101,6 @@ public class Course implements Publisher, java.io.Serializable
     public void setSchool(School school)
     {
         this.school = school;
-        notifyChanged();
     }
 
     public ArrayList<Category> getCategories()
@@ -125,13 +118,11 @@ public class Course implements Publisher, java.io.Serializable
      */
     public void removeCategory(CategoryInterface c) {
         categories.remove(c);
-        notifyChanged();
     }
 
     public void setCategories(ArrayList<Category> categories)
     {
         this.categories = categories;
-        notifyChanged();
     }
 
     public int getCreditHours()
@@ -142,7 +133,6 @@ public class Course implements Publisher, java.io.Serializable
     public void setCreditHours(int creditHrs)
     {
         this.creditHours = creditHrs;
-        notifyChanged();
     }
 
     public boolean verifyCategoryUnique(String name, Collection<Category> categories) {
@@ -152,20 +142,6 @@ public class Course implements Publisher, java.io.Serializable
             }
         }
         return true;
-    }
-
-    @Override
-    public void addListener(Listener l) {
-        // TODO fix
-        listeners = new ArrayList<>();
-        listeners.add(l);
-    }
-
-    @Override
-    public void notifyChanged() {
-        for (Listener listener : listeners) {
-            listener.update(this);
-        }
     }
 
     /** To enforce unique Course names, call method through Course list container only.*/

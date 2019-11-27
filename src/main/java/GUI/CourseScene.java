@@ -35,7 +35,7 @@ import java.util.List;
  * Scene for displaying a Course
  */
 // TODO remove Listener
-public class CourseScene implements Listener, EventHandler<ActionEvent> {
+public class CourseScene {
     /** The primary Stage */
     private Stage primaryStage;
 
@@ -133,21 +133,11 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         this.course = course;
         this.categoryCalculator = categoryCalculator;
         this.model = model;
-        register(course);
+
         buildScene();
     }
 
     public Scene getScene() {return scene;}
-
-    @Override
-    public void update(Publisher model) {
-        //buildScene();
-    }
-
-    @Override
-    public void register(Publisher publisher) {
-        publisher.addListener(this);
-    }
 
     private void buildMenu() {
         Menu fileMenu = new Menu("File");
@@ -175,7 +165,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
         helpItem.setOnAction(event -> {
             Popup popup = new Popup();
 
-            final String helpText = "Welcome to the course scene! Here you can find and edit\n" +
+            final String helpText = "Welcome to the course scene. Here you can find and edit\n" +
                                     "all of the information relating to this course. To start,\n" +
                                     "add a new category by giving it a name and a weight.\n" +
                                     "For example, if quizzes are worth 20% of the course's grade\n" +
@@ -200,7 +190,7 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
             popup.centerOnScreen();
 
             //define the popups background color
-            popupLayout.setStyle("-fx-background-color: #4287f5;");
+            //popupLayout.setStyle("-fx-background-color: #4287f5;");
 
             popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
 
@@ -466,14 +456,8 @@ public class CourseScene implements Listener, EventHandler<ActionEvent> {
 
         scrollPane.setContent(sceneLayout);
         scrollPane.setPannable(true);
-        //scrollPane.fitToWidthProperty().set(true);
-        //scrollPane.fitToHeightProperty().set(true);
 
-        scene = new Scene(scrollPane);
-    }
-
-    @Override
-    public void handle(ActionEvent event) {
+        scene = new Scene(scrollPane, primaryStage.getWidth(), primaryStage.getHeight());
     }
 
     /** updates Observable list of Course Category names */
