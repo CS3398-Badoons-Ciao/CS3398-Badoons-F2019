@@ -7,7 +7,7 @@ A lot of our artifacts and commits for the first sprint are in another branch ca
   * courseScene.java, categoryTable.java, boxSplitLayout.java, sceneController.java, courseOverviewController.java
   * Refactored project structure and worked on GUI Scenes.
 * Bailey Hubbard
-  * Modle and back end -> Java files ["model.java", "CML.java", "dataBaseManager.java" and parts of "calulator.java"]
+  * Model and back end -> Java files ["model.java", "CML.java", "dataBaseManager.java" and parts of "calulator.java"]
   * Model: implication and back end program functionality as well as logging
   * DataBaseManager: a simple database manager used for loading in files to the model; A temporary use for testing till the full-on database was implemented 
   * CML: A simple but mostly complete command line implication to access the program in a limited form for testing till the GUI had been full implemented
@@ -16,8 +16,9 @@ A lot of our artifacts and commits for the first sprint are in another branch ca
   * A titlescreen is displayed to the user and promts the user to login. Functionality to the backend of our program is implemented to login to a user.
   * CourseOverview GUI's class is created in the same format as a Screen class and is being implemented.
 * Rebekah Barber
-  * To Do List -> List.java, ListObject.java
-  * Classes used to create a list of objects that hold assignments and their attrabutes that will make up the to do list.
+  * To Do List Scene -> ListScene.java, ListSceneController.java, ListScene.fxml
+  * Options Scene -> OptionsScene.java, OptionsSceneController.java, OptionsScene.fxml
+  * Created the pages to view the to do list and the options menu.
 * Alex
   * GPA calculations functionality -> ExcelFormatter.java, ExcelFileExporter.java
   * Created JUnit tests-> every file inside the test directory
@@ -29,7 +30,7 @@ Next Steps:
 * Bailey - Added logging files and frame workd to more in depth logs as needed
   * Next Step: Add more detailed log messages and impment the cml into a gui window
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
-* Rebekah -  Transition to working on the GUI.
+* Rebekah -  Continue to clean up my to do list and options scenes, and implement some new features.
 * Alex - Got the JUnit tests working and the Excel exporting feature backend working
   * Next Step: Help get all of the backend functionality that we worked on in the first 2 sprint into the GUI, as well as add Travis-CI for continuous integration
 
