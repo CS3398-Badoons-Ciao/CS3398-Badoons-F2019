@@ -1,6 +1,5 @@
-#AnchorPane {
-	-fx-background-image: url("titlebackground.png");
-	-fx-background-repeat: stretch;
-	-fx-background-size: 900 640;
-	-fx-background-position: top left;
+#GridPane {
+	//-fx-background-image: url("titlebackground.PNG");
+	//-fx-background-repeat: stretch;
+	//-fx-background-position: top left;
 }

@@ -38,5 +38,4 @@
         <Button fx:id="create" mnemonicParsing="false" onAction="#createAccount" text="Create Account" />
     </VBox>
 
-
 </GridPane>

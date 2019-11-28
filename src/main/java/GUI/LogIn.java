@@ -20,7 +20,7 @@ public class LogIn {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    root.setId("AnchorPane"); // Sets the root of the CSS file. Used for the background image.
+    root.setId("GridPane"); // Sets the root of the CSS file. Used for the background image.
 
     LogInController controller = loader.getController();
     controller.setModel(model);

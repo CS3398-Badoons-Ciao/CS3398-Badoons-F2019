@@ -4,31 +4,61 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AccountCreationController">
-   <children>
-      <TextField fx:id="username" layoutX="376.0" layoutY="293.0" promptText="Username" />
-      <TextField fx:id="password" layoutX="376.0" layoutY="359.0" promptText="Password" />
-      <TextField fx:id="confirmPassword" layoutX="376.0" layoutY="392.0" promptText="Confirm Password" />
-      <Button layoutX="525.0" layoutY="392.0" mnemonicParsing="false" onAction="#Go" text="Go" />
-      <Text layoutX="358.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Creation">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <MenuBar layoutY="1.0" prefHeight="34.0" prefWidth="900.0">
+<?import javafx.scene.layout.HBox?>
+<VBox styleClass="root" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AccountCreationController" >
+    <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="Help">
-               <graphic>
-                  <Button mnemonicParsing="false" onAction="#back" text="Back" />
-               </graphic>
-          </Menu>
+            <Menu text="file">
+                <items>
+                    <MenuItem fx:id="Back" onAction= "#back" text="Back" />
+                </items>
+            </Menu>
         </menus>
-      </MenuBar>
-      <TextField fx:id="userID" layoutX="376.0" layoutY="326.0" promptText="User ID" />
-   </children>
-</AnchorPane>
+    </MenuBar>
+
+    <HBox alignment="CENTER">
+        <padding><Insets top="75" bottom="75" /></padding>
+
+        <Text textAlignment="CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Creation">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Text>
+
+    </HBox>
+
+    <GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10" >
+
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+
+        <TextField fx:id="username" alignment="CENTER" promptText="enter name"
+                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+        <TextField fx:id="password" alignment="CENTER" promptText="Password"
+                   GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+
+        <TextField fx:id="confirmPassword" alignment="CENTER" promptText="Confirm Password"
+                   GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+
+        <TextField fx:id="userID" alignment="CENTER" promptText="User ID"
+                   GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
+        <VBox spacing="10" alignment="CENTER"
+              GridPane.columnIndex="0" GridPane.rowIndex="6" >
+            <Button  alignment="CENTER" onAction="#Go" text="Create Account" />
+        </VBox>
+
+    </GridPane>
+
+</VBox>
+
+
+
+
