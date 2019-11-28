@@ -33,7 +33,7 @@ public class Menu
     private Model model;
 
     /** root layout */
-    private BorderPane sceneLayout = new BorderPane();
+    private VBox sceneLayout = new VBox();
 
     /** 'Menu Bar' feature */
     private MenuBar menuBar = new MenuBar();
@@ -55,8 +55,9 @@ public class Menu
         buildMenuBar();
         buildMenuOptionsLayout();
 
-        sceneLayout.setTop(menuBar);
-        sceneLayout.setCenter(menuOptionsLayout);
+        sceneLayout.setAlignment(Pos.BASELINE_CENTER);
+        sceneLayout.getChildren().add(menuBar);
+        sceneLayout.getChildren().add(menuOptionsLayout);
 
         scene = new Scene(sceneLayout, primaryStage.getWidth(), primaryStage.getHeight());
     }
@@ -127,8 +128,8 @@ public class Menu
 
         final Label menuLabel = new Label("Menu");
         menuLabel.setStyle(
-                "-fx-font-weight: bold;" +
-                "-fx-font-size: 20pt;");
+                "-fx-font-size: 40pt;");
+        menuLabel.setPadding(new Insets(0, 10,50,0));
 
         menuOptionsLayout.getChildren().addAll(
                 menuLabel, goToCoursesSceneBtn, goToToDoListSceneBtn, goToOptionsSceneBtn);

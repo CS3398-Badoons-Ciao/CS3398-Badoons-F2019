@@ -432,6 +432,7 @@ public class CourseScene {
 
         sceneLayoutCenter.getChildren().addAll(addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
         sceneLayoutCenter.setPadding(new Insets(90, 50, 35, 100));
+        sceneLayoutCenter.setSpacing(15);
 
         sceneLayout.setTop(sceneLayoutTop);
         sceneLayout.setCenter(sceneLayoutCenter);

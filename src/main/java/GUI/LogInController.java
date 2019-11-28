@@ -73,7 +73,7 @@ public class LogInController extends SceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        go.setPrefSize(150,20);
-        create.setPrefSize(150,20);
+        go.setPrefSize(170,20);
+        create.setPrefSize(170,20);
     }
 }

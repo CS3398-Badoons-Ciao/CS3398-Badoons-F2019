@@ -1,2 +1,8 @@
-Nov 27, 2019 6:06:26 PM Model.Model initLogger
+Nov 27, 2019 7:18:34 PM Model.Model initLogger
 FINE: Logger Start
+Nov 27, 2019 7:18:42 PM Model.Model login
+FINE: User ID not found, please check your spelling
+Nov 27, 2019 7:18:45 PM Model.Model loadUser
+FINE: User 'j" found.
+Nov 27, 2019 7:18:45 PM Model.Model login
+FINE: You are now logged as j

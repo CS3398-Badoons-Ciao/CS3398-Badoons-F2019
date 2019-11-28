@@ -9,33 +9,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="grid" alignment="CENTER" hgap="10" vgap="10" styleClass="root"
-          prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LogInController">
+<VBox alignment="CENTER" styleClass="root" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LogInController">
+    <spacing>50</spacing>
 
-    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 
-    <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade Manager"
-          GridPane.columnIndex="0" GridPane.rowIndex="0"
-          GridPane.columnSpan="2">
+    <Text textAlignment="CENTER" fx:id="title" text="Grade Manager">
         <font>
-            <Font size="30.0" />
+            <Font size="40.0"/>
         </font>
     </Text>
 
-    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <GridPane fx:id="grid" alignment="CENTER" hgap="10" vgap="10">
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
-    <TextField fx:id="loginField" alignment="CENTER" promptText="enter name"
-               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="loginField" alignment="CENTER" promptText="enter name"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <TextField fx:id="passwordField" alignment="CENTER" promptText="Password"
-               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <TextField fx:id="passwordField" alignment="CENTER" promptText="Password"
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <VBox spacing="10" alignment="CENTER"
-          GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" >
-        <Button fx:id="go" mnemonicParsing="false" onAction="#Go" text="Log In"/>
-        <Button fx:id="create" mnemonicParsing="false" onAction="#createAccount" text="Create Account" />
-    </VBox>
+        <VBox spacing="10"
+              GridPane.columnIndex="1" GridPane.rowIndex="4" >
+            <padding><Insets top="10"/></padding>
+            <Button fx:id="go" mnemonicParsing="false" onAction="#Go" text="Log In"/>
+            <Button fx:id="create" mnemonicParsing="false" onAction="#createAccount" text="Create Account" />
+        </VBox>
 
-</GridPane>
+    </GridPane>
+</VBox>
+
+
