@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="442.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MenuBar fx:id="BackButton" prefHeight="44.0" prefWidth="686.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Back" />
+            </menus>
+        </MenuBar>
+        <VBox layoutX="14.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="308.0">
+            <children>
+                <Text fx:id="InProgressText" strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress" />
+                <TableView fx:id="InProgressList" prefHeight="312.0" prefWidth="305.0" />
+                <Button fx:id="FinishedButton" mnemonicParsing="false" onAction="#moveToFinished" text="Move to Finished" />
+            </children>
+        </VBox>
+        <VBox layoutX="358.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="308.0">
+            <children>
+                <Text fx:id="FinishedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Finished" />
+                <TableView fx:id="FinishedList" prefHeight="312.0" prefWidth="301.0" />
+                <Button fx:id="InProgressButton" mnemonicParsing="false" onAction="#moveToInProgress" text="Move to In Progress" />
+            </children>
+        </VBox>
+        <Text fx:id="ToDoListText" layoutX="290.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To Do List" textAlignment="CENTER">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>
