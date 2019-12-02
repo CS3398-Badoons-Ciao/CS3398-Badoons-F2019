@@ -5,7 +5,7 @@
   * Updated layout for Scenes. Scenes centered and resize correctly 
   	* Login.FXML, AccountCreation.FXML, Menu.java, OptionsScene.FXML, CourseOverview.FXML, CourseScene.java
   * Added primary/secondary background colors with user ColorPicker
-  	* SceneStyle.java, OptionsScene.java
+  	* SceneStyle.java, OptionsScene.java, OptionsSceneController.java
   * Completed Course Grade/Category Grade/GPA/Credit Hours
   	* CourseScene.java, CategoryTable.java, CourseOverviewController.java
   * Added In-Focus/Out-Focus TextField Style for UI/UX
