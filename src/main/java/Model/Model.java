@@ -197,7 +197,7 @@ public class Model implements SaveUserInterface
         for (int i = 0; i < c.size(); i++) {
             c.get(i).setGrade(calculator.getCourseGrade(c.get(i))*100);
         }
-        user.setGPA(calculator.getGPAOverall(user.getPastCourses(),user.getPresentCourses()));
+        user.setGPA(calculator.getGPASingle(user.getPresentCourses()));
     }
 
     /**

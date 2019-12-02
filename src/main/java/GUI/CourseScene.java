@@ -9,8 +9,6 @@ import Exception.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -48,23 +46,29 @@ public class CourseScene {
     /** User Model */
     private Model model;
 
-    /** 'scroll bar' feature */
-    private ScrollPane scrollPane = new ScrollPane();
-
     /** root layout */
-    private BorderPane sceneLayout = new BorderPane();
-
-    /** holds menu bar and course name */
-    private VBox sceneLayoutTop = new VBox();
-
-    /** holds edit boxes */
-    private VBox sceneLayoutCenter = new VBox();
+    private VBox sceneLayout = new VBox();
 
     /** 'Menu Bar' feature */
     private MenuBar menuBar = new MenuBar();
 
     /** root layout for scene title */
     private VBox titleLayout = new VBox();
+
+    /** center layout */
+    private HBox centerLayout = new HBox();
+
+    /** layout for 'category tables' feature */
+    private VBox centerLeftLayout = new VBox();
+
+    /** layout edit boxes */
+    private VBox centerRightLayout = new VBox();
+
+    /** scroll bar for scene layout feature */
+    private ScrollPane scrollPane = new ScrollPane();
+
+    /** scroll pane for center Left layout - category tables*/
+    private ScrollPane tableScrollPane = new ScrollPane();
 
     /** root layout for 'add assignment' feature */
     private BoxSplitLayout addAssignmentLayout = new BoxSplitLayout();
@@ -80,12 +84,6 @@ public class CourseScene {
 
     /** child Node for 'remove category' feature */
     private ComboBox<String> removeCategoryDropDown = new ComboBox<>();
-
-    /** root layout for 'category tables' feature */
-    private VBox categoryTablesLayout = new VBox();
-
-    /** scrollpane for categoryTablesLayout */
-    private ScrollPane tableScrollPane = new ScrollPane();
 
     /** List of CategoryTable, one-to-one relationship for all categories in Course */
     private List<CategoryTable> categoryTables = new ArrayList<>();
@@ -143,9 +141,7 @@ public class CourseScene {
         Menu fileMenu = new Menu("File");
 
         MenuItem saveItem = new MenuItem("Save");
-        saveItem.setOnAction(event -> {
-            model.saveUser();
-        });
+        saveItem.setOnAction(event -> model.saveUser());
 
         MenuItem logOutItem = new MenuItem("Log Out");
         logOutItem.setOnAction(event -> {
@@ -190,7 +186,7 @@ public class CourseScene {
             popup.centerOnScreen();
 
             //define the popups background color
-            //popupLayout.setStyle("-fx-background-color: #4287f5;");
+            popupLayout.setBackground(SceneStyle.getSecondaryBackground());
 
             popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
 
@@ -288,7 +284,7 @@ public class CourseScene {
                         categoryTable.getItems().setAll(categoryTable.category.getAssignments());
 
                         Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(categoryTable.category.getAssignments());
-                        categoryTable.gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
+                        categoryTable.categoryGrade.setText(doubleFormatter.format(updatedCategoryGrade));
 
                         updateCourseGrade();
                     }
@@ -345,7 +341,7 @@ public class CourseScene {
                 categoryTables.add(newCategoryTable);
 
                 // adds (appends) the child CategoryTableLayout to parent CategoryTables layout
-                categoryTablesLayout.getChildren().add(newCategoryTable.categoryTableLayout);
+                centerLeftLayout.getChildren().add(newCategoryTable.categoryTableLayout);
 
                 // adds Category to Observable drop down list; multiple ComboBox listeners to list.
                 dropDownListCategories.add(newCategory.getName());
@@ -400,8 +396,8 @@ public class CourseScene {
                 categoryTables.remove(categoryTableToRemove);
 
                 // removes CategoryTable from Scene
-                categoryTablesLayout.getChildren().remove(categoryTableToRemove);
-                categoryTablesLayout.getChildren().remove(categoryTableToRemove.categoryTableLayout);
+                centerLeftLayout.getChildren().remove(categoryTableToRemove);
+                centerLeftLayout.getChildren().remove(categoryTableToRemove.categoryTableLayout);
 
                 updateCourseGrade();
             }
@@ -428,35 +424,40 @@ public class CourseScene {
         buildCategories();
         buildAddAssignmentLayout();
 
-        sceneLayoutTop.getChildren().addAll(menuBar, titleLayout);
-
-        sceneLayoutCenter.getChildren().addAll(addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
-        sceneLayoutCenter.setPadding(new Insets(90, 50, 35, 100));
-        sceneLayoutCenter.setSpacing(15);
-
-        sceneLayout.setTop(sceneLayoutTop);
-        sceneLayout.setCenter(sceneLayoutCenter);
-        sceneLayout.setPadding(new Insets(50, 50, 50, 50));
+        sceneLayout.setAlignment(Pos.CENTER);
+        sceneLayout.setBackground(SceneStyle.getBackground());
 
         Label categoryTablesLabel = new Label("Assignments");
-        categoryTablesLabel.setStyle(
-                "-fx-font-weight: bold; " +
-                "-fx-font-size: 15pt;");
+        categoryTablesLabel.setStyle("-fx-font-weight: bold; " + "-fx-font-size: 16pt;");
 
-        categoryTablesLayout.getChildren().add(categoryTablesLabel);
-        categoryTablesLayout.setPadding(new Insets(45, 50, 35, 35));
+        centerLeftLayout.setAlignment(Pos.CENTER);
+        centerLeftLayout.setPadding(new Insets(45, 50, 35, 35));
+        centerLeftLayout.setPrefWidth(550);
+        centerLeftLayout.getChildren().add(categoryTablesLabel);
 
         for (CategoryTable categoryTable : categoryTables) {
-            categoryTablesLayout.getChildren().add(categoryTable.categoryTableLayout);
+            centerLeftLayout.getChildren().add(categoryTable.categoryTableLayout);
         }
 
-        tableScrollPane.setContent(categoryTablesLayout);
-        tableScrollPane.setPannable(true);
+        centerRightLayout.setAlignment(Pos.TOP_CENTER);
+        centerRightLayout.getChildren().addAll(addAssignmentLayout, addCategoryLayout, removeCategoryLayout);
+        centerRightLayout.setPadding(new Insets(90, 50, 35, 100));
+        centerRightLayout.setSpacing(15);
 
-        sceneLayout.setLeft(tableScrollPane);
+        tableScrollPane.setContent(centerLeftLayout);
+        tableScrollPane.setPannable(true);
+        tableScrollPane.setFitToWidth(true);
+        tableScrollPane.setFitToHeight(true);
+
+        centerLayout.getChildren().addAll(centerLeftLayout, centerRightLayout);
+        centerLayout.setAlignment(Pos.BOTTOM_CENTER);
+
+        sceneLayout.getChildren().addAll(menuBar, titleLayout, centerLayout);
 
         scrollPane.setContent(sceneLayout);
         scrollPane.setPannable(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
 
         scene = new Scene(scrollPane, primaryStage.getWidth(), primaryStage.getHeight());
     }

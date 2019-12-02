@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
-<VBox styleClass="root" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AccountCreationController" >
+<VBox fx:id="root" styleClass="root" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AccountCreationController" >
     <MenuBar>
         <menus>
             <Menu text="file">

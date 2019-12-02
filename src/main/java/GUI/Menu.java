@@ -52,9 +52,11 @@ public class Menu
 
     private void buildScene()
     {
+
         buildMenuBar();
         buildMenuOptionsLayout();
 
+        sceneLayout.setBackground(SceneStyle.getBackground());
         sceneLayout.setAlignment(Pos.BASELINE_CENTER);
         sceneLayout.getChildren().add(menuBar);
         sceneLayout.getChildren().add(menuOptionsLayout);
@@ -86,8 +88,9 @@ public class Menu
     {
         menuOptionsLayout.setAlignment(Pos.CENTER);
         menuOptionsLayout.setFillWidth(false);
-        menuOptionsLayout.setPadding(new Insets(15,12,15,12));
+        menuOptionsLayout.setPadding(new Insets(30,0,30,0));
         menuOptionsLayout.setSpacing(10);
+        menuOptionsLayout.setBackground(SceneStyle.getSecondaryBackground());
 
         //The 3 menu option buttons
         //these buttons allow the user to navigate to the corresponding scene

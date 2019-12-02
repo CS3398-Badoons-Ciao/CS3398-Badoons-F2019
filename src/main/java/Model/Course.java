@@ -14,7 +14,7 @@ public class Course implements java.io.Serializable
     private String name;
     private double grade;
     private School school;
-    private int creditHours;
+    private int creditHours = 3;
     private ArrayList<Category> categories;
 
     public Course(String name, School school) {
@@ -145,5 +145,5 @@ public class Course implements java.io.Serializable
     }
 
     /** To enforce unique Course names, call method through Course list container only.*/
-    void setName(String name) {this.name = name;};
+    void setName(String name) {this.name = name;}
 }

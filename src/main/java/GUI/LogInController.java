@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
  */
 public class LogInController extends SceneController implements Initializable {
     @FXML
+    private VBox root;
+    @FXML
     private GridPane grid;
     @FXML
     private TextField loginField;
@@ -73,6 +75,8 @@ public class LogInController extends SceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        root.setBackground(SceneStyle.getBackground());
+
         go.setPrefSize(170,20);
         create.setPrefSize(170,20);
     }

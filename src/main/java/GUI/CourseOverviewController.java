@@ -34,32 +34,27 @@ import java.util.ResourceBundle;
  */
 public class CourseOverviewController extends SceneController implements Initializable {
     @FXML
+    private VBox root;
+    @FXML
+    private VBox titleBox;
+    @FXML
     private MenuItem Close;
-
     @FXML
     private MenuItem Help;
-
     @FXML
     private TextField addCourseTextField;
-
     @FXML
     private TextField courseSelectionTextField;
-
     @FXML
     private Text gpaLabel;
-
     @FXML
     private TableView courseTable;
-
     @FXML
     private Button addCourseButton;
-
     @FXML
     private Button changeCourseBtn;
-
     @FXML
     private Button deleteCourseBtn;
-
     @FXML
     private Button exportBtn;
 
@@ -76,6 +71,9 @@ public class CourseOverviewController extends SceneController implements Initial
         try {
             model.user.addPresentCourse(TestCourseFactory.buildCourse());
             model.user.addPresentCourse(TestCourseFactory.buildCourse2());
+            model.user.addPresentCourse(TestCourseFactory.buildCourse3());
+            model.user.addPresentCourse(TestCourseFactory.buildCourse4());
+            model.user.addPresentCourse(TestCourseFactory.buildCourse5());
         }
         catch (DuplicateNameException d) {
             AlertPopUp.alert(d.title, d.header, d.toString());
@@ -83,6 +81,7 @@ public class CourseOverviewController extends SceneController implements Initial
 
         observableCourses.setAll(model.user.getPresentCourses());
         courseTable.setItems(observableCourses);
+        loadGPA();
     }
 
     /**
@@ -99,9 +98,7 @@ public class CourseOverviewController extends SceneController implements Initial
         Label label = new Label(helpText);
 
         Button exitButton = new Button("Close Popup");
-        exitButton.setOnAction(addEvent -> {
-            popup.hide();
-        });
+        exitButton.setOnAction(addEvent -> popup.hide());
 
         BoxSplitLayout popupLayout = new BoxSplitLayout();
 
@@ -109,7 +106,7 @@ public class CourseOverviewController extends SceneController implements Initial
         popup.centerOnScreen();
 
         //define the popups background color
-        //popupLayout.setStyle("-fx-background-color: #4287f5;");
+        popupLayout.setBackground(SceneStyle.getSecondaryBackground());
 
         popupLayout.bodyLayout.getChildren().addAll(label, exitButton);
 
@@ -168,11 +165,13 @@ public class CourseOverviewController extends SceneController implements Initial
     public void loadGPA() {
         model.cal(); // Calculate GPA
         gpaLabel.setText("GPA : " + model.user.getGPA()); // Display GPA
-        System.out.println("User.getGPA() = " + model.user.getGPA());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        root.setBackground(SceneStyle.getBackground());
+        titleBox.setBackground(SceneStyle.getSecondaryBackground());
+
         courseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         courseNameColumn = new TableColumn<>("Course Name");
         courseNameColumn.setMinWidth(100);
@@ -203,6 +202,7 @@ public class CourseOverviewController extends SceneController implements Initial
         Course selectedCourse = (Course) courseTable.getSelectionModel().getSelectedItem();
         model.user.getPresentCourses().remove(selectedCourse);
         observableCourses.remove(selectedCourse);
+        loadGPA();
     }
 
     public void handleExportBtn(ActionEvent actionEvent) {

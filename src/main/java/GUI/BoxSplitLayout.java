@@ -1,6 +1,7 @@
 package GUI;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,13 +30,16 @@ public class BoxSplitLayout extends VBox {
     public BoxSplitLayout() {
         headLabel.setStyle( "-fx-font-weight: bold;" +
                             "-fx-font-size: 14");
+        headLabel.setAlignment(Pos.CENTER);
 
         headLayout.getChildren().add(headLabel);
-        headLayout.setStyle("-fx-background-color: lightgrey;");
+        headLayout.setAlignment(Pos.CENTER);
         headLayout.setPadding(new Insets(10,10,10,10));
+        headLayout.setBackground(SceneStyle.getSecondaryBackground());
 
         bodyLayout.setSpacing(7);
         bodyLayout.setPadding(new Insets(10,10,10,10));
+        headLayout.setBackground(SceneStyle.getSecondaryBackground());
 
         getChildren().addAll(headLayout, bodyLayout);
         setStyle("-fx-border-color: black");

@@ -3,7 +3,6 @@ package GUI;
 import Interfaces.AssignmentInterface;
 import Interfaces.CategoryCalculatorInterface;
 import Interfaces.CategoryInterface;
-import Model.Assignment;
 import Model.Course;
 import Exception.*;
 import javafx.beans.binding.Bindings;
@@ -12,12 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.converter.DoubleStringConverter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -48,16 +49,10 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         VBox categoryTableLayout = new VBox();
 
         /** child header layout contains summary data for the Category */
-        VBox headerLayout = new VBox();
+        GridPane headerLayout = new GridPane();
 
         /** child layout for headerLayout displays title */
         HBox titleLayout = new HBox();
-
-        /** child layout for headerLayout displays Category Weight */
-        HBox weightLayout = new HBox();
-
-        /** child layout for headLayout displays Category Grade */
-        HBox gradeLayout = new HBox();
 
         /** editable TextField displays Category Name*/
         TextField categoryNameField;
@@ -66,17 +61,20 @@ public class CategoryTable extends TableView<AssignmentInterface> {
         TextField weightField;
 
         /** editable TextField displays Category Grade */
-        Label gradeLabel;
+        TextField categoryGrade;
 
         String tableNameStyle =
                 "-fx-text-box-border: transparent; " +
                 "-fx-background-color: transparent;" +
-                "-fx-font-weight: bold;" +
-                "-fx-font-size: 16";
+                "-fx-font-size: 22";
 
-        String tableNameStyleOnFocus =
-                "-fx-font-weight: bold;" +
-                "-fx-font-size: 16";
+        String tableNameStyleOnFocus = "-fx-font-size: 22";
+
+        String tableWeightStyle =
+                "-fx-text-box-border: transparent; " +
+                "-fx-background-color: transparent;" + "-fx-font-size: 20";
+
+        String tableWeightStyleOnFocus = "-fx-font-size: 20";
 
         CategoryTable(Course course,
                       CategoryInterface category,
@@ -93,6 +91,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
 
             // creates titleLayout
             Label titleLabel = new Label("Category:");
+            titleLabel.setStyle(tableNameStyle);
             categoryNameField = new TextField(category.getName());
 
             categoryNameField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
@@ -120,58 +119,73 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             });
 
             categoryNameField.setStyle(tableNameStyle);
-            categoryNameField.setAlignment(Pos.CENTER);
-            titleLayout.getChildren().addAll(categoryNameField);
-            titleLayout.setAlignment(Pos.CENTER);
-            titleLayout.setStyle("-fx-background-color: lightgrey;");
+            categoryNameField.setAlignment(Pos.BASELINE_LEFT);
+            titleLayout.getChildren().addAll(titleLabel, categoryNameField);
+            titleLayout.setAlignment(Pos.BASELINE_LEFT);
 
             // creates weightLayout
             Label weightLabel = new Label("Weight:");
+            weightLabel.setFont(Font.font(20));
+
             weightField = new TextField(String.valueOf( category.getWeight() ));
             weightField.focusedProperty().addListener(
                     (ObservableValue<? extends Boolean> observable, Boolean lostFocus, Boolean gainFocus) -> {
                         if (lostFocus) {
                             try {
+                                weightField.setStyle(tableWeightStyle);
                                 category.setWeight(Double.parseDouble(weightField.getText()));
                                 courseScene.updateCourseGrade();
                             }
                             catch (Exception e) {
                             }
                         }
+                        if (gainFocus) {
+                            weightField.setStyle(tableWeightStyleOnFocus);
+                        }
                     });
 
             weightField.setOnAction(event -> {
-                category.setWeight(Double.valueOf(weightField.getText()));
+                weightField.setStyle(tableWeightStyle);
+                category.setWeight(Double.parseDouble(weightField.getText()));
                 courseScene.updateCourseGrade();
             });
 
-            weightField.setStyle(   "-fx-text-box-border: transparent; " +
-                                    "-fx-background-color: transparent;");
-            weightLayout.getChildren().addAll(weightLabel, weightField);
-            weightLayout.setAlignment(Pos.CENTER_LEFT);
-            weightLayout.setPadding(new Insets(0,0,0,5));
+            weightField.setStyle(tableWeightStyle);
+            weightField.setFont(Font.font(20));
 
             // creates gradeLayout
             Label gradeLabel = new Label("Grade:");
-            this.gradeLabel = new Label(
+            gradeLabel.setFont(Font.font(20));
+
+            categoryGrade = new TextField(
                     doubleFormatter.format(
                             categoryCalculator.getCategoryGrade(category.getAssignments())));
+            categoryGrade.setEditable(false);
 
+            categoryGrade.setStyle(
+                    "-fx-text-box-border: transparent; " +
+                    "-fx-background-color: transparent;"
+            );
 
-            this.gradeLabel.setStyle(   "-fx-text-box-border: transparent; " +
-                    "-fx-background-color: transparent;");
-            gradeLayout.getChildren().addAll(gradeLabel, this.gradeLabel);
-            gradeLayout.setAlignment(Pos.CENTER_LEFT);
-            gradeLayout.setSpacing(2);
-            gradeLayout.setPadding(new Insets(0,0,5,5));
+            categoryGrade.setFont(Font.font(20));
+            categoryGrade.setAlignment(Pos.BASELINE_LEFT);
 
             // configure headerLayout
-            headerLayout.getChildren().addAll(titleLayout, weightLayout, gradeLayout);
+
+            headerLayout.setBackground(SceneStyle.getSecondaryBackground());
+            headerLayout.getColumnConstraints().add(new ColumnConstraints(110));
+            headerLayout.add(titleLayout, 0, 0,4,1);
+            headerLayout.add(gradeLabel, 0,1);
+            headerLayout.add(categoryGrade, 1,1);
+            headerLayout.add(weightLabel, 0, 2);
+            headerLayout.add(weightField, 1, 2);
+
             headerLayout.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            headerLayout.setPadding(new Insets(0,0,0,0));
+            headerLayout.setPadding(new Insets(0,0,5,0));
 
             categoryTableLayout.setPadding(new Insets(20,0,20,0));
+            categoryTableLayout.setSpacing(5);
             categoryTableLayout.getChildren().add(headerLayout);
             categoryTableLayout.getChildren().add(this);
 
@@ -222,7 +236,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
 
                     // re-calculate Category grade
                     Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
-                    gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
+                    categoryGrade.setText(doubleFormatter.format(updatedCategoryGrade));
 
                     courseScene.updateCourseGrade();
 
@@ -251,7 +265,7 @@ public class CategoryTable extends TableView<AssignmentInterface> {
 
                     // re-calculate Category grade
                     Double updatedCategoryGrade = categoryCalculator.getCategoryGrade(category.getAssignments());
-                    gradeLabel.setText(doubleFormatter.format(updatedCategoryGrade));
+                    categoryGrade.setText(doubleFormatter.format(updatedCategoryGrade));
 
                     courseScene.updateCourseGrade();
 
