@@ -11,7 +11,6 @@ This app allows students to save course information and simplifies grade calcula
 ## Table of contents
 * [Vision](#Vision)
 * [Description](#description)
-* [General Info](#general-info)
 * [Sprint 3 Project Status](#Sprint-3-Project-Status)
 * [Features](#Sprint-3-Features)
 * [Technologies](#technologies)
@@ -55,9 +54,6 @@ Next Steps:
 * Alex
   * GPA calculations functionality -> ExcelFormatter.java, ExcelFileExporter.java
   * Created JUnit tests-> every file inside the test directory
-
-## General Info
-![Example screenshot](./img/EZ_Gradr.PNG)
 
 ## Technologies
 * Java- https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html
