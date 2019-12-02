@@ -175,10 +175,10 @@ public class CategoryTable extends TableView<AssignmentInterface> {
             headerLayout.setBackground(SceneStyle.getSecondaryBackground());
             headerLayout.getColumnConstraints().add(new ColumnConstraints(110));
             headerLayout.add(titleLayout, 0, 0,4,1);
-            headerLayout.add(gradeLabel, 0,1);
-            headerLayout.add(categoryGrade, 1,1);
-            headerLayout.add(weightLabel, 0, 2);
-            headerLayout.add(weightField, 1, 2);
+            headerLayout.add(weightLabel, 0, 1);
+            headerLayout.add(weightField, 1, 1);
+            headerLayout.add(gradeLabel, 0,2);
+            headerLayout.add(categoryGrade, 1,2);
 
             headerLayout.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

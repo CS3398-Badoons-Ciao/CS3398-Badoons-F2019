@@ -59,6 +59,6 @@ public class AccountCreationController extends SceneController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        root.setBackground(SceneStyle.getBackground());
+        root.setBackground(SceneStyle.getPrimaryBackground());
     }
 }

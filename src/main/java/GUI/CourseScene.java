@@ -424,9 +424,6 @@ public class CourseScene {
         buildCategories();
         buildAddAssignmentLayout();
 
-        sceneLayout.setAlignment(Pos.CENTER);
-        sceneLayout.setBackground(SceneStyle.getBackground());
-
         Label categoryTablesLabel = new Label("Assignments");
         categoryTablesLabel.setStyle("-fx-font-weight: bold; " + "-fx-font-size: 16pt;");
 
@@ -453,6 +450,7 @@ public class CourseScene {
         centerLayout.setAlignment(Pos.BOTTOM_CENTER);
 
         sceneLayout.getChildren().addAll(menuBar, titleLayout, centerLayout);
+        sceneLayout.setBackground(SceneStyle.getPrimaryBackground());
 
         scrollPane.setContent(sceneLayout);
         scrollPane.setPannable(true);
@@ -479,5 +477,13 @@ public class CourseScene {
     public void updateCourseGrade() {
         courseGrade.setText(doubleFormatter.format(categoryCalculator.getCourseGrade(course)));
     }
+
+    /**
+     * removes focus
+     */
+    public void removeNodeFocus() {
+        titleLayout.requestFocus();
+    }
+
 
 }

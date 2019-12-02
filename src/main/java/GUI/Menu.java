@@ -1,19 +1,10 @@
 package GUI;
 
-import Interfaces.CategoryCalculatorInterface;
-import Interfaces.Listener;
-import Interfaces.Publisher;
 import Model.Model;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -56,7 +47,7 @@ public class Menu
         buildMenuBar();
         buildMenuOptionsLayout();
 
-        sceneLayout.setBackground(SceneStyle.getBackground());
+        sceneLayout.setBackground(SceneStyle.getPrimaryBackground());
         sceneLayout.setAlignment(Pos.BASELINE_CENTER);
         sceneLayout.getChildren().add(menuBar);
         sceneLayout.getChildren().add(menuOptionsLayout);
@@ -125,8 +116,7 @@ public class Menu
 
         goToOptionsSceneBtn.setOnAction(event ->
         {
-            //TODO add the OptionsScene class, and uncomment the following line of code
-            //primaryStage.setScene((new OptionsScene(model, primaryStage)).getScene());
+            primaryStage.setScene((new OptionsScene(model, primaryStage)).getScene());
         });
 
         final Label menuLabel = new Label("Menu");

@@ -1,9 +1,6 @@
 package GUI;
 
 import Factory.TestCourseFactory;
-import Interfaces.AssignmentInterface;
-import Interfaces.Listener;
-import Interfaces.Publisher;
 import Exception.*;
 import Model.Calculator;
 import Model.Course;
@@ -20,11 +17,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import org.apache.poi.ss.formula.functions.T;
 
-import javax.tools.Tool;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -172,7 +166,7 @@ public class CourseOverviewController extends SceneController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        root.setBackground(SceneStyle.getBackground());
+        root.setBackground(SceneStyle.getPrimaryBackground());
         titleBox.setBackground(SceneStyle.getSecondaryBackground());
 
         courseNameColumn = new TableColumn<>("Course Name");
@@ -227,6 +221,7 @@ public class CourseOverviewController extends SceneController implements Initial
             CourseScene courseScene = new CourseScene(primaryStage, selectedCourse, new Calculator(), model);
 
             primaryStage.setScene(courseScene.getScene());
+            courseScene.removeNodeFocus();
         }
     }
 

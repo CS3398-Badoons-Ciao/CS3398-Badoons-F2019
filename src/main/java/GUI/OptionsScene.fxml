@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <VBox layoutX="8.0" layoutY="246.0" prefHeight="164.0" prefWidth="248.0">
-            <children>
-                <Text fx:id="ChangePasswordText" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Password" />
-                <TextField fx:id="NewPasswordField" prefHeight="36.0" prefWidth="226.0" promptText="New Password">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </TextField>
-                <TextField fx:id="ConfirmPasswordField" layoutX="10.0" layoutY="10.0" promptText="Confirm Password">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </TextField>
-                <Button fx:id="ChangePasswordButton" mnemonicParsing="false" onAction="#changePassword" text="Change">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Button>
-            </children>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="GUI.OptionsSceneController"
+      fx:id="root">
+
+    <MenuBar>
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem fx:id="Back" mnemonicParsing="false" onAction="#back" text="Back" />
+                    <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="Save" />
+                    <MenuItem fx:id="Close" mnemonicParsing="false" onAction="#close" text="Log Out" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+    <VBox alignment="CENTER" fx:id="titleBox">
+        <padding><Insets top="50" bottom="50"/></padding>
+        <VBox alignment="CENTER">
+            <spacing>10</spacing>
+            <Text textAlignment="CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Options">
+                <font>
+                    <Font size="40.0" />
+                </font>
+            </Text>
         </VBox>
-        <VBox layoutX="292.0" layoutY="108.0" prefHeight="72.0" prefWidth="186.0">
-            <children>
-                <Text fx:id="ChangeColorText" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Color Scheme" />
-                <MenuButton fx:id="ColorSelectionButton" mnemonicParsing="false" onAction="#choseColor" text="Select one">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </MenuButton>
-            </children></VBox>
-        <MenuBar fx:id="HelpMenuButton" prefHeight="39.0" prefWidth="688.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="Help" />
-            </menus>
-        </MenuBar>
-        <Text fx:id="OptionsText" layoutX="8.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Options">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <VBox layoutX="8.0" layoutY="108.0" prefHeight="113.0" prefWidth="248.0">
-            <children>
-                <Text fx:id="ChangeUsernameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Username" />
-                <TextField fx:id="NewUsernameField" prefHeight="36.0" prefWidth="226.0" promptText="New Username">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </TextField>
-                <Button fx:id="ChangeUsernameButton" mnemonicParsing="false" onAction="#changeUsername" text="Change">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Button>
-            </children>
-        </VBox>
-        <CheckBox fx:id="FullScreenCheck" layoutX="292.0" layoutY="301.0" mnemonicParsing="false" onAction="#fullScreen" text="Full Screen" />
-        <Button fx:id="ExportButton" layoutX="292.0" layoutY="223.0" mnemonicParsing="false" onAction="#exportData" text="Export Data to File" />
-    </children>
-</AnchorPane>
+    </VBox>
+
+    <VBox alignment="CENTER" fx:id="main">
+        <padding><Insets top="50" bottom="50"/></padding>
+        <spacing>30</spacing>
+        <HBox alignment="CENTER" fx:id="primaryPickerBox">
+            <Text textAlignment="CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Background Color: ">
+                <font>
+                    <Font size="28.0" />
+                </font>
+            </Text>
+            <ColorPicker fx:id="primaryBackgroundColorPicker" onAction="#changePrimeBackgroundColor"></ColorPicker>
+        </HBox>
+        <HBox alignment="CENTER" fx:id="secondaryPickerBox">
+            <Text textAlignment="CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Background Color: ">
+                <font>
+                    <Font size="28.0" />
+                </font>
+            </Text>
+            <ColorPicker fx:id="secondaryBackgroundColorPicker" onAction="#changeSecondaryBackgroundColor"></ColorPicker>
+        </HBox>
+        <HBox alignment="CENTER" fx:id="defaultBox">
+            <Button fx:id="defaultColorBtn" onAction="#changeToDefaultColor" text="Default Color" />
+        </HBox>
+        <HBox alignment="CENTER" fx:id="fullscreenBox">
+            <Text textAlignment="CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Screen ">
+                <font>
+                    <Font size="28.0" />
+                </font>
+            </Text>
+            <CheckBox fx:id="fullScreenCheckBox" onAction="#changeFullScreen"></CheckBox>
+        </HBox>
+
+    </VBox>
+
+</VBox>

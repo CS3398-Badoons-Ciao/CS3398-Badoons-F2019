@@ -10,8 +10,8 @@ import java.io.IOException;
 
 
 public class OptionsScene {
-    private Scene sceneOverview;
-    private ToDoListSceneController controller;
+    private Scene optionsScene;
+    private OptionsSceneController controller;
 
     OptionsScene(Model model, Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OptionsScene.fxml"));
@@ -27,14 +27,14 @@ public class OptionsScene {
         controller.setPrimaryStage(primaryStage);
         controller.setModel(model);
 
-        sceneOverview = new Scene(root);
+        optionsScene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
     }
 
     public Scene getScene() {
-        return sceneOverview;
+        return optionsScene;
     }
 
-    public ToDoListSceneController getController() {
+    public OptionsSceneController getController() {
         return controller;
     }
 }

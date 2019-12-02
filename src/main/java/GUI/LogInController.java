@@ -1,16 +1,8 @@
 package GUI;
 
-import Model.Model;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import main.*;
-
 import javafx.scene.text.Text;
-import javafx.application.*;
 import javafx.event.*;
-import javafx.stage.*;
 import javafx.scene.layout.*;
-import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -75,7 +67,7 @@ public class LogInController extends SceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        root.setBackground(SceneStyle.getBackground());
+        root.setBackground(SceneStyle.getPrimaryBackground());
 
         go.setPrefSize(170,20);
         create.setPrefSize(170,20);
