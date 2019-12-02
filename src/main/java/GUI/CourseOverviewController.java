@@ -1,6 +1,7 @@
 package GUI;
 
 import Factory.TestCourseFactory;
+import Interfaces.AssignmentInterface;
 import Interfaces.Listener;
 import Interfaces.Publisher;
 import Exception.*;
@@ -19,6 +20,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import org.apache.poi.ss.formula.functions.T;
 
 import javax.tools.Tool;
@@ -59,6 +62,7 @@ public class CourseOverviewController extends SceneController implements Initial
     private Button exportBtn;
 
     private TableColumn<Course, String>  courseNameColumn;
+    private TableColumn<Course, Integer> courseCreditColumn;
 
     /** ObservableList representation of the Category list of Assignment */
     private ObservableList<Course> observableCourses = FXCollections.observableArrayList();
@@ -158,7 +162,6 @@ public class CourseOverviewController extends SceneController implements Initial
     public void load() {
         observableCourses.setAll(model.user.getPresentCourses());
         courseTable.setItems(observableCourses);
-        courseTable.getColumns().add(courseNameColumn);
         loadGPA();
     }
 
@@ -172,11 +175,40 @@ public class CourseOverviewController extends SceneController implements Initial
         root.setBackground(SceneStyle.getBackground());
         titleBox.setBackground(SceneStyle.getSecondaryBackground());
 
-        courseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         courseNameColumn = new TableColumn<>("Course Name");
         courseNameColumn.setMinWidth(100);
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // property must match object
         courseNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        courseNameColumn.setOnEditCommit( event -> {
+            try {
+                Course course = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                model.user.changeCourseName(course, event.getNewValue());
+            } catch (DuplicateNameException d) {
+                AlertPopUp.alert(d.title, d.header, d.toString());
+                courseTable.refresh();
+            }
+            catch(Exception e) {
+                courseTable.refresh();
+            }
+        });
+
+        courseCreditColumn = new TableColumn<>("Credit Hours");
+        courseCreditColumn.setMinWidth(100);
+        courseCreditColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours")); // property must match object
+        courseCreditColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        courseCreditColumn.setOnEditCommit( event -> {
+            try {
+                Course course = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                course.setCreditHours(event.getNewValue());
+                loadGPA();
+            } catch(Exception e) {
+                courseTable.refresh();
+            }
+        });
+
+        courseTable.getColumns().addAll(courseNameColumn, courseCreditColumn);
+        courseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        courseTable.setEditable(true);
 
         final Tooltip addCourseButtonTooltip = new Tooltip("This button creates a new course");
         final Tooltip viewCourseButtonTooltip = new Tooltip("This button takes you to the Course scene for the selected scene");
