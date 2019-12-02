@@ -1,11 +1,15 @@
 # Grade Manager
 
-A lot of our artifacts and commits for the first sprint are in another branch called, Ez-Gradr. When looking for our artifacts please check there.
-
 ## Sprint 3 Features
 * Jon Pierre
-  * courseScene.java, categoryTable.java, boxSplitLayout.java, sceneController.java, courseOverviewController.java
-  * Refactored project structure and worked on GUI Scenes.
+  * Updated layout for Scenes. Scenes centered and resize correctly 
+  	* Login.FXML, AccountCreation.FXML, Menu.java, OptionsScene.FXML, CourseOverview.FXML, CourseScene.java
+  * Added primary/secondary background colors with user ColorPicker
+  	* SceneStyle.java, OptionsScene.java
+  * Completed Course Grade/Category Grade/GPA/Credit Hours
+  	* CourseScene.java, CategoryTable.java, CourseOverviewController.java
+  * Added In-Focus/Out-Focus TextField Style for UI/UX
+  	* CourseScene.java, CategoryTable.java
 * Bailey Hubbard
   * Model and back end -> Java files ["model.java", "CML.java", "dataBaseManager.java" and parts of "calulator.java"]
   * Model: implication and back end program functionality as well as logging
@@ -24,9 +28,9 @@ A lot of our artifacts and commits for the first sprint are in another branch ca
   * Created JUnit tests-> every file inside the test directory
 
 ## Sprint 3 Project Status
-Base Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. The three basic scene GUI visuals have been implemented: Login, Courses Overview, and Course.  
+Model is implemented, including student data, operations on that data, and data persistence via class serialization to file. User can export data to Excel. Log-in, Account Creation, Main Menu, Options Menu, Courses Overview, and Course Scenes complete. Assignment grades, Category w/ Weight grade, Course grade, GPA w/ Credit Hours display and update correctly. UI/UX is improved - Scenes are centered, resize correctly, and have improved structure. User can update primary and secondary background colors using Color Picker. 
 Next Steps:
-* Jon - Continue refactor and GUI scenes course overview and course.
+* Jon - To Do list controller, To Do list scene structure fix
 * Bailey - Added logging files and frame workd to more in depth logs as needed
   * Next Step: Add more detailed log messages and impment the cml into a gui window
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
@@ -53,11 +57,9 @@ This app will allow students to save course grade information and will simplify 
 ![Example screenshot](./img/EZ_Gradr.PNG)
 
 ## Technologies
-* Java JKD 12 - https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html
-* XML - https://www.w3.org/XML/
+* Java- https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html
 * JavaFX - https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm
-* Derby - https://db.apache.org/derby/
-* Gradele v(5.2.1) - https://gradle.org
+* Gradle v(5.2.1) - https://gradle.org
 
 ## How to run
 * Option 1: Run through gradle the default way.
@@ -79,9 +81,5 @@ This app will allow students to save course grade information and will simplify 
 			* Alt+f, r
 	* Type the following "java -jar EZGrader-V1.0.jar"
 
-## Sprint 1 Goals
-* User input of courses, grades, categories, and category weights and Persistant data storage - As a student I would like to create a list of my college classes and courses in those classes and save them to access later to keep my course history.
-* Course data is displayed to the user - As a student, I would like to see my grades and assignments cleanly together into different categories.
-* Intuitive grade calculation - As a student, I would like a program that calculates various averages for my classes in an easy to use way.
   
   
