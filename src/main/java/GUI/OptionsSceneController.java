@@ -38,8 +38,7 @@ public class OptionsSceneController extends SceneController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setBackgroundColor();
-        primaryBackgroundColorPicker.setValue(SceneStyle.getPrimaryBackgroundColor());
-        secondaryBackgroundColorPicker.setValue(SceneStyle.getPrimaryBackgroundColor());
+        updateColorPicker();
     }
 
     /**
@@ -72,6 +71,11 @@ public class OptionsSceneController extends SceneController implements Initializ
         titleBox.setBackground(SceneStyle.getSecondaryBackground());
     }
 
+    private void updateColorPicker() {
+        primaryBackgroundColorPicker.setValue(SceneStyle.getPrimaryBackgroundColor());
+        secondaryBackgroundColorPicker.setValue(SceneStyle.getSecondaryBackgroundColor());
+    }
+
     public void changePrimeBackgroundColor(ActionEvent actionEvent) {
         SceneStyle.setPrimaryBackgroundColor(primaryBackgroundColorPicker.getValue());
         setBackgroundColor();
@@ -85,6 +89,7 @@ public class OptionsSceneController extends SceneController implements Initializ
     public void changeToDefaultColor(ActionEvent actionEvent) {
         SceneStyle.setDefaultColor();
         setBackgroundColor();
+        updateColorPicker();
     }
 
     public void changeFullScreen(ActionEvent actionEvent) {

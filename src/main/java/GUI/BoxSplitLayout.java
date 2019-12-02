@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Contains header and footer Hbox Layouts
+ * Contains header and footer HBox Layouts
  */
 public class BoxSplitLayout extends VBox {
     /**

@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * builds and stores the Menu Scene as member.
+ */
 public class Menu
 {
     private Scene menuScene;
@@ -120,11 +123,10 @@ public class Menu
         });
 
         final Label menuLabel = new Label("Menu");
-        menuLabel.setStyle(
-                "-fx-font-size: 40pt;");
-        menuLabel.setPadding(new Insets(0, 10,50,0));
+        menuLabel.setStyle("-fx-font-size: 40pt;");
+        menuLabel.setPadding(new Insets(0, 10,30,0));
 
         menuOptionsLayout.getChildren().addAll(
-                menuLabel, goToCoursesSceneBtn, goToToDoListSceneBtn, goToOptionsSceneBtn);
+                menuLabel, goToCoursesSceneBtn, goToOptionsSceneBtn);
     }
 }

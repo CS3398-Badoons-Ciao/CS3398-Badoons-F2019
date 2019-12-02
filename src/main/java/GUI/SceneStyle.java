@@ -6,12 +6,18 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * Stores Scene Backgrounds
+ */
 public class SceneStyle {
-    private static Color primaryBackgroundColor = Color.BEIGE;
+    private static Color defaultPrimaryColor = Color.web("0xCCE6FF");
+    private static Color defaultSecondaryColor = Color.web("0x99B3FF");
+
+    private static Color primaryBackgroundColor = defaultPrimaryColor;
     private static BackgroundFill primaryBackgroundFill = new BackgroundFill(primaryBackgroundColor, CornerRadii.EMPTY, Insets.EMPTY);
     private static Background primaryBackground = new Background((primaryBackgroundFill));
 
-    private static Color secondaryBackgroundColor = Color.KHAKI;
+    private static Color secondaryBackgroundColor = defaultSecondaryColor;
     private static BackgroundFill secondaryBackgroundFill = new BackgroundFill(secondaryBackgroundColor, CornerRadii.EMPTY, Insets.EMPTY);
     private static Background secondaryBackground = new Background((secondaryBackgroundFill));
 
