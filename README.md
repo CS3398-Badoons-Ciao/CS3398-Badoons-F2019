@@ -25,8 +25,8 @@ Next Steps:
   * Next Step: Add more detailed log messages and impment the cml into a gui window
 * Charles - Backend linking with the model and gui is working. Finish adding features to match our backend's functions to the GUI, such as a account creation to the title screen.
 * Rebekah -  Continue to clean up my to do list and options scenes, and implement some new features.
-* Alex - Got the JUnit tests working and the Excel exporting feature backend working
-  * Next Step: Help get all of the backend functionality that we worked on in the first 2 sprint into the GUI, as well as add Travis-CI for continuous integration
+* Alex - Created menu scene, added help option in menu bar, added tooltips to important elements, and fixed issues w/ excel exporting
+  * Next Step: Add support for the user to input file path for the exported excel file
 
 ## Sprint 3 Features
 * Jon Pierre
@@ -52,8 +52,9 @@ Next Steps:
   * Options Scene -> OptionsScene.java, OptionsSceneController.java, OptionsScene.fxml
   * Created the pages to view the to do list and the options menu.
 * Alex
-  * GPA calculations functionality -> ExcelFormatter.java, ExcelFileExporter.java
-  * Created JUnit tests-> every file inside the test directory
+  * Created Menu scene -> Menu.java
+  * Added tooltips -> Menu.java, CourseScene.java, CourseOverviewController.java
+  * Added help option in file menu -> Menu.java, CourseScene.java, CourseOverviewController.java
 
 ## Technologies
 * Java- https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html
