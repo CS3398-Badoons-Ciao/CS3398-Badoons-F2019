@@ -47,6 +47,8 @@ Next Steps:
   * Title GUI -> TitleScreen.java, TitleScreenController.java, sample.fxml. 
   * A titlescreen is displayed to the user and promts the user to login. Functionality to the backend of our program is implemented to login to a user.
   * CourseOverview GUI's class is created in the same format as a Screen class and is being implemented.
+  * Added a GPA label to the Courseoverview class
+  * Tidyed up the scene transitions by starting in the Menu Screen. (Created a back button to move back)
 * Rebekah Barber
   * To Do List Scene -> ListScene.java, ListSceneController.java, ListScene.fxml
   * Options Scene -> OptionsScene.java, OptionsSceneController.java, OptionsScene.fxml
